@@ -22,7 +22,7 @@ export const NavItem = ({ title, href, children }: NavItemProps) => {
         href={href}
       >
         {children}
-        <span className="text-sm font-semibold">{title}</span>
+        <span className="text-sm font-semibold tracking-wider">{title}</span>
       </Link>
     </li>
   );
