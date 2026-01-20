@@ -19,6 +19,9 @@
   }
 }
 
+/* 수동으로 다크 모드로의 전환을 위해 추가 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 body {
   background: var(--background);
   color: var(--foreground);

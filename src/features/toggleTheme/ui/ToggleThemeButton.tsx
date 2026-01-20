@@ -3,14 +3,22 @@
 import { FaAdjust } from "@react-icons/all-files/fa/FaAdjust";
 
 export const ToggleThemeButton = () => {
-  const handleClick = () => {
-    // TODO
+  const toggleTheme = () => {
+    const html = document.documentElement;
+
+    if (html.classList.contains("dark")) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
   };
 
   return (
     <button
       className="flex h-7 w-7 items-center justify-center rounded-full border border-white bg-white text-black/50 duration-300 hover:bg-white/50 hover:text-white"
-      onClick={handleClick}
+      onClick={toggleTheme}
     >
       <FaAdjust />
     </button>
