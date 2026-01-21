@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <main className="dark:bg-black">TAGS</main>;
+  return <main className="dark:bg-black"></main>;
 }
