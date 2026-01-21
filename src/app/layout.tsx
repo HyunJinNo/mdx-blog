@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Sidebar } from "@/widgets/sidebar";
 import localFont from "next/font/local";
-import { Breadcrumb } from "@/shared/ui/breadcrumb";
+import { Header } from "@/widgets/header";
 
 const pretendardFont = localFont({
   src: "./PretendardVariable.woff2",
@@ -45,8 +45,10 @@ export default function RootLayout({
       </head>
       <body className="flex flex-row">
         <Sidebar />
-        <Breadcrumb />
-        {children}
+        <div className="flex w-full flex-col px-3">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
