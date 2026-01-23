@@ -1,4 +1,4 @@
-import { CategoryCard } from "@/shared/card";
+import { CategoryCard } from "@/shared/ui/card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,12 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="dark:bg-black">
+    <main className="mt-12 flex flex-col gap-8 px-8 dark:bg-black">
+      <h1 className="text-[2rem] font-bold">Categories</h1>
+      <CategoryCard />
+      <CategoryCard />
+      <CategoryCard />
+      <CategoryCard />
       <CategoryCard />
     </main>
   );
