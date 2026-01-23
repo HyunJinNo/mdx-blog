@@ -1,3 +1,4 @@
+import { CategoryCard } from "@/shared/card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <main className="dark:bg-black"></main>;
+  return (
+    <main className="dark:bg-black">
+      <CategoryCard />
+    </main>
+  );
 }

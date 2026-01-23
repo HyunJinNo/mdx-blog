@@ -12,12 +12,16 @@ export const Breadcrumb = () => {
     <nav>
       <ol className="flex flex-row items-center gap-2">
         <li>
-          <Link
-            className="text-custom-blue underline-offset-4 hover:text-teal-500 hover:underline"
-            href="/"
-          >
-            Home
-          </Link>
+          {segments.length === 0 ? (
+            <span className="text-custom-gray">Home</span>
+          ) : (
+            <Link
+              className="text-custom-blue underline-offset-4 hover:text-teal-500 hover:underline"
+              href="/"
+            >
+              Home
+            </Link>
+          )}
         </li>
 
         {segments.map((segment, index) => {
