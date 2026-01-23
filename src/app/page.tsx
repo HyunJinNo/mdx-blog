@@ -1,9 +1,7 @@
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
-        <p className="dark:text-blue-500">QR 코드의 특징은 다음과 같습니다.</p>
-      </main>
-    </div>
+    <main className="mt-12 flex flex-col gap-8 px-8 dark:bg-black">
+      <h1 className="text-[2rem] font-bold">Home (TODO)</h1>
+    </main>
   );
 }
