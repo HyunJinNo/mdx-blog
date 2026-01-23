@@ -48,9 +48,9 @@ export default function RootLayout({
       </head>
       <body className="flex flex-row">
         <Sidebar />
-        <div className="flex w-full flex-col px-3">
+        <div className="flex w-full flex-col pr-7 pl-75">
           <Header />
-          <div className="mt-12 flex w-full flex-row justify-between px-8">
+          <div className="mt-12 flex w-full flex-row justify-between gap-8 pl-6">
             {children}
             <div className="flex min-w-70 flex-col gap-16">
               <RecentlyUpdatedPostList />

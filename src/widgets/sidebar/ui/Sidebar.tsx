@@ -13,7 +13,7 @@ import { ToggleThemeButton } from "@/features/toggleTheme";
 
 export const Sidebar = () => {
   return (
-    <aside className="relative flex h-screen min-w-65 flex-col">
+    <aside className="fixed top-0 bottom-0 left-0 flex w-65 flex-col">
       {/* eslint-disable-next-line @next/next/no-img-element*/}
       <img
         className="absolute -z-10 h-full object-cover"
