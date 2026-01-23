@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import { Header } from "@/widgets/header";
 import { RecentlyUpdatedPostList } from "@/widgets/recentlyUpdatedPostList";
 import { TrendingTagList } from "@/widgets/trendingTagList";
+import { ScrollToTopButton } from "@/features/scrollToTop";
 
 const pretendardFont = localFont({
   src: "./PretendardVariable.woff2",
@@ -56,6 +57,9 @@ export default function RootLayout({
               <TrendingTagList />
             </div>
           </div>
+          <aside className="fixed right-20 bottom-15">
+            <ScrollToTopButton />
+          </aside>
         </div>
       </body>
     </html>
