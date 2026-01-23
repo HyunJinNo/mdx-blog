@@ -3,6 +3,7 @@ import "./globals.css";
 import { Sidebar } from "@/widgets/sidebar";
 import localFont from "next/font/local";
 import { Header } from "@/widgets/header";
+import { RecentlyUpdatedPostList } from "@/widgets/recentlyUpdatedPostList";
 
 const pretendardFont = localFont({
   src: "./PretendardVariable.woff2",
@@ -47,7 +48,12 @@ export default function RootLayout({
         <Sidebar />
         <div className="flex w-full flex-col px-3">
           <Header />
-          {children}
+          <div className="mt-12 flex w-full flex-row justify-between px-8">
+            {children}
+            <div className="flex min-w-70 flex-col">
+              <RecentlyUpdatedPostList />
+            </div>
+          </div>
         </div>
       </body>
     </html>
