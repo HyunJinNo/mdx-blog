@@ -69,10 +69,10 @@ const components = {
           style={githubGist}
           showLineNumbers={true}
           lineNumberStyle={{
-            paddingLeft: "1rem",
-            paddingRight: "2rem",
+            paddingLeft: "0.5rem",
+            marginRight: "1rem",
             color: "#757575",
-            justifySelf: "end",
+            width: "1.5rem",
           }}
           customStyle={{ backgroundColor: "transparent" }}
         >
