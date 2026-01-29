@@ -52,11 +52,11 @@ export default function RootLayout({
         <div className="flex w-full flex-col pr-7 pl-75">
           <Header />
           <div className="mt-12 flex w-full flex-row justify-between gap-8 pl-6">
-            <div className="flex w-full flex-col gap-12">
+            <div className="flex w-full min-w-0 flex-col gap-12">
               {children}
               <Footer />
             </div>
-            <div className="flex min-w-70 flex-col gap-16">
+            <div className="flex w-70 flex-col gap-16">
               <RecentlyUpdatedPostList />
               <TrendingTagList />
             </div>
