@@ -1,5 +1,10 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { FaCode } from "@react-icons/all-files/fa/FaCode";
+import { FaRegClipboard } from "@react-icons/all-files/fa/FaRegClipboard";
+import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
 
 const components = {
   a: ({ children, href }) => (
@@ -41,11 +46,41 @@ const components = {
   ),
   li: ({ children }) => <li className="py-1">{children}</li>,
   p: ({ children }) => <p className="pb-4 leading-7">{children}</p>,
-  pre: (props) => (
-    <pre className="mt-2 mb-5 overflow-x-auto rounded-xl bg-[#f6f8fa] p-4 text-sm">
-      {props.children.props?.children}
-    </pre>
-  ),
+  pre: (props) => {
+    const language =
+      props.children.props?.className.split("-")[1] ?? "plaintext";
+
+    return (
+      <div className="mt-2 mb-5 flex flex-col rounded-xl border border-gray-200 bg-[#f6f8fa] p-1 text-sm leading-5.5">
+        <div className="flex h-9 flex-row items-center justify-between px-2 text-[#a3a3a3]">
+          <div className="flex flex-row items-center gap-1.5 text-xs text-[#e5e5e5]">
+            <FaCircle />
+            <FaCircle />
+            <FaCircle />
+          </div>
+          <div className="flex flex-row items-center gap-1 font-normal">
+            <FaCode />
+            {language}
+          </div>
+          <FaRegClipboard className="text-base" />
+        </div>
+        <SyntaxHighlighter
+          language={language}
+          style={githubGist}
+          showLineNumbers={true}
+          lineNumberStyle={{
+            paddingLeft: "1rem",
+            paddingRight: "2rem",
+            color: "#757575",
+            justifySelf: "end",
+          }}
+          customStyle={{ backgroundColor: "transparent" }}
+        >
+          {props.children.props?.children.trim()}
+        </SyntaxHighlighter>
+      </div>
+    );
+  },
   strong: ({ children }) => (
     <strong className="font-semibold">{children}</strong>
   ),
