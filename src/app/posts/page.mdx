@@ -95,14 +95,9 @@ src
 └── shared    # 애플리케이션 전반에 걸쳐 재사용되는 유틸리티, UI 컴포넌트 등을 포함하는 레이어입니다. (Ex. 버튼, 헤더, HTTP 클라이언트 등)
 ```
 
-<blockquote className="prompt-info">
-  <strong>
-    <u>Info.</u>
-  </strong>
-  <br />
-  app과 shared는 다른 레이어들과 달리 슬라이스를 가지지 않으며, 직접 세그먼트로
-  구성됩니다.
-</blockquote>
+> **<u>Info.</u>**
+>
+> app과 shared는 다른 레이어들과 달리 슬라이스를 가지지 않으며, 직접 세그먼트로 구성됩니다.
 
 레이어를 다룰 때 중요한 점은, **상위 레이어에서는 하위 레이어를 import할 수 있지만, 하위 레이어에서는 상위 레이어를 import할 수 없다는 점입니다.** 예를 들어, `features`에서 `shared`와 `entities`를 import할 수 있지만, `shared`에서 상위 레이어(Ex. `entities`나 `features`)를 import할 수는 없습니다. 즉, 하위 계층에서 상위 계층으로의 **단방향 의존성**을 유지합니다.
 
@@ -197,12 +192,7 @@ pages
 
 #### 5.1.6. app
 
-**
-애플리케이션의 진입점에 해당하며, 애플리케이션 초기화, 라우팅 설정, 전역 상태
-관리, 전역 스타일 설정 등을 담당하는 레이어
-**
-입니다. `app` 레이어는 `shared`와 마찬가지로 슬라이스를 포함하지 않으며
-세그먼트만 포함합니다.
+**애플리케이션의 진입점에 해당하며, 애플리케이션 초기화, 라우팅 설정, 전역 상태 관리, 전역 스타일 설정 등을 담당하는 레이어**입니다. `app` 레이어는 `shared`와 마찬가지로 슬라이스를 포함하지 않으며세그먼트만 포함합니다.
 
 ### 5.2. 슬라이스 (Slices)
 
@@ -272,24 +262,11 @@ export { RegisterPage } from "./ui/RegisterPage";
 
 FSD 아키텍처는 가이드라인만을 제시할 뿐, 엄격한 기준이 없기 때문에 프로젝트를 진행하면서 팀원들이 혼란을 겪지 않고 일관성을 지킬 수 있도록 명확한 기준을 세우는 것이 좋습니다. 제가 진행한 프로젝트에 대해 FSD 아키텍처를 적용한 예시는 다음 링크를 참고하시길 바랍니다.
 
-- <a href="../fsd-example-nextjs">
-    [개발 기록] Next.js 프로젝트에 FSD 아키텍처 적용하기
-  </a>
-- <a href="../fsd-example-react-native">
-    [개발 기록] React Native 프로젝트에 FSD 아키텍처 적용하기
-  </a>
+- [[개발 기록] Next.js 프로젝트에 FSD 아키텍처 적용하기](/posts/fsd-example-nextjs)
+- [[개발 기록] React Native 프로젝트에 FSD 아키텍처 적용하기](/posts/fsd-example-react-native)
 
 ## 7. 참고 자료
 
-- <a href="https://feature-sliced.github.io/documentation/kr/" target="_blank">
-    Welcome | Feature-Sliced Design
-  </a>
-- <a href="https://velog.io/@teo/fsd" target="_blank">
-    FSD 관점으로 바라보는 코드 경계 찾기
-  </a>
-- <a
-    href="https://velog.io/@clydehan/FSDFeature-Sliced-Design-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C"
-    target="_blank"
-  >
-    FSD(Feature-Sliced Design) 완벽 가이드
-  </a>
+- [Welcome | Feature-Sliced Design](https://feature-sliced.github.io/documentation/kr/)
+- [FSD 관점으로 바라보는 코드 경계 찾기](https://velog.io/@teo/fsd)
+- [FSD(Feature-Sliced Design) 완벽 가이드](https://velog.io/@clydehan/FSDFeature-Sliced-Design-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C)
