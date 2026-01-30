@@ -22,7 +22,7 @@ export async function generateMetadata({
   const mod = await import(`@/content/${post}.mdx`);
   const metadata = mod.metadata;
 
-  console.log(metadata);
+  console.log(metadata); // TODO
 
   return {
     author: metadata.author,
