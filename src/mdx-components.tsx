@@ -5,6 +5,10 @@ import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCode } from "@react-icons/all-files/fa/FaCode";
 import { FaRegClipboard } from "@react-icons/all-files/fa/FaRegClipboard";
 import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
+import { FaRegLightbulb } from "@react-icons/all-files/fa/FaRegLightbulb";
+import { MdInfo } from "@react-icons/all-files/md/MdInfo";
+import { MdError } from "@react-icons/all-files/md/MdError";
+import { IoIosWarning } from "@react-icons/all-files/io/IoIosWarning";
 
 const components = {
   a: ({ children, href }) => (
@@ -15,13 +19,44 @@ const components = {
       {children}
     </Link>
   ),
-  blockquote: ({ children }) => (
-    <blockquote className="mt-2 mb-4 flex flex-col -space-y-4 rounded-xl bg-[#E1F5FE] pt-4 pr-4 pl-12 text-[#2E2E2EC4]">
-      {children}
-    </blockquote>
-  ),
+  blockquote: (props) => {
+    const promptType =
+      props.children[1].props.children.props.children.props.children;
+
+    if (
+      promptType !== "Tips" &&
+      promptType !== "Info." &&
+      promptType !== "Tags" &&
+      promptType !== "Caution"
+    ) {
+      return null;
+    }
+
+    return (
+      <blockquote
+        className={[
+          promptType === "Tips" && "bg-[#7BF79033]",
+          (promptType === "Info." || promptType === "Tags") && "bg-[#E1F5FE]",
+          promptType === "Caution" && "bg-[#FFF3CD]",
+          "relative mt-2 mb-4 flex flex-col -space-y-4 rounded-xl pt-4 pr-4 pl-12 text-[#2E2E2EC4]",
+        ].join(" ")}
+      >
+        {promptType === "Tips" && (
+          <FaRegLightbulb className="absolute top-5.25 left-4.5 text-lg text-[#03B303]" />
+        )}
+        {(promptType === "Info." || promptType === "Tags") && (
+          <MdInfo className="absolute top-5.25 left-4.5 text-xl text-[#0070CB]" />
+        )}
+        {promptType === "Caution" && (
+          <MdError className="absolute top-5.25 left-4.5 text-xl text-[#EF9C03]" />
+        )}
+
+        {props.children}
+      </blockquote>
+    );
+  },
   code: ({ children }) => (
-    <code className="rounded-md bg-[#e7f3f8] px-1.25 py-0.75 text-sm font-normal text-[#337ea9]">
+    <code className="rounded-md bg-[#E7F3F8] px-1.25 py-0.75 text-sm font-normal text-[#337EA9]">
       {children}
     </code>
   ),
