@@ -20,6 +20,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2023-10-11-strategy" },
     { post: "2023-10-18-adapter" },
     { post: "2023-10-18-decorator" },
+    { post: "2023-10-18-facade" },
     { post: "2025-03-12-fsd" },
   ];
 }
