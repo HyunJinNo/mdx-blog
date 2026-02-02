@@ -24,6 +24,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2023-10-18-iterator" },
     { post: "2023-10-18-singleton" },
     { post: "2023-10-20-mediator" },
+    { post: "2023-12-13-bridge" },
     { post: "2025-03-12-fsd" },
   ];
 }

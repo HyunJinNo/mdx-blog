@@ -1,0 +1,146 @@
+export const metadata = {
+  title: "Bridge Pattern",
+  description: "Bridge Pattern에 대해 설명하는 페이지입니다.",
+  date: "2023-12-13 00:00:00 +/-TTTT",
+  categories: ["Design Patterns"],
+  tags: ["design-pattern", "java"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/design-patterns/laptop.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Design Pattern, Java
+
+## 1. Introduction
+
+- **Purpose**
+  - Defines an **abstraction object structure** independently of the **implementation object structure** in order to limit coupling.
+- **Use When**
+  - Abstractions and implementations should not be bound at compile time.
+  - Abstractions and implementations should be independently extensible.
+  - Implementation details should be hidden from the client.
+
+## 2. Characteristics
+
+- **Separate** the **variations in abstraction** from the **variations in implementation** so that the number of classes only grows linearly.
+- **Decouples an abstraction from its implementation** so that the two can vary independently.
+
+## 3. Participants
+
+- **Abstraction**
+  - defines the abstraction's interface
+  - maintains a reference to the implementor
+  - forwards requests to the implementor (collaboration)
+- **RefinedAbstraction**
+  - extends abstraction interface
+- **Implementor**
+  - defines interface for implementations
+- **ConcreteImplementor**
+  - implements Implementor interface, i.e. defines an implementation
+
+## 4. How to Use (Example)
+
+- **Abstraction**
+
+  ```java
+  public abstract class Shape {
+      private Drawing dp;
+
+      public Shape(Drawing dp) {
+          this.dp = dp;
+      }
+
+      public abstract void draw();
+
+      public void drawLine(double x1, double y1, double x2, double y2) {
+          this.dp.drawLine(x1, y1, x2, y2);
+      }
+
+      public void drawCircle(double x, double y, double r) {
+          this.dp.drawCircle(x, y, r);
+      }
+  }
+  ```
+
+- **RefinedAbstraction**
+
+  ```java
+  public class Rectangle extends Shape {
+      private double x1;
+      private double y1;
+      private double x2;
+      private double y2;
+
+      public Rectangle(Drawing dp, double x1, double y1, double x2, double y2) {
+          super(dp);
+          this.x1 = x1;
+          this.y1 = y1;
+          this.x2 = x2;
+          this.y2 = y2;
+      }
+
+      @Override
+      public void draw() {
+          drawLine(x1, y1, x2, y1);
+          drawLine(x2, y1, x2, y2);
+          drawLine(x2, y2, x1, y2);
+          drawLine(x1, y2, x1, y1);
+      }
+  }
+  ```
+
+  ```java
+  public class Circle extends Shape {
+      private double x;
+      private double y;
+      private double r;
+
+      public Circle(Drawing dp, double x, double y, double r) {
+          super(dp);
+          this.x = x;
+          this.y = y;
+          this.z = z;
+      }
+
+      public void draw() {
+          drawCircle(x, y, r);
+      }
+  }
+  ```
+
+- **Implementor**
+  ```java
+  public abstract class Drawing {
+      public abstract void drawLine(double x1, double y1, double x2, double y2);
+      public abstract void drawCircle(double x, double y, double r);
+  }
+  ```
+- **ConcreteImplementor**
+
+  ```java
+  public class V1Drawing extends Drawing {
+      public void drawLine(double x1, double y1, double x2, double y2) {
+          DP1.draw_a_line(x1, y1, x2, y2);
+      }
+
+      public void drawCircle(double x, double y, double r) {
+          DP1.draw_a_circle(x, y, r);
+      }
+  }
+  ```
+
+  ```java
+  public class V2Drawing extends Drawing {
+      public void drawLine(double x1, double y1, double x2, double y2) {
+          DP2.drawLine(x1, y1, x2, y2);
+      }
+
+      public void drawCircle(double x, double y, double r) {
+          DP2.drawCircle(x, y, r);
+      }
+  }
+  ```

@@ -15,7 +15,7 @@ export default async function MdxLayout({
   // Create any shared layout or styles here
   return (
     <main className="flex w-full flex-col">
-      <header className="flex flex-col">
+      <header className="mb-8 flex flex-col">
         <h1 className="mb-2 text-3xl font-semibold text-black">
           {metadata.title}
         </h1>
