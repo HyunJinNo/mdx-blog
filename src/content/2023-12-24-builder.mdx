@@ -1,0 +1,191 @@
+export const metadata = {
+  title: "Builder Pattern",
+  description: "Builder Pattern에 대해 설명하는 페이지입니다.",
+  date: "2023-12-24 00:00:00 +/-TTTT",
+  categories: ["Design Patterns"],
+  tags: ["design-pattern", "java"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/design-patterns/laptop.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Design Pattern, Java
+
+## 1. Introduction
+
+- **Purpose**
+  - Allows for the **dynamic creation** of objects based upon **easily interchangeable** algorithms.
+- **Use When**
+  - Runtime control over the creation process is required.
+  - Multiple representations of creation algorithms are required.
+  - Object creation algorithms should be decoupled from the system.
+  - The addition of new creation functionality without changing the core code is necessary.
+
+## 2. Characteristics
+
+- **Director** knows **what parts are needed** for the final product
+- **Concrete builder** knows **how to produce the part** and **add it** to the final product.
+- A Builder is a Strategy that is specialized to create a composite object or data structure
+- Builder constructs the object **step-by-step** and the **result is requested at a later stage**
+
+## 3. Participants
+
+- **Client**
+  - selects director and concrete builder to build the product
+  - asks concrete builder to return final constructed product
+- **Director**
+  - knows **what steps** it takes to build a product
+  - but it **does not know how each step** is to be carried out
+- **Builder**
+  - specifies an abstract interface for creating parts of a Product object
+- **Concrete Builder**
+  - constructs and assembles parts of the product by implementing the Builder interface
+  - **defines and keeps track of the representation it creates**
+  - provides an **interface for retrieving the product**
+- **Product**
+  - represents the complex object under construction
+
+## 4. How to Use (Example)
+
+- **Director**
+
+  ```java
+  public class AerospaceEngineer {
+      private AirplaneBuilder airplaneBuilder;
+
+      public void setAirplaneBuilder(AirplaneBuilder ab) {
+          airplaneBuilder = ab;
+      }
+
+      public Airplane getAirplane() {
+          return airplaneBuilder.getAirplane();
+      }
+
+      public void constructAirplane() {
+          airplaneBuilder.createNewAirplane();
+          airplaneBuilder.buildWings();
+          airplaneBuilder.buildPowerplant();
+          airplaneBuilder.buildAvionics();
+          airplaneBuilder.buildSeats();
+      }
+  }
+  ```
+
+- **Abstract Builder**
+
+  ```java
+  public abstract class AirplaneBuilder {
+      protected Airplane airplane;
+      protected String customer;
+      protected String type;
+
+      public Airplane getAirplane() {
+          return airplane;
+      }
+
+      public void createNewAirplane() {
+          airplane = new Airplane(customer, type);
+      }
+
+      public abstract void buildWings();
+      public abstract void buildPowerplant();
+      public abstract void buildAvionics();
+      public abstract void buildSeats();
+  }
+  ```
+
+- **Product**
+
+  ```java
+  public class Airplain {
+      private String type;
+      private float wingspan;
+      private String powerplant;
+      private int crewSeats;
+      private int passengerSeats;
+      private String avionics;
+      private String customer;
+
+      public Airplain(String customer, String type) {
+          this.customer = customer;
+          this.type = type;
+      }
+
+      public void setWingspan(float w) {
+          this.wingspan = w;
+      }
+
+      public void setPowerplant(String p) {
+          this.powerplant = p;
+      }
+
+      public void setAvionics(String a) {
+          this.avionics = a;
+      }
+
+      public void setNumberSeats(int crewSeats, int passengerSeats) {
+          this.crewSeats = crewSeats;
+          this.passengerSeats = passengerSeats;
+      }
+
+      public String getCustomer() {
+          return customer;
+      }
+
+      public String getType() {
+          return type;
+      }
+  }
+  ```
+
+- **Concrete Builder**
+
+  ```java
+  public class CropDuster extends AirplaneBuilder {
+      public CropDuster (String customer) {
+          super.customer = customer;
+          super.type = "Crop Duster v3.4";
+      }
+
+      public void buildWings() {
+          airplane.setWingspan(9f);
+      }
+
+      public void buildPowerplant() {
+          airplane.setPowerplant("single piston");
+      }
+
+      public void buildAvionics() {}
+
+      public void buildSeats() {
+          airplane.setNumberSeats(1,1);
+      }
+  }
+  ```
+
+- **Client**
+
+  ```java
+  public class BuilderExample {
+      public static void main(String[] args) {
+          // instantiate the director (hire the engineer)
+          AerospaceEngineeraero = new AerospaceEngineer();
+
+          // instantiate each concrete builder (take orders)
+          AirplaneBuildercrop = new CropDuster("Farmer Joe");
+          AirplaneBuilderfighter = new FighterJet("The Navy");
+          AirplaneBuilderglider = new Glider("Tim Rice");
+
+          // build a CropDuster
+          aero.setAirplaneBuilder(crop);
+          aero.constructAirplane();
+          Airplane completedCropDuster= aero.getAirplane();
+          System.out.println(completedCropDuster.getType() +
+              " is completed and ready for delivery to " +
+              completedCropDuster.getCustomer());
+  }
+  ```
