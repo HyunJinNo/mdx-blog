@@ -70,6 +70,9 @@ const components = {
   h4: ({ children }) => (
     <h4 className="mt-8 mb-4 text-lg font-semibold text-black">{children}</h4>
   ),
+  h5: ({ children }) => (
+    <h5 className="mt-6 mb-2 font-semibold text-black">{children}</h5>
+  ),
   img: (props) => (
     <span className="my-2 flex items-center justify-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
