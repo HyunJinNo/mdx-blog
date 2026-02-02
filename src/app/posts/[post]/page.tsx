@@ -12,6 +12,7 @@ export default async function Page({
 export function generateStaticParams(): { post: string }[] {
   return [
     { post: "2022-06-03-dgt-bluetooth-e-board" },
+    { post: "2022-12-24-dgt-pi-chess-computer" },
     { post: "2025-03-12-fsd" },
   ];
 }
