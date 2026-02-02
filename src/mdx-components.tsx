@@ -8,7 +8,6 @@ import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
 import { FaRegLightbulb } from "@react-icons/all-files/fa/FaRegLightbulb";
 import { MdInfo } from "@react-icons/all-files/md/MdInfo";
 import { MdError } from "@react-icons/all-files/md/MdError";
-import { IoIosWarning } from "@react-icons/all-files/io/IoIosWarning";
 
 const components = {
   a: ({ children, href }) => (
@@ -72,12 +71,14 @@ const components = {
     <h4 className="mt-8 mb-4 text-lg font-semibold text-black">{children}</h4>
   ),
   img: (props) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      {...props}
-      className="rounded-lg border border-gray-200 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
-      alt={props.alt}
-    />
+    <div className="my-2 flex items-center justify-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        {...props}
+        className="rounded-lg border border-gray-200 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
+        alt={props.alt}
+      />
+    </div>
   ),
   li: ({ children }) => <li className="py-1">{children}</li>,
   p: ({ children }) => <p className="pb-4 leading-7">{children}</p>,

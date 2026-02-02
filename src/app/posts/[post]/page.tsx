@@ -9,8 +9,11 @@ export default async function Page({
   return <Post />;
 }
 
-export function generateStaticParams() {
-  return [{ post: "2025-03-12-fsd" }];
+export function generateStaticParams(): { post: string }[] {
+  return [
+    { post: "2022-06-03-dgt-bluetooth-e-board" },
+    { post: "2025-03-12-fsd" },
+  ];
 }
 
 export const dynamicParams = false;
