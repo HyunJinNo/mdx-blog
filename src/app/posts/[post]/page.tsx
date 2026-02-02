@@ -30,6 +30,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2023-12-14-prototype" },
     { post: "2023-12-23-state" },
     { post: "2023-12-24-builder" },
+    { post: "2023-12-25-template-method" },
     { post: "2025-03-12-fsd" },
   ];
 }
