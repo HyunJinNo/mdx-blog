@@ -35,6 +35,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2023-12-30-brute-force" },
     { post: "2024-01-03-divide-and-conquer" },
     { post: "2024-01-06-dynamic-programming" },
+    { post: "2024-01-26-greedy" },
     { post: "2025-03-12-fsd" },
   ];
 }
