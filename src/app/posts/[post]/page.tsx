@@ -16,6 +16,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2023-10-11-abstract-factory" },
     { post: "2023-10-11-command" },
     { post: "2023-10-11-factory-method" },
+    { post: "2023-10-11-observer" },
     { post: "2025-03-12-fsd" },
   ];
 }
