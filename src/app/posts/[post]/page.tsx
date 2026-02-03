@@ -53,6 +53,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-06-07-nodejs" },
     { post: "2024-06-07-ssh-port" },
     { post: "2024-06-08-nginx" },
+    { post: "2024-06-09-ssl-tls" },
     { post: "2025-03-12-fsd" },
   ];
 }

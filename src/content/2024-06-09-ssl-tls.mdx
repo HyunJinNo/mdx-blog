@@ -1,0 +1,245 @@
+export const metadata = {
+  title: "Nginx에 SSL/TLS 인증서 적용 방법",
+  description: "Nginx에 SSL/TLS 인증서 적용 방법에 대해 설명하는 페이지입니다.",
+  date: "2024-06-09 00:00:00 +/-TTTT",
+  categories: ["Raspberry Pi"],
+  tags: [
+    "raspberry-pi",
+    "linux",
+    "nginx",
+    "ssl",
+    "tls",
+    "nodejs",
+    "certbot",
+    "snapd",
+  ],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/raspberry-pi/raspberry-pi.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Raspberry Pi, Linux, Nginx, SSL, TLS, Node.js, Certbot, Snapd
+
+> **<u>Environment</u>**
+>
+> OS: Raspberry Pi OS (64 bit)
+
+## 1. 개요
+
+Nginx에 SSL/TLS 인증서 적용 방법에 대해 정리한 페이지입니다.
+
+## 2. SSL/TLS란?
+
+**SSL(Secure Socket Layer)** 또는 **TLS(Transport Layer Security)** 은 전송 계층에서 보안을 제공하는 프로토콜입니다.
+SSL/TLS를 통해 전송 계층 상에서 클라이언트, 서버에 대한 인증 및 데이터 암호화를 수행하여 제3자가 메세지를 도청하거나 변조하지 못하도록 합니다.
+
+### 2.1. HTTPS
+
+**HTTPS (HTTP Secure)** 는 애플리케이션 계층과 전송 계층 사이에 신뢰 계층인 SSL/TLS 계층을 넣은 신뢰할 수 있는 HTTP 요청을 말합니다.
+웹 사이트를 HTTP로 운영하는 경우 보안상의 문제가 존재하므로, 보통 SSL/TLS 인증서를 사용하여 보안 처리를 해야합니다.
+80번 포트를 기본 포트로 사용하는 HTTP와 달리, HTTPS는 443번 포트를 기본 포트로 사용합니다.
+
+## 3. Step 1 - Domain 등록하기
+
+### 3.1. 포트포워딩
+
+자신의 웹 서버에 도메인을 등록하기 위해선 먼저 **포트포워딩을 통해 외부에서 웹 서버에 접속할 수 있는 상태**여야 합니다.
+포트포워딩을 통해 80번 포트와 443번 포트를 개방합니다.
+
+### 3.2. 80번, 443번 포트 개방
+
+인증서를 발급받기 위해 먼저 다음 명령어를 입력하여 80번 포트를 개방합니다.
+
+```bash
+sudo ufw allow 80
+sudo ufw allow 443
+```
+
+### 3.3. Domain 발급
+
+SSL/TLS 인증서를 적용하기 위해선 도메인이 등록되어 있어야 합니다. 유명 도메인 등록 업체에서 도메인을 구매하는 방법도 있지만
+이번 글에서는 SSL/TLS 인증서 적용 테스트 목적을 위해 무료 도메인 등록 사이트를 이용하도록 하겠습니다. 먼저 다음 웹 사이트에 접속합니다.
+
+[내도메인.한국](https://xn--220b31d95hq8o.xn--3e0b707e/)
+
+해당 웹 사이트에 접속한 후 회원가입 및 로그인을 진행합니다.
+
+![도메인 이름 검색](/images/raspberry-pi/ssl-tls/pic1.avif)
+
+로그인 이후 도메인 검색 창에서 원하는 도메인 이름을 검색한 후 `등록하기` 버튼을 클릭합니다.
+
+### 3.4. Domain 적용
+
+![도메인 정보 입력](/images/raspberry-pi/ssl-tls/pic2.avif)
+
+도메인 정보 입력 화면에서 `IP 연결`을 클릭한 후 `웹 서버의 공인 IP`를 입력합니다. 라즈베리파이의 공인 IP는 다음 명령어로 확인하실 수 있습니다.
+
+```bash
+curl ifconfig.me
+```
+
+이후 보안코드를 입력하고 `수정하기` 버튼을 클릭합니다. 도메인 등록이 완료되었으면 해당 도메인으로 웹 사이트에 접속하여 테스트합니다.
+주의할 점으로 공인 IP를 통해 접속하는 것이므로 해당 웹 사이트에 접속하려는 기기의 네트워크가 웹 서버의 네트워크와 동일하면 안 됩니다.
+또한 외부에서 웹 서버에 접속할 수 있도록 **포트포워딩**이 된 상태여야 합니다.
+
+![도메인 등록 확인](/images/raspberry-pi/ssl-tls/pic3.avif)
+
+도메인이 정상적으로 등록되었음을 확인할 수 있습니다.
+
+## 4. Step 2 - SSL/TLS 인증서 발급받기
+
+### 4.1. Let's Encrypt
+
+SSL/TLS 인증서를 발급해주는 기관은 여러 곳이 있습니다.
+이번 글에서는 [Let's Encrypt](https://letsencrypt.org/)라는 무료로 SSL/TLS 인증서를 발급해주는 기관을 이용해보도록 하겠습니다.
+해당 기관에서는 완전 자동화가 가능한 DV (Domain Validated, 도메인 확인) 인증서를 무료로 발급해주며,
+발급된 인증서는 90일의 유효 기간을 갖습니다. 만료 30일 전부터 갱신할 수 있으며, 갱신 가능 횟수는 무제한입니다.
+또한 특정 도메인에 대해 일주일에 최대 5번까지만 발급받을 수 있습니다.
+
+### 4.2. Certbot이란?
+
+[Certbot](https://certbot.eff.org/)이란 Let's Encrypt 인증서를 이용하여 HTTPS를 적용할 수 있게 해주는 오픈 소스 툴입니다.
+Certbot 웹 사이트에 접속하여 자신의 웹 서버와 OS를 선택합니다. 저의 경우 Nginx와 Debian 10을 선택하였습니다.
+
+![Certbot](/images/raspberry-pi/ssl-tls/pic4.avif)
+
+### 4.3. snapd 설치
+
+`Certbot`를 설치하기 위해선 먼저 `snapd(snap daemon)`을 설치해야 합니다. 다음 명령어를 입력하여 `snapd`를 설치합니다.
+
+```bash
+sudo apt install snapd
+```
+
+설치하고나면 `snapd`를 사용할 수 있도록 재부팅합니다.
+
+```bash
+sudo reboot
+```
+
+재부팅 후에 최신 `snapd`를 사용할 수 있도록 다음 명령어를 입력하여 `core`를 설치합니다.
+
+```bash
+sudo snap install core
+```
+
+![core 설치](/images/raspberry-pi/ssl-tls/pic5.avif)
+
+지금까지 잘 설치됐는지 확인하기 위해 다음 명령어를 순서대로 입력합니다.
+
+```bash
+sudo snap install hello-world
+hello-world
+```
+
+![snapd 설치 확인](/images/raspberry-pi/ssl-tls/pic6.avif)
+
+`snapd` 설치가 완료되었습니다.
+
+### 4.4. 구버전 Certbot 제거
+
+다음 명령어를 입력하여 기존에 존재한 Certbot을 제거합니다.
+
+```bash
+sudo apt purge certbot
+```
+
+### 4.5. Certbot 설치
+
+다음 명령어를 입력하여 Certbot을 설치합니다.
+
+```bash
+sudo snap install --classic certbot
+```
+
+![Certbot 설치](/images/raspberry-pi/ssl-tls/pic7.avif)
+
+### 4.6. Certbot 명령어 실행 준비
+
+다음 명령어를 입력하여 Certbot 명령어를 사용할 준비를 마칩니다.
+
+```bash
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+이후 다음 명령어를 입력하여 Certbot 버전을 확인합니다.
+
+```bash
+certbot --version
+```
+
+![Certbot 버전 확인](/images/raspberry-pi/ssl-tls/pic8.avif)
+
+### 4.7. 80번 포트를 사용하는 서비스 중지
+
+Certbot이 인증서를 발급할 때 도메인 소유권을 확인하기 위해 80번 포트를 이용합니다.
+이 방식으로 인증서를 발급받기 위해선 80번 포트를 사용하는 서비스를 모두 중지해야 합니다.
+저의 경우 Nginx 웹 서버가 80번 포트를 점유하고 있으므로 다음 명령어를 입력하여 Nginx를 잠시 중단하였습니다.
+
+```bash
+sudo nginx -s stop
+```
+
+### 4.8. SSL/TLS 인증서 발급
+
+Certbot이 설치되면 다음 명령어를 입력하여 위에서 등록한 도메인에 대한 SSL/TLS 인증서를 발급받습니다. `example.com` 부분에 자신의 도메인을 입력하면 됩니다.
+
+```bash
+sudo certbot certonly --nginx -d example.com
+```
+
+![SSL/TLS 인증서 발급](/images/raspberry-pi/ssl-tls/pic9.avif)
+
+성공적으로 SSL/TLS 인증서를 발급받는데 성공했습니다.
+
+## 5. Step 3 - SSL/TLS 인증서 적용하기
+
+### 5.1. Nginx 설정 파일 수정
+
+SSL/TLS 인증서를 적용하기 위해 Nginx 설정 파일을 수정해야 합니다. 다음과 같이 80번 포트(=http)로 들어오는 요청을 https로 redirect해야 합니다. 또한 https 요청 부분에 SSL/TLS 인증서를 적용합니다. `example.com` 부분에 자신의 도메인을 입력하면 됩니다.
+
+```bash
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.com;
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name example.com;
+
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+![Nginx 설정](/images/raspberry-pi/ssl-tls/pic10.avif)
+
+### 5.2. Nginx 재시작
+
+다음 명령어를 입력하여 Nginx를 재시작합니다.
+
+```bash
+sudo systemctl restart nginx
+```
+
+Nginx를 재시작한 후 서비스를 실행합니다.
+
+![SSL/TLS 인증서 적용 완료](/images/raspberry-pi/ssl-tls/pic11.avif)
+
+SSL/TLS 인증서 적용이 완료되었습니다
