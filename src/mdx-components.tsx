@@ -1,7 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { vs } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCode } from "@react-icons/all-files/fa/FaCode";
 import { FaRegClipboard } from "@react-icons/all-files/fa/FaRegClipboard";
 import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
@@ -95,7 +95,7 @@ const components = {
       props.children.props?.className.split("-")[1] ?? "plaintext";
 
     return (
-      <div className="mt-2 mb-5 flex flex-col rounded-xl border border-gray-200 bg-[#f6f8fa] p-1 text-sm leading-5.5">
+      <div className="mt-2 mb-5 flex flex-col rounded-xl border border-gray-200 bg-white p-1 text-sm leading-5.5 shadow">
         <div className="flex h-9 flex-row items-center justify-between px-2 text-[#a3a3a3]">
           <div className="flex flex-row items-center gap-1.5 text-xs text-[#e5e5e5]">
             <FaCircle />
@@ -110,7 +110,7 @@ const components = {
         </div>
         <SyntaxHighlighter
           language={language}
-          style={githubGist}
+          style={vs}
           showLineNumbers={true}
           lineNumberStyle={{
             paddingLeft: "0.5rem",
