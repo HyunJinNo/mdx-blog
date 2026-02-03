@@ -126,6 +126,18 @@ const components = {
   strong: ({ children }) => (
     <strong className="font-semibold">{children}</strong>
   ),
+  td: ({ children }) => <td className="px-4">{children}</td>,
+  th: ({ children }) => (
+    <th className="bg-white px-4 text-start">{children}</th>
+  ),
+  thead: ({ children }) => (
+    <thead className="h-10 border-b-2 border-gray-200">{children}</thead>
+  ),
+  tr: ({ children }) => (
+    <tr className="h-10 border-b border-gray-200 odd:bg-[#FBFCFD]">
+      {children}
+    </tr>
+  ),
   ul: ({ children }) => (
     <ul className="marker:text-custom-gray list-disc pl-7">{children}</ul>
   ),

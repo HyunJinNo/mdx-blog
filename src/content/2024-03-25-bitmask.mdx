@@ -1,0 +1,256 @@
+export const metadata = {
+  title: "비트마스크 (Bitmask)",
+  description: "비트마스크 (Bitmask)에 대해 정리한 페이지입니다.",
+  date: "2024-03-25 00:00:00 +/-TTTT",
+  categories: ["Algorithms"],
+  tags: ["algorithm"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/algorithms/computer.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Algorithm
+
+## 1. 개요
+
+`비트마스크(Bitmask)`에 대해 정리한 페이지입니다.
+
+## 2. 비트마스크 (Bitmask)
+
+### 2.1. 개념
+
+`비트마스크(Bitmask)`란 정수의 이진수 표현을 자료 구조로 사용하는 기법을 말합니다.
+
+> **<u>Info.</u>**
+>
+> **비트(Bit)**: 이진수의 한 자리를 비트(Bit)라고 합니다.
+>
+> **최상위 비트(Most Significant Bit)**: 2<sup>N - 1</sup>에 해당하는 비트를
+> 말합니다.
+>
+> **최하위 비트(Least Significant Bit)**: 2<sup>0</sup>에 해당하는 비트를 말합니다.
+
+### 2.2. 특징
+
+비트마스크의 특징은 다음과 같습니다.
+
+- `간결한 코드`
+
+  다양한 집합 연산들을 반복문 없이 한 줄에 작성할 수 있습니다.
+
+- `더 작은 메모리 사용량`
+
+  비트마스크를 이용하는 코드들은 같은 데이터를 더 적은 메모리를 사용해 표현할 수 있습니다. 특히 Boolean 값 배열을 키로 갖는 연관 배열 객체 `Map<Boolean[], Integer>`을 비트마스크를 이용하여 `int[]` 배열로 대체할 수 있어서 시간과 메모리를 절약할 수 있습니다.
+
+- `시간 복잡도(Time Complexity)`
+
+  대부분의 비트마스크 연산은 `O(1)`의 시간 복잡도를 갖으므로 적절히 사용할 경우 다른 자료 구조를 사용하는 것보다 훨씬 빠르게 동작합니다.
+
+### 2.3. 비트 연산자
+
+| 연산             | 코드    |
+| ---------------- | ------- |
+| AND 연산         | a & b   |
+| OR 연산          | a \| b  |
+| XOR 연산         | a ^ b   |
+| NOT 연산         | ~a      |
+| Left Shift 연산  | a \<< b |
+| Right Shift 연산 | a >> b  |
+
+### 2.4. 비트마스크를 이용한 집합 구현
+
+#### 2.4.1. 꽉 찬 집합
+
+```java
+int fullSet = (1 << 20) - 1;
+```
+
+#### 2.4.2. 공집합
+
+```java
+int emptySet = 0;
+```
+
+#### 2.4.3. 원소 추가
+
+```java
+bitSet |= (1 << p);
+```
+
+#### 2.4.4. 원소의 포함 여부 확인
+
+```java
+// & 연산의 결과 값이 0 또는 (1 << p) 라는 점을 주의해야 합니다.
+if (bitSet & (1 << p)) {
+  System.out.println("원소가 포함되어 있음.");
+}
+```
+
+#### 2.4.5. 원소의 삭제
+
+```java
+bitSet &= ~(1 << p);
+```
+
+#### 2.4.6. 원소의 토글
+
+```java
+bitSet ^= (1 << p);
+```
+
+#### 2.4.7. 두 집합에 대한 연산
+
+```java
+int added = (a | b); // a와 b의 합집합
+int intersection = (a & b); // a와 b의 교집합
+int removed = (a & ~b); // a에서 b를 뺀 차집합
+int toggled = (a ^ b); // a와 b중 하나에만 포함된 원소들의 집합
+```
+
+#### 2.4.8. 집합의 크기
+
+```java
+int bitCount(int x) {
+  if (x == 0) return 0;
+  return x % 2 + bitCount(x / 2);
+}
+```
+
+| 컴파일러 또는 언어 | 집합의 크기                  |
+| ------------------ | ---------------------------- |
+| gcc/g++            | \_\_builtin_popcount(bitSet) |
+| Visual C++         | \_\_popcnt(bitSet)           |
+| Java               | Integer.bitCount(bitSet)     |
+
+#### 2.4.9. 최소 원소 지우기
+
+```java
+bitSet &= (bitSet - 1);
+```
+
+#### 2.4.10. 2의 거듭제곱 값인지 여부 확인
+
+```java
+// 2의 거듭제곱 값들의 이진수 표현에는 켜진 비트가 하나 밖에 없습니다.
+if ((num & (num - 1)) == 0) {
+  System.out.println("2의 거듭제곱 값입니다.");
+}
+```
+
+#### 2.4.11. 모든 부분 집합 순회
+
+```java
+for (int subset = bitSet; subset > 0; subset = ((subset - 1) & bitSet)) {
+  // subset은 bitSet의 부분 집합
+  // (subset > 0): 공집합은 방문하지 않습니다.
+}
+```
+
+## 3. Example
+
+- [비트마스크를 사용하는 에라토스테네스의 체](https://github.com/HyunJinNo/Algorithm/blob/main/Number%20Theory/Sieve%20of%20Eratosthenes/Sieve_of_Eratosthenes.js)
+
+  ```javascript
+  // 비트마스크(Bitmask)를 사용하는 에라토스테네스의 체의 구현
+
+  const n = 1000000; // n개의 원소
+
+  /**
+   * Uint8Array와 비트마스크를 사용하여 메모리 사용량을 8분의 1로 줄인다.
+   * 0: 합성수, 1: 소수
+   */
+  const sieve = new Uint8Array(Math.floor((n + 7) / 8)).fill(255);
+
+  /**
+   * 비트를 0으로 바꿔서 x가 소수가 아니라고 표시한다.
+   * @param {number} x
+   */
+  const setComposite = (x) => {
+    sieve[x >> 3] &= ~(1 << (x & 7));
+  };
+
+  /**
+   * x가 소수인지 확인한다
+   * @param {number} x 판정할 값
+   * @returns {Boolean} 소수 여부
+   */
+  const isPrime = (x) => {
+    if (sieve[x >> 3] & (1 << (x & 7))) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  setComposite(0);
+  setComposite(1);
+  for (let x = 2; x <= n; x++) {
+    if (isPrime(x)) {
+      for (let y = x * x; y <= n; y += x) {
+        setComposite(y);
+      }
+    }
+  }
+
+  for (let x = 2; x <= n; x++) {
+    if (isPrime(x)) {
+      console.log(x);
+    }
+  }
+  ```
+
+- [1311번: 할 일 정하기 1](https://www.acmicpc.net/problem/1311)
+
+  ```javascript
+  const path =
+    process.platform === "linux" ? "/dev/stdin" : "./JavaScript/input.txt";
+  const input = require("fs").readFileSync(path).toString().split("\n");
+
+  const n = Number(input[0]); // 사람과 일의 수, 1 <= n <= 20
+  const cache = Array.from(Array(n), () => new Array(1 << n).fill(-1));
+  const arr = [];
+
+  for (let i = 1; i <= n; i++) {
+    arr.push(input[i].split(" ").map(Number));
+  }
+
+  /**
+   * 모든 일을 하는데 필요한 비용의 최솟값을 구하는 함수
+   * @param {number} index (index)번째 사람
+   * @param {number} visited 지금까지 한 일
+   * @returns 최소 비용 값
+   */
+  const solve = (index, visited) => {
+    if (index >= n) {
+      return 0;
+    } else if (cache[index][visited] !== -1) {
+      return cache[index][visited];
+    }
+
+    let result = Number.MAX_SAFE_INTEGER;
+
+    for (let i = 0; i < n; i++) {
+      if ((~visited & (1 << i)) === 1 << i) {
+        visited |= 1 << i;
+        result = Math.min(
+          result,
+          arr[index][n - 1 - i] + solve(index + 1, visited),
+        );
+        visited &= ~(1 << i);
+      }
+    }
+
+    cache[index][visited] = result;
+    return result;
+  };
+
+  console.log(solve(0, 0));
+  ```
+
+## 4. 참고 자료
+
+- [알고리즘 문제 해결 전략 세트 | 구종만 | 인사이트(insight) - 예스24](https://www.yes24.com/product/goods/8006522)
