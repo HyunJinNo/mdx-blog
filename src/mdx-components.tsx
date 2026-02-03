@@ -128,6 +128,7 @@ const components = {
   strong: ({ children }) => (
     <strong className="font-semibold">{children}</strong>
   ),
+  table: ({ children }) => <table className="mb-6">{children}</table>,
   td: ({ children }) => <td className="px-4">{children}</td>,
   th: ({ children }) => (
     <th className="bg-white px-4 text-start">{children}</th>

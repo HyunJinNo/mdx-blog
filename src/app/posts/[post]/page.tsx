@@ -42,6 +42,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-03-06-modular-arithmetic" },
     { post: "2024-03-25-bitmask" },
     { post: "2024-03-25-sieve-of-eratosthenes" },
+    { post: "2024-03-27-prefix-sum" },
     { post: "2025-03-12-fsd" },
   ];
 }
