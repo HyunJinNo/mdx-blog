@@ -1,0 +1,195 @@
+export const metadata = {
+  title: "MariaDB 사용 방법",
+  description: "MariaDB 사용 방법에 대해 설명하는 페이지입니다.",
+  date: "2024-06-14 00:00:00 +/-TTTT",
+  categories: ["Raspberry Pi"],
+  tags: ["raspberry-pi", "linux", "database", "mariadb"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/raspberry-pi/raspberry-pi.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Raspberry Pi, Linux, Database, MariaDB
+
+> **<u>Environment</u>**
+>
+> OS: Raspberry Pi OS (64 bit)
+
+## 1. 개요
+
+라즈베리파이에서 MariaDB 사용 방법에 대해 정리한 페이지입니다.
+
+## 2. Step 1 - MariaDB 설치
+
+### 2.1. 패키지 업데이트
+
+MariaDB를 설치하기 앞서 먼저 다음 명령어를 입력하여 먼저 기존의 패키지들을 업데이트합니다.
+
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+### 2.2. MariaDB 설치
+
+다음 명령어를 입력하여 MariaDB를 설치합니다.
+
+```bash
+sudo apt install mariadb-server
+```
+
+MariaDB의 설치 여부를 확인합니다.
+
+```bash
+sudo systemctl status mysql
+```
+
+![MariaDB 설치 여부 확인](/images/raspberry-pi/mariadb/pic1.avif)
+
+## 3. Step 2 - MariaDB 설정
+
+### 3.1. MariaDB 접속
+
+MariaDB가 설치되면 다음 명령어를 입력하여 MariaDB에 접속합니다. 권한 문제로 접속이 제한될 수 있으므로 루트(root) 계정으로 접속합니다.
+
+```bash
+sudo mysql -u root
+```
+
+또는
+
+```bash
+sudo mariadb -u root
+```
+
+![MariaDB 접속](/images/raspberry-pi/mariadb/pic2.avif)
+
+### 3.2. 데이터베이스 조회
+
+데이터베이스를 조회하면 다음과 같은 mysql 데이터베이스가 있음을 확인할 수 있습니다. 해당 데이터베이스는 계정 목록을 담고 있습니다.
+
+```sql
+show databases;
+```
+
+![데이터베이스 조회](/images/raspberry-pi/mariadb/pic3.avif)
+
+### 3.3. 계정 조회
+
+다음 명령어를 입력하여 계정 목록을 조회합니다.
+
+```sql
+use mysql;
+select user, host, password from user;
+```
+
+![계정 목록 조회](/images/raspberry-pi/mariadb/pic4.avif)
+
+### 3.4. 루트 계정 비밀번호 변경
+
+위의 사진에서 root의 비밀번호가 invalid임을 확인할 수 있었습니다.
+루트 계정의 비밀번호를 변경(설정)하기 위해선 다음 명령어를 입력하면 됩니다.
+아래 예시는 루트 계정의 비밀번호를 `abc`로 설정하는 예시입니다.
+
+```sql
+set password for 'root'@'localhost'=password('abc');
+flush privileges;
+```
+
+### 3.5. 계정 생성
+
+루트 계정은 관리자 계정으로서 DB에 대한 모든 권한을 가지고 있습니다.
+보통 실제 서비스에 사용되는 DB의 경우 DBA는 루트 계정을 사용하며, DBA 이외의 사용자들은 역할에 맞는 권한을 부여받아 사용합니다.
+그러므로 용도에 맞는 계정을 생성하여 사용하는 것이 좋습니다.
+계정 생성은 다음과 같이 `create` 명령어를 사용해서 계정을 추가할 수 있습니다.
+`사용자` 부분에 자신의 계정명을, `비밀번호` 부분에 자신의 비밀번호를 입력하면 됩니다.
+
+```sql
+# 내부 접근을 허용하는 계정 생성
+create user '사용자'@'localhost' identified by '비밀번호';
+
+# 외부 접근을 허용하는 계정 생성
+create user '사용자'@'%' identified by '비밀번호';
+
+# 특정 IP만 접근을 허용하는 계정 생성
+create user '사용자'@'123.456.78.90' identified by '비밀번호';
+
+# 특정 IP 대역을 허용하는 계정 생성
+create user '사용자'@'192.168.%' identified by '비밀번호';
+```
+
+예를 들어 계정명이 `abc`이고 비밀번호가 `123`이며 내부 접근만 가능한 계정은 다음과 같이 생성할 수 있습니다.
+
+```sql
+create user 'abc'@'localhost' identified by '123';
+```
+
+![계정 생성](/images/raspberry-pi/mariadb/pic5.avif)
+
+계정이 잘 생성되었는지 확인합니다.
+
+![계정 생성 확인](/images/raspberry-pi/mariadb/pic6.avif)
+
+### 3.6. 새로 생성한 계정으로 접속
+
+`Ctrl + c`을 눌러 MariaDB에서 빠져나온 후 새로 생성한 계정으로 접속합니다.
+
+```bash
+mysql -u 사용자 -p
+```
+
+![새로 생성한 계정으로 접속](/images/raspberry-pi/mariadb/pic7.avif)
+
+### 3.7. 권한 부여
+
+새로 생성한 계정으로 접속해보면 접근 가능한 데이터베이스 목록이 한정되어 있음을 확인할 수 있습니다.
+이는 계정에 따라 접근할 수 있는 데이터베이스, 테이블에 대한 권한이 다르기 때문입니다.
+다음과 같이 `루트 계정`으로 접속해서 `grant` 명령어를 사용해서 계정마다 다른 권한을 부여할 수 있습니다.
+
+```sql
+# 모든 데이터베이스의 모든 테이블에 대해 모든 권한 부여
+grant all privileges on *.* to '사용자'@'localhost';
+
+# 데이터베이스 A의 모든 테이블에 대해 모든 권한 부여
+grant all privileges on A.* to '사용자'@'localhost';
+
+# 데이터베이스 A의 테이블 B에 대해 모든 권한 부여
+grant all privileges on A.B to '사용자'@'localhost';
+
+# 데이터베이스 A의 테이블 B에 대해 select 권한 부여
+grant select on A.B to '사용자'@'localhost';
+
+# 데이터베이스 A의 테이블 B에 대해 select, insert 권한 부여
+grant select, insert on A.B to '사용자'@'localhost';
+
+# 데이터베이스 A의 테이블 B의 column1, columne2에 대한 update 권한 부여
+grant update(column1, column2) on A.B to '사용자'@'localhost';
+```
+
+예를 들어 abc 계정에 대해 모든 데이터베이스에 대해 모든 권한을 부여하려면 다음과 같이 입력하면 됩니다.
+
+```sql
+grant all privileges on *.* to 'abc'@'localhost';
+```
+
+![권한 부여](/images/raspberry-pi/mariadb/pic8.avif)
+
+권한을 반영하려면 다음 명령어를 입력합니다.
+
+```sql
+flush privileges;
+```
+
+부여받은 권한을 확인합니다.
+
+```sql
+show grants for 사용자@localhost;
+```
+
+![부여받은 권한 확인](/images/raspberry-pi/mariadb/pic9.avif)
+
+권한이 잘 부여되었음을 확인할 수 있습니다.
