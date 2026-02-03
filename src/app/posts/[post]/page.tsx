@@ -45,6 +45,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-03-27-prefix-sum" },
     { post: "2024-04-08-kmp" },
     { post: "2024-04-28-tree" },
+    { post: "2024-05-21-segment-tree" },
     { post: "2025-03-12-fsd" },
   ];
 }
