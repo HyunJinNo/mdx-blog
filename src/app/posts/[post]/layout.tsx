@@ -1,6 +1,21 @@
 import { PostMetadata } from "@/shared/model";
 import Image from "next/image";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ post: string }>;
+}) {
+  const { post } = await params;
+  const mod = await import(`@/content/${post}.mdx`);
+  const metadata: PostMetadata = mod.metadata;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+  };
+}
+
 export default async function MdxLayout({
   params,
   children,
