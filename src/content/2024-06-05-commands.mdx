@@ -1,0 +1,94 @@
+export const metadata = {
+  title: "자주 사용하는 리눅스 명령어",
+  description: "자주 사용하는 리눅스 명령어를 정리하는 페이지입니다.",
+  date: "2024-06-05 00:00:00 +/-TTTT",
+  categories: ["Raspberry Pi"],
+  tags: ["raspberry-pi", "linux"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/raspberry-pi/raspberry-pi.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Raspberry Pi, Linux
+
+> **<u>Environment</u>**
+>
+> OS: Raspberry Pi OS (64 bit)
+
+## 1. 개요
+
+자주 사용하는 리눅스 명령어를 표로 간략하게 정리한 페이지입니다.
+
+## 2. 주요 명령어
+
+### 2.1. General Commands
+
+| Commands                     | Description                                  | Meaning      |
+| ---------------------------- | -------------------------------------------- | ------------ |
+| `sudo [command]`             | 관리자 권한으로 명령어 실행                  | SuperUser DO |
+| `sudo raspi-config`          | 라즈베리파이 시스템 설정                     |              |
+| `sudo reboot`                | 즉시 재부팅                                  |              |
+| `sudo shutdown now`          | 즉시 셧다운 (종료)                           |              |
+| `sudo adduser [new_account]` | 계정 생성                                    |
+| `man [command]`              | [command] 명령어에 대한 설명 표시            | Manual       |
+| `du -hs`                     | 현재 파일 또는 디렉토리 용량 총 크기 표시    | Disk Usage   |
+| `clear`                      | 현재 사용 중인 터미널 환경을 깨끗하게 지우기 |              |
+
+### 2.2. File/Directory Commands
+
+| Commands                    | Description                                                                          | Meaning                 |
+| --------------------------- | ------------------------------------------------------------------------------------ | ----------------------- |
+| `ls`                        | 현재 디렉토리 내에 있는 모든 파일 및 폴더를 기본 형식으로 표시                       | List Segments           |
+| `ls -l`                     | 파일 및 폴더에 대한 자세한 정보와 함께 표시                                          |                         |
+| `ls -a`                     | 숨겨진 파일을 포함하여 모든 파일 표시                                                |                         |
+| `ls -t`                     | 최신 파일부터 표시                                                                   |
+| `ls -rt`                    | 오래된 파일부터 표시                                                                 |
+| `ls -F`                     | 파일을 표시할 때 파일의 타입을 나타내는 문자열을 표시                                |                         |
+| `ls -R`                     | 하위 디렉토리의 내용까지 표시                                                        |                         |
+| `cd [dir]`                  | 현재 디렉토리에서 [dir]이라는 폴더로 이동                                            | Change directory        |
+| `cd ../`                    | 현재 디렉토리의 상위 폴더로 이동                                                     |                         |
+| `cd ~`                      | 홈 디렉토리로 이동                                                                   |                         |
+| `pwd`                       | 현재 작업 중인 디렉토리 경로 표시                                                    | Print Working Directory |
+| `mkdir [folder]`            | 현재 디렉토리에서 [folder]라는 새로운 폴더 생성                                      | Make Directory          |
+| `rm -rf [name]`             | 현재 디렉토리에 존재하는 [name]이라는 파일 또는 폴더 삭제 (내용물 포함)              | Remove                  |
+| `cp [file1] [file2]`        | [file1]을 [file2]로 복사 ([file2]가 이미 존재하면 덮어쓰기)                          | Copy                    |
+| `cp -r [folder1] [folder2]` | [folder1]과 그 내용물을 [folder2]로 복사                                             |                         |
+| `touch [file]`              | 새로운 파일을 생성 또는 파일이 이미 존재할 경우 타임스탬프 갱신                      |                         |
+| `mv [name1] [name2]`        | 파일 또는 폴더 이름을 변경 (이미 존재하는 경우 덮어쓰기)                             | Move                    |
+| `mv [file or folder] [dir]` | 파일 또는 폴더를 [dir] 위치로 이동                                                   |                         |
+| `cat [file]`                | 파일의 내용을 확인                                                                   | catenate                |
+| `echo [문자열]`             | 문자열을 화면에 표시                                                                 |                         |
+| `echo [문자열] >> [file]`   | 문자열을 기존 파일에 추가                                                            |                         |
+| `tail -f [file]`            | Ctrl + C로 중단하기 전까지 지정한 파일 내용의 마지막에 라인이 추가되면 계속 출력하기 |                         |
+| `grep "패턴" [file]`        | 파일에서 특정 패턴에 만족하는 부분 찾기                                              |                         |
+
+### 2.3. Networking/Internel Commands
+
+| Commands           | Description                                         | Meaning           |
+| ------------------ | --------------------------------------------------- | ----------------- |
+| `ifconfig`         | 무선 접속 상태를 체크 (wlan0 이 IP 주소를 받았는지) |                   |
+| `curl ifconfig.me` | 공인 IP 주소 확인                                   |                   |
+| `ss -a`            | 모든 포트 확인                                      | Socket Statistics |
+| `ss -t`            | TCP 포드 확인                                       |                   |
+| `ss -u`            | UDP 포트 확인                                       |                   |
+| `ss -l`            | Listen 상태 포트 확인                               |                   |
+| `ss -p`            | 프로세스 확인                                       |                   |
+| `ss -n`            | 호스트, 포트, 사용자명을 숫자로 표시                |                   |
+
+### 2.4. System Information Commands
+
+| Commands                                    | Description                              |
+| ------------------------------------------- | ---------------------------------------- |
+| `free -h`                                   | 여유 메모리 정보를 표시                  |
+| `df -h`                                     | 디스크 용량 정보를 표시                  |
+| `top`                                       | 실시간으로 변경되는 프로세스의 상태 표시 |
+| `ps`                                        | 명령어 실행 시점의 프로세스 정보 표시    |
+| `ps --sort size`                            | 메모리 사용량에 따라 정렬하기            |
+| `kill -9 [PID]`                             | [PID] 프로세스 강제 종료                 |
+| `timedatectl`                               | 현재 시간대 확인                         |
+| `timedatectl list-timezones \| grep [지역]` | 변경 가능한 시간대 확인                  |
+| `sudo timedatectl set-timezone [지역]`      | 시간대 변경                              |

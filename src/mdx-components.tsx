@@ -8,6 +8,7 @@ import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
 import { FaRegLightbulb } from "@react-icons/all-files/fa/FaRegLightbulb";
 import { MdInfo } from "@react-icons/all-files/md/MdInfo";
 import { MdError } from "@react-icons/all-files/md/MdError";
+import { IoIosWarning } from "@react-icons/all-files/io/IoIosWarning";
 
 const components = {
   a: ({ children, href }) => (
@@ -24,18 +25,27 @@ const components = {
 
     if (
       promptType !== "Tips" &&
+      promptType !== "Environment" &&
       promptType !== "Info." &&
       promptType !== "Tags" &&
       promptType !== "Caution"
     ) {
-      return null;
+      return (
+        <blockquote className="mt-2 mb-4 flex flex-row items-center gap-3 rounded-xl bg-[#F8D7DA8F] p-4 text-[#2E2E2EC4]">
+          <IoIosWarning className="text-xl text-[#DF3C30]" />
+          잘못된 PromptType입니다.
+        </blockquote>
+      );
     }
 
     return (
       <blockquote
         className={[
           promptType === "Tips" && "bg-[#7BF79033]",
-          (promptType === "Info." || promptType === "Tags") && "bg-[#E1F5FE]",
+          (promptType === "Environment" ||
+            promptType === "Info." ||
+            promptType === "Tags") &&
+            "bg-[#E1F5FE]",
           promptType === "Caution" && "bg-[#FFF3CD]",
           "relative mt-2 mb-4 flex flex-col -space-y-4 rounded-xl pt-4 pr-4 pl-12 text-[#2E2E2EC4]",
         ].join(" ")}
@@ -43,7 +53,9 @@ const components = {
         {promptType === "Tips" && (
           <FaRegLightbulb className="absolute top-5.25 left-4.5 text-lg text-[#03B303]" />
         )}
-        {(promptType === "Info." || promptType === "Tags") && (
+        {(promptType === "Environment" ||
+          promptType === "Info." ||
+          promptType === "Tags") && (
           <MdInfo className="absolute top-5.25 left-4.5 text-xl text-[#0070CB]" />
         )}
         {promptType === "Caution" && (
