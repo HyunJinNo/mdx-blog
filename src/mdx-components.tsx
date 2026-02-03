@@ -108,11 +108,11 @@ const components = {
 
     return (
       <div className="mt-2 mb-5 flex flex-col rounded-xl border border-gray-200 bg-white p-1 text-sm leading-5.5 shadow">
-        <div className="flex h-9 flex-row items-center justify-between px-2 text-[#a3a3a3]">
-          <div className="flex flex-row items-center gap-1.5 text-xs text-[#e5e5e5]">
-            <FaCircle />
-            <FaCircle />
-            <FaCircle />
+        <div className="flex h-9 flex-row items-center justify-between px-2 text-[#A3A3A3]">
+          <div className="flex flex-row items-center gap-1.5 text-xs">
+            <FaCircle className="text-red-400" />
+            <FaCircle className="text-[#E5E5E5]" />
+            <FaCircle className="text-green-400" />
           </div>
           <div className="flex flex-row items-center gap-1 font-normal">
             <FaCode />
