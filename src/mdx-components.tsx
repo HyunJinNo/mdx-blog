@@ -85,7 +85,9 @@ const components = {
   ),
   li: ({ children }) => <li className="py-1 leading-7">{children}</li>,
   ol: ({ children }) => (
-    <ol className="marker:text-custom-gray list-decimal pl-7">{children}</ol>
+    <ol className="marker:text-custom-gray mb-4 list-decimal pl-7">
+      {children}
+    </ol>
   ),
   p: ({ children }) => <p className="pb-4 leading-7">{children}</p>,
   pre: (props) => {
