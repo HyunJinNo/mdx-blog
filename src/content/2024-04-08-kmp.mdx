@@ -1,0 +1,287 @@
+export const metadata = {
+  title: "KMP 알고리즘",
+  description: "KMP (Knuth-Morris-Pratt) 알고리즘에 대해 정리한 페이지입니다.",
+  date: "2024-04-08 00:00:00 +/-TTTT",
+  categories: ["Algorithms"],
+  tags: ["algorithm"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/algorithms/computer.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Algorithm
+
+## 1. 개요
+
+`KMP(Knuth-Morris-Pratt)` 알고리즘에 대해 정리한 페이지입니다.
+
+## 2. KMP (Knuth-Morris-Pratt) 알고리즘
+
+### 2.1. 개념
+
+`KMP(Knuth-Morris-Pratt)` 알고리즘은 **문자열 검색 알고리즘**으로,
+**문자열 검색 시 불일치가 일어났을 때 지금까지 일치한 글자 수를 이용하여 다음으로 시도해야 할 시작 위치를 빠르게 찾아낼 수 있도록 고안된 알고리즘**입니다.
+
+긴 문자열 내 짧은 문자열(=패턴)이 포함되는지 확인할 때, 일반적인 문자열 검색 알고리즘은 불일치가 발생하면 패턴을 처음부터 다시 비교하지만,
+**KMP 알고리즘은 이미 비교한 정보를 이용해 패턴을 부분적으로만 이동**하여 중복 비교를 피하고 시간을 절약합니다.
+즉, **패턴 매칭 실패 시 이미 비교한 정보를 활용해 불필요한 비교를 건너뛰고 다음 비교 위치로 이동하는 것**이 KMP 알고리즘의 핵심 아이디어입니다.
+
+### 2.2. 특징
+
+KMP 알고리즘의 특징은 다음과 같습니다.
+
+- `부분 일치 테이블(=LPS 배열, Longest Prefix which is also Suffix)`
+
+  KMP 알고리즘은 현재 위치까지의 접두사(Prefix)와 접미사(Suffix)가 일치하는 최대 길이를 저장하는 LPS 배열을 생성합니다.
+  예를 들어 `pattern = "ABABCABAB"`인 경우 생성되는 LPS 배열은 `[0, 0, 1, 2, 0, 1, 2, 3, 4]`입니다.
+
+  | index | 문자 | 접두사와 접미사 최대 일치 길이 |
+  | ----- | ---- | ------------------------------ |
+  | 0     | A    | **0**                          |
+  | 1     | B    | **0**                          |
+  | 2     | A    | **1**                          |
+  | 3     | B    | **2**                          |
+  | 4     | C    | **0**                          |
+  | 5     | A    | **1**                          |
+  | 6     | B    | **2**                          |
+  | 7     | A    | **3**                          |
+  | 8     | B    | **4**                          |
+
+  긴 문자열과 짧은 문자열(=패턴)을 비교하여 불일치가 일어나면 LPS 배열을 참고해 다음 비교 위치로 빠르게 이동하게 됩니다.
+  예를 들어 `text = "ABABBABABCABAB"`인 경우 다음과 같이 문자열 검색이 이루어지게 됩니다.
+
+  | index | 0     | 1     | 2     | 3     | 4   | 5     | 6     | 7     | 8     | 9     | 10    | 11    | 12    | 13    |
+  | ----- | ----- | ----- | ----- | ----- | --- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+  | 1.    | **A** | **B** | **A** | **B** | B   | A     | B     | A     | B     | C     | A     | B     | A     | B     |
+  |       | **A** | **B** | **A** | **B** | C   | A     | B     | A     | B     |       |       |       |       |       |
+  | 2.    | A     | B     | **A** | **B** | B   | A     | B     | A     | B     | C     | A     | B     | A     | B     |
+  |       |       |       | **A** | **B** | A   | B     | C     | A     | B     | A     | B     |       |       |       |
+  | 3.    | A     | B     | A     | B     | B   | A     | B     | A     | B     | C     | A     | B     | A     | B     |
+  |       |       |       |       | A     | B   | A     | B     | C     | A     | B     | A     | B     |       |       |
+  | 4.    | A     | B     | A     | B     | B   | A     | B     | A     | B     | C     | A     | B     | A     | B     |
+  |       |       |       |       |       | A   | B     | A     | B     | C     | A     | B     | A     | B     |       |
+  | 5.    | A     | B     | A     | B     | B   | **A** | **B** | **A** | **B** | **C** | **A** | **B** | **A** | **B** |
+  |       |       |       |       |       |     | **A** | **B** | **A** | **B** | **C** | **A** | **B** | **A** | **B** |
+
+  > **<u>Info.</u>**
+  >
+  > **접두사(Prefix)**: 문자열 S의 0번 글자부터 a번 글자까지로 구성된 부분 문자열을 S의 접두사(Suffix)라고 부릅니다.
+  >
+  > **접미사(Suffix)**: 문자열 S의 b번 글자부터 끝까지로 구성된 부분 문자열을 S의 접미사(Suffix)라고 부릅니다.
+
+- `시간 복잡도(Time Complexity)`
+
+  긴 문자열의 길이가 `N`이고 패턴의 길이가 `M`일 때, KMP 알고리즘을 사용하면 LPS 배열을 생성하는데 `O(M)`의 시간이 걸리고,
+  문자열을 검색하는데 `O(N)`의 시간이 걸리므로 총 시간 복잡도는 `O(N + M)`입니다.
+  이는 브루트포스 방식으로 문자열 검색을 수행했을 때 걸리는 `O(N * M)`의 시간 복잡도보다 효율적입니다.
+
+### 2.3. 구현
+
+KMP 알고리즘은 크게 다음 두 단계로 이루어집니다.
+
+#### 2.3.1. 부분 일치 테이블(=LPS 배열, Longest Prefix which is also Suffix) 만들기
+
+문자열 검색에 앞서 먼저 주어진 문자열 pattern에 대한 부분 일치 테이블을 생성합니다.
+
+```javascript
+/**
+ * KMP 알고리즘을 이용해 부분 일치 테이블을 생성하는 함수
+ * @param {string} pattern
+ * @returns {number[]} 부분 일치 테이블
+ */
+const buildLPS = (pattern) => {
+  const lps = Array(pattern.length).fill(0); // lps[i]: 패턴의 0 ~ i까지에서 접두사이자 접미사인 최대 길이
+  let len = 0; // 현재까지 일치한 접두사-접미사 길이
+  let i = 1; // 현재 탐색 중인 위치
+
+  while (i < pattern.length) {
+    if (pattern[i] === pattern[len]) {
+      len++;
+      lps[i++] = len;
+    } else {
+      if (len === 0) {
+        lps[i++] = 0;
+      } else {
+        len = lps[len - 1];
+      }
+    }
+  }
+
+  return lps;
+};
+
+const pattern = "ABABCABAB";
+console.log(buildLPS(pattern)); // [0, 0, 1, 2, 0, 1, 2, 3, 4]
+```
+
+#### 2.3.2. 문자열 검색
+
+다음과 같이 긴 문자열과 패턴을 비교하다가 불일치 발생 시 LPS 배열을 활용하여 다음 비교 위치로 빠르게 이동하는 식으로 문자열 검색이 이루어지도록 구현합니다.
+
+```javascript
+/**
+ * 긴 문자열 text의 부분 문자열로 짧은 문자열 pattern이 출현하는 시작 위치들을 모두 반환하는 함수
+ * @param {string} text 긴 문자열
+ * @param {string} pattern 짧은 문자열
+ * @returns {number[]} 긴 문자열 text의 부분 문자열로 짧은 문자열 pattern이 출현하는 시작 위치들을 담은 배열
+ */
+const kmpSearch = (text, pattern) => {
+  const result = [];
+  const lps = buildLPS(pattern);
+
+  let begin = 0;
+  let matched = 0;
+
+  while (begin + matched < text.length) {
+    if (
+      matched < pattern.length &&
+      text[begin + matched] === pattern[matched]
+    ) {
+      matched++;
+
+      // 결과적으로 글자가 모두 일치했다면 답에 추가합니다.
+      if (matched === pattern.length) {
+        result.push(begin);
+      }
+    } else {
+      // 예외: matched가 0인 경우에는 다음 칸에서부터 계속합니다.
+      if (matched === 0) {
+        begin++;
+      } else {
+        begin += matched - lps[matched - 1];
+
+        // begin을 옮겼다고 처음부터 다시 비교할 필요가 없습니다.
+        // 옮긴 후에도 lps[matched - 1]만큼은 항상 일치합니다.
+        matched = lps[matched - 1];
+      }
+    }
+  }
+
+  return result;
+};
+```
+
+#### 2.3.3. 최종 구현
+
+최종 구현 결과는 다음과 같습니다.
+
+```javascript
+/**
+ * KMP 알고리즘을 이용해 부분 일치 테이블을 생성하는 함수
+ * @param {string} pattern
+ * @returns {number[]} 부분 일치 테이블
+ */
+const buildLPS = (pattern) => {
+  const lps = Array(pattern.length).fill(0); // lps[i]: 패턴의 0 ~ i까지에서 접두사이자 접미사인 최대 길이
+  let len = 0; // 현재까지 일치한 접두사-접미사 길이
+  let i = 1; // 현재 탐색 중인 위치
+
+  while (i < pattern.length) {
+    if (pattern[i] === pattern[len]) {
+      len++;
+      lps[i++] = len;
+    } else {
+      if (len === 0) {
+        lps[i++] = 0;
+      } else {
+        len = lps[len - 1];
+      }
+    }
+  }
+
+  return lps;
+};
+
+/**
+ * 긴 문자열 text의 부분 문자열로 짧은 문자열 pattern이 출현하는 시작 위치들을 모두 반환하는 함수
+ * @param {string} text 긴 문자열
+ * @param {string} pattern 짧은 문자열
+ * @returns {number[]} 긴 문자열 text의 부분 문자열로 짧은 문자열 pattern이 출현하는 시작 위치들을 담은 배열
+ */
+const kmpSearch = (text, pattern) => {
+  const result = [];
+  const lps = buildLPS(pattern);
+
+  let begin = 0;
+  let matched = 0;
+
+  while (begin + matched < text.length) {
+    if (
+      matched < pattern.length &&
+      text[begin + matched] === pattern[matched]
+    ) {
+      matched++;
+
+      // 결과적으로 글자가 모두 일치했다면 답에 추가합니다.
+      if (matched === pattern.length) {
+        result.push(begin);
+      }
+    } else {
+      // 예외: matched가 0인 경우에는 다음 칸에서부터 계속합니다.
+      if (matched === 0) {
+        begin++;
+      } else {
+        begin += matched - lps[matched - 1];
+
+        // begin을 옮겼다고 처음부터 다시 비교할 필요가 없습니다.
+        // 옮긴 후에도 lps[matched - 1]만큼은 항상 일치합니다.
+        matched = lps[matched - 1];
+      }
+    }
+  }
+
+  return result;
+};
+
+const text = "ABABCABABCABABCABAB";
+const pattern = "ABABCABAB";
+console.log(buildLPS(pattern)); // [0, 0, 1, 2, 0, 1, 2, 3, 4]
+console.log(kmpSearch(text, pattern)); // [0, 5, 10]
+```
+
+## 3. Example
+
+- [1701번: Cubeditor](https://www.acmicpc.net/problem/1701)
+
+  ```javascript
+  const path = process.platform === "linux" ? "/dev/stdin" : "input.txt";
+  const input = require("fs").readFileSync(path).toString().trim();
+
+  const buildLPS = (pattern) => {
+    const lps = Array(pattern.length).fill(0);
+    let len = 0;
+    let i = 1;
+
+    while (i < pattern.length) {
+      if (pattern[i] === pattern[len]) {
+        len++;
+        lps[i++] = len;
+      } else {
+        if (len === 0) {
+          lps[i++] = 0;
+        } else {
+          len = lps[len - 1];
+        }
+      }
+    }
+
+    return lps;
+  };
+
+  let answer = 0;
+
+  for (let i = 0; i < input.length; i++) {
+    answer = Math.max(answer, Math.max(...buildLPS(input.slice(i))));
+  }
+
+  console.log(answer);
+  ```
+
+## 4. 참고 자료
+
+- [알고리즘 문제 해결 전략 세트 | 구종만 | 인사이트(insight) - 예스24](https://www.yes24.com/product/goods/8006522)
+- [문자열 알고리즘 - 나무위키](https://namu.wiki/w/문자열%20알고리즘)
