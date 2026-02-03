@@ -51,6 +51,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-06-06-ufw" },
     { post: "2024-06-07-apt" },
     { post: "2024-06-07-nodejs" },
+    { post: "2024-06-07-ssh-port" },
     { post: "2025-03-12-fsd" },
   ];
 }
