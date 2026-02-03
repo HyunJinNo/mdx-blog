@@ -13,8 +13,6 @@ export const useScrollToTop = () => {
       if (!ticking.current) {
         requestAnimationFrame(() => {
           setVisible(window.scrollY > 1);
-
-          console.log(window.scrollY);
           ticking.current = false;
         });
 
