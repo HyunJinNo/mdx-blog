@@ -1,0 +1,186 @@
+export const metadata = {
+  title: "Next.js에서 Kakao 지도 API 적용 방법",
+  description:
+    "Next.js에서 Kakao 지도 API 적용 방법에 대해 설명하는 페이지입니다.",
+  date: "2024-06-21 00:00:00 +/-TTTT",
+  categories: ["Front-end"],
+  tags: ["typescript", "nextjs", "kakao"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> TypeScript, Next.js, Kakao
+
+> **<u>Environment</u>**
+>
+> Next.js v14.2.3
+
+## 1. 개요
+
+Next.js에서 Kakao 지도 API 적용 방법에 대해 정리한 페이지입니다.
+
+## 2. Step 1 - 키 발급 및 플랫폼 등록
+
+### 2.1. 개발자 등록
+
+먼저 다음 사이트에 접속하여 로그인을 진행합니다.
+
+[카카오 개발자사이트](https://developers.kakao.com/)
+
+### 2.2. 애플리케이션 등록
+
+로그인 후에 `내 애플리케이션` 항목에 들어가서 애플리케이션을 추가합니다.
+
+![애플리케이션 등록](/images/front-end/kakao-map/pic1.avif)
+
+위와 같이 **앱 이름, 회사명, 카테고리**를 선택한 후 저장 버튼을 클릭합니다.
+
+### 2.3. JavaScript 키 확인 및 복사
+
+생성된 애플리케이션에 들어가 `앱 키` 항목을 선택한 후 `JavaScript 키`를 복사합니다.
+
+![JavaScript 키 확인 및 복사](/images/front-end/kakao-map/pic2.avif)
+
+### 2.4. 플랫폼 등록
+
+`플랫폼` 항목에 들어가 `Web 플랫폼 등록` 버튼을 클릭합니다.
+
+![Web 플랫폼 등록](/images/front-end/kakao-map/pic3.avif)
+
+위와 같이 도메인 정보를 입력한 후 `저장` 버튼을 클릭합니다.
+
+## 3. Step 2 - Kakao 지도 API 적용
+
+### 3.1. env 파일 생성
+
+위에서 복사한 `JavaScript 키`는 외부에 노출되지 않는 것이 중요합니다.
+GitHub에 Kakao 지도 API를 적용한 source 코드를 공개할 때 해당 키가 외부로 노출되지 않도록 env 파일을 생성하고 진행하겠습니다.
+env 파일은 환경 변수 파일을 의미하며 API 키나 DB 관련 정보 등 외부에 노출되면 안되고 개발자만 알아야하는 정보들을 저장하는데 사용됩니다.
+다음과 같이 env 파일을 생성하고 위에서 복사한 `JavaScript 키`를 입력합니다. 파일명은 `.env`입니다.
+
+```plaintext
+KAKAO_API_KEY = [JavaScript Key를 입력하는 곳]
+```
+
+![env 파일 생성](/images/front-end/kakao-map/pic4.avif)
+
+추가적으로 해당 env 파일을 버전 관리 대상에서 제외하도록 `.gitignore` 파일에 다음 내용을 입력합니다.
+
+```plaintext
+# local env files
+.env*.local
+.env
+```
+
+![gitignore](/images/front-end/kakao-map/pic5.avif)
+
+### 3.2. 실제 지도를 그리는 JavaScript API 불러오기
+
+API를 로딩하는 스크립트는 HTML 파일 안에서 실행 코드보다 먼저 실행되어야 합니다. Next.js에서는 기본 `script` 태그 대신 `Script` 컴포넌트를 통해
+**외부 스크립트(3rd-party script) 최적화**를 지원합니다. 다음과 같이 app 디렉토리의 layout.tsx 파일에서 `body` 태그 안에 다음 코드를 입력합니다.
+
+```typescript
+import Script from "next/script";
+
+/* ... */
+
+<Script
+  type="text/javascript"
+  src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_API_KEY}&autoload=false&libraries=services,clusterer,drawing`}
+  strategy="beforeInteractive"
+/>;
+```
+
+![실제 지도를 그리는 JavaScript API 불러오기](/images/front-end/kakao-map/pic6.avif)
+
+위의 코드에서 `process.env.KAKAO_API_KEY`는 위의 env 파일에서 정의한 API 키 값을 의미합니다.
+`autoload=false` 부분은 나중에 생성할 KakaoMapContainer 컴포넌트의 source 코드가 위의 코드보다 먼저 실행되는 것을 방지하기 위한 목적입니다.
+`libraries=services,clusterer,drawing` 부분은 지도와 함께 사용할 라이브러리를 지정하는 부분입니다.
+지도에 마커를 표시하기 위해 위와 같이 라이브러리를 지정하였습니다.
+`Script` 컴포넌트는 4가지 스크립트 로딩 전략을 지원합니다. `strategy` 속성에 로딩 전략을 지정할 수 있으며,
+`beforeInteractive`는 Next.js 코드와 hydration 과정 이전에 스크립트를 로딩해야 할 때 사용합니다.
+
+### 3.3. window 객체에 kakao 속성 정의
+
+타입스크립트를 사용할 때 기본적으로 `window` 객체에는 `kakao`라는 속성이 없으므로 `window.kakao`와 같이 사용하면 오류가 발생합니다.
+오류 방지를 위해 app 디렉토리의 layout.tsx 파일의 상단에 다음 코드를 입력합니다.
+
+```typescript
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+```
+
+위와 같이 선언하면 `window` 객체를 사용할 때 `kakao` 속성이 표시됩니다.
+
+## 4. Step 3 - Kakao 지도 사용
+
+### 4.1. KakaoMapContainer 컴포넌트 생성
+
+Kakao 지도를 사용하려면 다음과 같이 컴포넌트를 생성해야 합니다.
+아래 예시는 마커에 표시될 title과 위도, 경도 값을 받아 지도 위에 마커를 표시하는 컴포넌트 예시입니다.
+
+```typescript
+import { useEffect } from "react";
+
+type MyProps = {
+  title: string;
+  latitude: number; // 위도
+  longitude: number; // 경도
+};
+
+const KakaoMapContainer = ({ title, latitude, longitude }: MyProps) => {
+  useEffect(() => {
+    if (window.kakao) {
+      window.kakao.maps.load(() => {
+        // id가 "map"인 요소에 지도를 생성한다.
+        const container = document.getElementById("map");
+        const options = {
+          // 지도 좌표값 설정
+          center: new window.kakao.maps.LatLng(latitude, longitude),
+
+          // 줌 레벨을 3으로 설정
+          level: 3
+        };
+
+        const map = new window.kakao.maps.Map(container, options);
+        const marker = new window.kakao.maps.Marker({
+          // 마커가 표시될 지도
+          map: map,
+
+          // 마커가 표시될 위치
+          position: new window.kakao.maps.LatLng(latitude, longitude),
+
+          // 마커에 hover시 나타날 title
+          title: title
+        });
+      });
+    }
+  }, [latitude, longitude, title]);
+
+  // 지도를 담을 영역
+  // 반드시 width, height 값을 지정해야 지도가 출력된다.
+  return <div id="map" className="h-80 w-full" />;
+};
+
+export default KakaoMapContainer;
+```
+
+위의 코드에서 중요한 점은 id 값이 map인 태그의 width, height가 반드시 지정되어야 한다는 점입니다. 위의 코드에서는 `Tailwind CSS`를 통해 지정하였습니다.
+
+### 4.2. KakaoMapContainer 컴포넌트 사용
+
+다음은 위에서 생성한 컴포넌트를 사용한 예시입니다.
+
+![KakaoMapContainer 컴포넌트 사용 1](/images/front-end/kakao-map/pic7.avif)
+
+![KakaoMapContainer 컴포넌트 사용 2](/images/front-end/kakao-map/pic8.avif)
+
+위와 같이 지도가 생성되면 마커 위에 마우스를 올려놓으면 title이 표시됩니다.

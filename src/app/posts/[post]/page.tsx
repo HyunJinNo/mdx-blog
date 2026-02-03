@@ -55,6 +55,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-06-08-nginx" },
     { post: "2024-06-09-ssl-tls" },
     { post: "2024-06-14-mariadb" },
+    { post: "2024-06-21-kakao-map" },
     { post: "2025-03-12-fsd" },
   ];
 }
