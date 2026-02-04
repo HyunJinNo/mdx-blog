@@ -58,6 +58,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-06-21-kakao-map" },
     { post: "2024-06-22-expressjs-typescript" },
     { post: "2024-06-26-expressjs-typeorm" },
+    { post: "2024-07-02-nestjs-basic" },
     { post: "2025-03-12-fsd" },
   ];
 }
