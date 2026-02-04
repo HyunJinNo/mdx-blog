@@ -63,6 +63,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-07-10-nestjs-typeorm" },
     { post: "2024-07-15-challenge-day1" },
     { post: "2024-07-16-challenge-day2" },
+    { post: "2024-07-17-challenge-day3" },
     { post: "2025-03-12-fsd" },
   ];
 }
