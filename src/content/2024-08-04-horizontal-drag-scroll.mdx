@@ -1,3 +1,5 @@
+import { Video } from "@/shared/ui/video";
+
 export const metadata = {
   title: "좌우 드래그 스크롤 구현 방법",
   description: "좌우 드래그 스크롤 구현 방법에 대해 설명하는 페이지입니다.",
@@ -322,11 +324,11 @@ const scrollHook = useDragScroll();
 
 좌우 드래그 스크롤을 적용한 테스트 결과는 다음과 같습니다.
 
-<video width="480" controls>
-  <source src="/videos/front-end/drag-scroll/video1.webm" type="video/webm" />
-  Your browser does not support the video format. Please try a different
-  browser.
-</video>
+<Video
+  src="/videos/front-end/drag-scroll/video1.webm"
+  type="video/webm"
+  width={480}
+/>
 
 ## 9. 참고 자료
 
