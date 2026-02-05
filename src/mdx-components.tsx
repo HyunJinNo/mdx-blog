@@ -154,7 +154,7 @@ const components = {
     </tr>
   ),
   ul: ({ children }) => (
-    <ul className="marker:text-custom-gray mb-4 list-disc pl-7">{children}</ul>
+    <ul className="marker:text-custom-gray list-disc pl-7">{children}</ul>
   ),
 } satisfies MDXComponents;
 
