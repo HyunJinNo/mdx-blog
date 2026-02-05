@@ -75,6 +75,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-07-31-challenge-day13" },
     { post: "2024-08-02-challenge-day15" },
     { post: "2024-08-04-horizontal-drag-scroll" },
+    { post: "2024-08-05-challenge-day16" },
     { post: "2025-03-12-fsd" },
   ];
 }
