@@ -66,6 +66,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-07-17-challenge-day3" },
     { post: "2024-07-18-challenge-day4" },
     { post: "2024-07-19-challenge-day5" },
+    { post: "2024-07-22-challenge-day6" },
     { post: "2025-03-12-fsd" },
   ];
 }
