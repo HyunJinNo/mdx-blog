@@ -79,6 +79,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-08-07-challenge-day18" },
     { post: "2024-08-09-regular-expression" },
     { post: "2024-08-10-nestjs-pipe" },
+    { post: "2024-08-11-nestjs-guards" },
     { post: "2025-03-12-fsd" },
   ];
 }
