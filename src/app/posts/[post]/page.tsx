@@ -98,6 +98,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-10-06-zustand" },
     { post: "2024-10-10-github-private-repository-clone" },
     { post: "2024-10-20-puppeteer" },
+    { post: "2024-10-21-expressjs-socket" },
     { post: "2025-03-12-fsd" },
   ];
 }
