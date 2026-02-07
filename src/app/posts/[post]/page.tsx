@@ -89,6 +89,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-09-08-expressjs-passport-session" },
     { post: "2024-09-14-swap-memory" },
     { post: "2024-09-16-modal-back-button" },
+    { post: "2024-09-18-forwardref" },
     { post: "2025-03-12-fsd" },
   ];
 }
