@@ -86,6 +86,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-08-16-nestjs-socket" },
     { post: "2024-08-16-websocket" },
     { post: "2024-08-19-membership-week1" },
+    { post: "2024-09-08-expressjs-passport-session" },
     { post: "2025-03-12-fsd" },
   ];
 }
