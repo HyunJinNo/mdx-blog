@@ -100,6 +100,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-10-20-puppeteer" },
     { post: "2024-10-21-expressjs-socket" },
     { post: "2024-10-23-notion-team-project-template" },
+    { post: "2024-11-03-github-actions-ci-cd" },
     { post: "2025-03-12-fsd" },
   ];
 }
