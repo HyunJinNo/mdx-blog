@@ -84,6 +84,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-08-12-nestjs-file-upload" },
     { post: "2024-08-13-react-quill-image" },
     { post: "2024-08-16-nestjs-socket" },
+    { post: "2024-08-16-websocket" },
     { post: "2025-03-12-fsd" },
   ];
 }
