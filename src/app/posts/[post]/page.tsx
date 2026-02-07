@@ -95,6 +95,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-09-28-babel" },
     { post: "2024-09-29-webpack" },
     { post: "2024-09-30-virtual-dom" },
+    { post: "2024-10-06-zustand" },
     { post: "2025-03-12-fsd" },
   ];
 }

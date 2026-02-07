@@ -1,0 +1,184 @@
+export const metadata = {
+  title: "Zustand 사용 방법",
+  description: "Zustand 사용 방법에 대해 설명하는 페이지입니다.",
+  date: "2024-10-06 00:00:00 +/-TTTT",
+  categories: ["Front-end"],
+  tags: ["typescript", "react", "nextjs", "zustand"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/front-end/zustand/zustand.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> TypeScript, React, Next.js, Zustand
+
+> **<u>Environment</u>**
+>
+> Zustand v5.0.1
+
+## 1. 개요
+
+이번 글에서는 상태 관리 라이브러리 중 하나인 `Zustand` 사용 방법에 대해 설명하겠습니다.
+
+## 2. Zustand란?
+
+`Zustand`는 간단하고 경량화된 상태 관리 라이브러리로, 작은 패키지 용량과 쉬운 설정 및 직관적인 사용법이 특징인 라이브러리입니다.
+Zustand를 사용하면 리액트(React)의 전역 상태 관리를 쉽게 할 수 있습니다.
+또한 리액트 컴포넌트에서 의존성 기반으로 필요한 상태만을 구독하여 성능 최적화를 돕습니다. 이와 같은 특징 덕분에 현재 인기를 끌고 있는 상태 관리 라이브러리입니다.
+
+![상태 관리 라이브러리 점유율](/images/front-end/zustand/pic1.avif)
+
+## 3. Zustand의 주요 특징
+
+`Zustand`의 주요 특징은 다음과 같습니다.
+
+- `경량성`  
+  최소한의 설정으로 전역 상태 관리가 가능합니다.
+- `쉬운 사용법`  
+  Redux처럼 복잡한 보일러플레이트 코드가 거의 없으며, Zustand를 사용하기 위해 작성해야하는 코드 줄 수가 적습니다.
+- `부분 상태 구독`  
+  필요할 때 특정 상태만 구독함으로써 불필요한 리렌더링을 방지합니다.
+- `미들웨어 지원`  
+  Redux DevTools나 로그 미들웨어 등의 추가 기능을 지원합니다.
+- `Flux 패턴`  
+  Zustand는 flux 패턴을 따르는 상태 관리 라이브러리로, 여러 개의 스토어(Store)를 만들 수 있습니다.
+  또한 상태값을 스토어에서 관리하기 때문에 필요한 컴포넌트에서만 가져와 사용할 수 있습니다.
+
+## 4. Step 1 - Zustand 설치하기
+
+다음 명령어를 입력하여 Zustand를 설치합니다.
+
+```bash
+npm install zustand
+```
+
+## 5. Step 2 - 상태 인터페이스 정의하기
+
+먼저 다음과 같이 상태 인터페이스를 정의합니다.
+
+```typescript
+interface EditorState {
+  title: string;
+  content: string;
+}
+```
+
+위의 인터페이스는 `Editor`라는 스토어의 상태 타입을 정의하는 인터페이스입니다. 해당 스토어는 상태값으로 `title`이라는 변수와 `content`라는 변수를 갖습니다.
+
+## 6. Step 3 - 액션 인터페이스 정의하기
+
+상태 인터페이스를 정의한 후, 다음과 같이 액션 인터페이스를 정의합니다.
+
+```typescript
+interface EditorAction {
+  initialize: () => void;
+  setEditorState: (data: Partial<EditorState>) => void;
+}
+```
+
+위의 인터페이스는 상태값을 초기화하는 `initialize`라는 메서드와 상태값을 변경하는 `setEditorState`라는 메서드를 정의합니다.
+`setEditorState` 메서드는 타입스크립트의 유틸리티 타입 중 하나인
+`Partial`을 활용하여 상태 인터페이스에서 정의한 상태 중 일부만 선택하여 업데이트할 수 있는 메서드입니다.
+
+## 7. Step 4 - 초기 상태 정의하기
+
+다음과 같이 상태 인터페이스에서 정의한 상태값들의 초기값을 지정합니다.
+
+```typescript
+const initialState: EditorState = {
+  title: "",
+  content: "",
+};
+```
+
+## 8. Step 5 - 스토어(Store) 생성하기
+
+위에서 정의한 상태 인터페이스와 액션 인터페이스로 스토어(Store)를 생성합니다.
+
+```typescript
+type EditorStoreType = EditorState & EditorAction;
+
+const editorStore: StateCreator<EditorStoreType> = (set) => ({
+  ...initialState,
+  initialize: () => set({ ...initialState }),
+  setEditorState: (data: Partial<EditorState>) => set(() => ({ ...data })),
+});
+
+export const useEditorStore = create<EditorStoreType>(
+  process.env.NODE_ENV === "development"
+    ? (devtools(editorStore) as StateCreator<EditorStoreType>)
+    : editorStore,
+);
+```
+
+위의 코드에서 `EditorStoreType`은 스토어의 타입을 정의하는 부분입니다.
+또한 `create` 함수는 스토어를 생성하는 함수로, 위의 코드에서는 개발 환경일 때 `devtools`라는 미들웨어를 사용하도록 구현되었습니다.
+
+## 9. Step 6 - 컴포넌트에서 구독하기
+
+Zustand의 강력한 기능 중 하나는 특정 상태만 구독할 수 있다는 점입니다. 다음과 같이 스토어에서 `title` 상태만 구독할 수도 있습니다.
+
+```typescript
+const Editor = () => {
+  const title = useEditorStore((state) => state.title);
+
+  // 아래와 같이 title 상태만 구독할 수도 있습니다.
+
+  // 방법 1.
+  // const { title } = useEditorStore();
+
+  // 방법 2.
+  // const editorStore = useEditorStore();
+  // const title = editorStore.title;
+
+  return <h1>{title}</h1>;
+};
+
+export default Editor;
+```
+
+## 10. 전체 코드
+
+전체 코드는 다음과 같습니다.
+
+```typescript
+import { StateCreator, create } from "zustand";
+import { devtools } from "zustand/middleware";
+
+interface EditorState {
+  title: string;
+  content: string;
+}
+
+interface EditorAction {
+  initialize: () => void;
+  setEditorState: (data: Partial<EditorState>) => void;
+}
+
+const initialState: EditorState = {
+  title: "",
+  content: "",
+};
+
+type EditorStoreType = EditorState & EditorAction;
+
+const editorStore: StateCreator<EditorStoreType> = (set) => ({
+  ...initialState,
+  initialize: () => set({ ...initialState }),
+  setEditorState: (data: Partial<EditorState>) => set(() => ({ ...data })),
+});
+
+export const useEditorStore = create<EditorStoreType>(
+  process.env.NODE_ENV === "development"
+    ? (devtools(editorStore) as StateCreator<EditorStoreType>)
+    : editorStore,
+);
+```
+
+## 11. 참고 자료
+
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Npm Downloads Trend of State Management Libraries for React](https://npm-stat.com/charts.html?package=zustand&package=jotai&package=valtio&package=%40reduxjs%2Ftoolkit&package=recoil)
