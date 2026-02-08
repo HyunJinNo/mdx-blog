@@ -103,6 +103,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-11-03-github-actions-ci-cd" },
     { post: "2024-11-03-webrtc" },
     { post: "2024-11-06-docker" },
+    { post: "2024-12-12-react-native-basic" },
     { post: "2025-03-12-fsd" },
   ];
 }
