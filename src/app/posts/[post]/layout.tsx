@@ -41,7 +41,7 @@ export default async function MdxLayout({
           </span>
           <div className="relative aspect-video">
             <Image
-              className="rounded-xl"
+              className="rounded-xl border border-gray-100 bg-gray-100"
               src={metadata.imagePath}
               alt="Preview Image"
               fill={true}
