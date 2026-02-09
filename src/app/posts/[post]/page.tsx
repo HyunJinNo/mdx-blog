@@ -109,6 +109,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-01-27-github-template" },
     { post: "2025-01-29-pem" },
     { post: "2025-01-30-ollama" },
+    { post: "2025-02-04-xml-json" },
     { post: "2025-03-12-fsd" },
   ];
 }
