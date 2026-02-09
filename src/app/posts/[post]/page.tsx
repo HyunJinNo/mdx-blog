@@ -112,6 +112,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-02-04-xml-json" },
     { post: "2025-02-05-hoisting" },
     { post: "2025-02-06-execution-context" },
+    { post: "2025-02-07-typescript" },
     { post: "2025-03-12-fsd" },
   ];
 }
