@@ -105,6 +105,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-11-06-docker" },
     { post: "2024-12-12-react-native-basic" },
     { post: "2024-12-13-react-native-tailwind-css" },
+    { post: "2024-12-28-react-native-splash-screen" },
     { post: "2025-03-12-fsd" },
   ];
 }
