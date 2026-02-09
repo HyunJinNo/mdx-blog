@@ -1,0 +1,193 @@
+export const metadata = {
+  title: "PEM 키를 사용해 SSH 원격 접속하는 방법",
+  description:
+    "PEM 키를 사용해 SSH 원격 접속하는 방법에 대해 설명하는 페이지입니다.",
+  date: "2025-01-29 00:00:00 +/-TTTT",
+  categories: ["Raspberry Pi"],
+  tags: ["raspberry-pi", "linux", "pem", "ssh"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/raspberry-pi/raspberry-pi.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Raspberry Pi, Linux, PEM, SSH
+
+> **<u>Environment</u>**
+>
+> Device: Raspberry Pi 4 Model B
+>
+> OS: Raspberry Pi OS (64 bit)
+> RAM: 4GB
+
+## 1. 개요
+
+이번 글에서는 PEM 키를 생성하고 사용해서 비밀번호 없이 SSH 원격 접속하는 방법에 대해 설명하겠습니다.
+
+## 2. PEM 키란?
+
+`PEM(Privacy Enhanced Mail)`은 `개인 키(Private Key)`, `공개 키(Public Key)`, 인증서 등을 저장하는 파일 형식입니다.
+주로 SSH 접속 시 비밀번호 대신 사용합니다. PEM 포맷은 Base64 인코딩된 텍스트 형식으로 되어 있으며 다음과 같이 세 부분으로 구성됩니다.
+
+- `Header`  
+  `-----BEGIN <데이터 라벨>-----`
+- `Body`  
+  Base64로 인코딩된 텍스트 데이터
+- `Footer`  
+  `----END <데이터 라벨>----`
+
+<br />
+
+다음은 비밀 키(Private Key) 예시입니다. (출처: [https://namu.wiki/w/PEM#s-3.1.1](https://namu.wiki/w/PEM#s-3.1.1))
+
+```plaintext
+-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqDz5Qo0/v6UUx
+IdC3Nl/1We8Q1v+557o1t18VpMobUx8R50rS6OsuedAobaBWCcx5l3kMl14Nmb2r
+c/a75OiZaUnq6GlgEjBV9PT1q65nUCyALN7LoePeO4ZaBntOgSHmLVeje1ZO7H+X
+FLATmURsO+u56r4qJ5Dtv7hA/W4jLgzybfJSk1/JqOpC6iVU4D4GhUfCc+U09Jm7
+QBU+21718gRi0oHzmPqXRtLW4KA7uy+Mjt1RB/cPUStwqAK4oFlX1wkCbdUG3SVP
+WufOLLsTpxI44la2fy9+XXUbRHsne+9QPiVlhZTtA9uIFSiKOHSsV0zlpgXn5o35
+mwcPD0sZAgMBAAECggEAASwlZgFCPKld40FUQuHFQUKd+H6Vo8P6ZNgUopMQxlBz
+5I001wW+aAMfUXAJYh5415ZuQg0hxl6QJV2heVkngLXuSbLRgH/k78Abwj0tRiQS
+MniyDohZXapeZOzU2SKLHR756DQiUQf7YeDFd//KA3mu8zNa8p0e4tdmtKKqqY5r
+AQoaiRksrFPAa/m54h5veojUFyyKk4wpqw11NZBNVnL16I0r26MZ/ZS6wLO/QK9J
+PKRBfGe5IYE5B64wWZz64Ns0/7d7jEmfuE9+M4tQ3IsFdHmRXVtHken7PFSunU3Y
+lDK/Ozchh4z2w46pCA+mvpiLhwbZKeZt/PNTol0KgQKBgQDCUO3XW7Xtiu8maj2U
+fzdZD1hGnnJrBnx+5YpvFVVGwlKV3OYu2ulOJhRBJEAN38+nXfxA+zld+s0U8zKM
+AeC5XhgtwfPddA5DsT2KZRnA/S5y9WivBbcbUTWlFo37BHq8CFveO8jYEBlx7Jn5
+0fcH4LKTJicICpfz8KgiYTkT4QKBgQDgCxtOUHRhb36Cv/GslyfA0NoeUXJGGadK
+xxiO02WqnWeD87M+5wn4izrg9p30Cdac5zAMPPKmXC1JcVebRqlwSWVrNN88Kl2P
+mFQIfyk4rjE77N6xFPwOlvuI1IF2OrqiBbFPBaYHvNAr7reRRhSWHDeWxKpqgdiI
+ccbXQbWeOQKBgQCYC1sPN+OSizO1i0vD9gcI2Mjp+PDubZTcdh9r6/Vd+I9GVCKI
+ZyJG0+TlU8gLEyUYgKHw9qJctvHhgqn6gz2jzcx9gVWf4j+HGBhfQdx09aZyrTPM
+P1yXM2QWWR+fWlHu71ty+LSe23oNemTA5Vm2AEu6eA/yatebOKNWw1w2AQKBgGJ3
+HyodG/kSqlRGja2fxR3t7F70xrdeYPLxa66h5AXHJg6NFZMosW4lqtviJ2tww3yz
+8p7+TlqlGlYz1R/uP1uVNliWpSHpMLOCbDRLxs8dZ5ABu6GyKlEzNBtf4gIXL50z
+yUiEoAK4jfkw8kaLuVJ71kaR6p/ir0rQTmaef3apAoGARpMuYivBXLwb5h3E3XAe
+zTimXlFEJSRRtZv9lxjbv4h8uSO5p6loK8hyaBwQ2zWtWKuHVS1TdhgNtL29uehH
+HgPhljkoZQ1cI2opPVwbznG5aCcjaNMRfeQmbN037/aWciS3WwxtM4Ayn6apZPXM
+hOd+icEvFHFpU1N2PAnyHsg=
+-----END PRIVATE KEY-----
+```
+
+## 3. Step 1 - PEM 키 생성하기
+
+PEM 키를 생성하는 방법은 여러 가지가 있지만 이번 글에서는 SSH 원격 접속 용도로 활용할 것이므로 SSH 키를 PEM 파일로 변환하는 방법을 선택하겠습니다.
+`ssh-keygen`을 사용하려면 OpenSSH가 설치되어 있어야 합니다.
+Windows 10 이상에서는 기본적으로 OpenSSH 클라이언트가 설치되어 있습니다.
+OpenSSH가 설치되어 있다면 먼저 서버에 원격 접속하려는 컴퓨터에서 다음과 같이 `ssh-keygen` 명령을 사용하여 PEM 키를 생성합니다.
+
+```bash
+cd ~/.ssh
+ssh-keygen -t rsa -b 2048 -m PEM -f my_key.pem
+```
+
+위의 명령어를 설명하자면 다음과 같습니다.
+
+- `-t rsa`  
+  RSA 알고리즘 사용
+- `-b 2048`  
+  키 길이를 2048 비트로 설정(기본은 2048 비트)
+- `-m PEM`  
+  OpenSSL과 호환되는 PEM 형식 사용
+- `-f my_key.pem`  
+  생성할 파일의 경로와 이름을 지정
+
+<br />
+
+명령어를 실행하면 다음과 같은 결과를 얻습니다.
+
+![PEM 키 생성](/images/raspberry-pi/pem/pic1.avif)
+
+![PEM 키 생성](/images/raspberry-pi/pem/pic2.avif)
+
+여기서 `my_key.pem`은 개인 키, `my_key.pem.pub`은 공개 키입니다.
+개인 키는 `./ssh/my_key.pem`과 같이 보관하며, 공개 키는 원격 접속 대상 서버에 전달해야 합니다.
+
+## 4. Step 2 - authorized_keys에 공개 키 추가하기
+
+먼저 위에서 생성한 공개 키를 원격 접속 대상 서버에 추가해야 합니다.
+`복사-붙여넣기`로 추가하거나, 아니면 다음과 같이 SCP 명령어를 활용하여 파일을 전송한 후 추가할 수 있습니다.
+
+```bash
+scp my_key.pem.pub root@192.XXX.XX.XXX:.ssh/my_key.pem.pub
+```
+
+![authorized_keys에 공개 키 추가하기](/images/raspberry-pi/pem/pic3.avif)
+
+![authorized_keys에 공개 키 추가하기](/images/raspberry-pi/pem/pic4.avif)
+
+이후 공개 키를 Raspberry Pi의 `~/.ssh/authorized_keys` 파일에 추가합니다.
+
+```bash
+cat my_key.pem.pub >> ~/.ssh/authorized_keys
+```
+
+또는 권한 문제로 안되는 경우 다음 방식으로 직접 파일을 열고 공개 키를 추가할 수 있습니다.
+
+```bash
+sudo nano authorized_keys
+```
+
+authorized_keys 파일에 공개 키를 추가하였으면 다음 명령어를 입력하여 불필요한 공개 키 파일을 삭제합니다.
+
+```bash
+sudo rm -rf my_key.pem.pub
+```
+
+## 5. Step 3 - PEM 키로 SSH 원격 접속하기
+
+공개 키를 추가하였으면 이제 PEM 키를 사용하여 비밀번호 없이도 SSH 원격 접속이 가능합니다. 다음 명령어를 입력하여 SSH 원격 접속이 잘 되는지 확인합니다.
+
+```bash
+ssh -i my_key.pem root@192.XXX.XX.XXX
+```
+
+## 6. Step 4 - SSH Config 설정하기
+
+위의 PEM 키로 원격 접속하는 방식은 항상 PEM 키가 존재하는 폴더에서 SSH 명령어를 입력해야하는 불편함이 있습니다.
+SSH의 `config`를 설정하면 좀 더 편리하게 SSH 원격 접속을 할 수 있습니다.
+먼저 다음과 같이 서버에 원격 접속하려는 컴퓨터의 `~/.ssh` 경로에 `config` 파일을 생성합니다.
+
+![config 파일](/images/raspberry-pi/pem/pic5.avif)
+
+이후 다음과 같이 SSH Config를 설정합니다.
+
+```plaintext
+Host raspi-local
+    HostName 192.XXX.XX.XXX
+    User root
+    IdentityFile ~/.ssh/my_key.pem
+    Port 22
+```
+
+설정 내용에 대해 설명하자면 다음과 같습니다.
+
+- `Host raspi-local`  
+  접속에 사용할 별칭(Alias)
+- `HostName 192.XXX.XX.XXX`  
+  원격 접속 대상 서버의 IP 주소 또는 도메인
+- `User root`  
+  로그인할 사용자 이름
+- `IdentityFile ~/.ssh/my_key.pem`  
+  사용할 개인 키 파일 경로
+- `Port 22`  
+  SSH 포트 번호 (Default: 22)
+
+<br />
+
+설정한 후 아래와 같이 편리하게 SSH 원격 접속을 할 수 있습니다.
+
+```bash
+ssh raspi-local
+```
+
+![SSH 원격 접속](/images/raspberry-pi/pem/pic6.avif)
+
+## 7. 참고 자료
+
+- [https://namu.wiki/w/PEM](https://namu.wiki/w/PEM)

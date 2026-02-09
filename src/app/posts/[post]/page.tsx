@@ -107,6 +107,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2024-12-13-react-native-tailwind-css" },
     { post: "2024-12-28-react-native-splash-screen" },
     { post: "2025-01-27-github-template" },
+    { post: "2025-01-29-pem" },
     { post: "2025-03-12-fsd" },
   ];
 }
