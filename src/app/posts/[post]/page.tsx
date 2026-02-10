@@ -117,6 +117,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-02-13-browser-rendering-process" },
     { post: "2025-02-16-debounce-throttle" },
     { post: "2025-02-18-troubleshooting-react-native-modal-in-flatlist" },
+    { post: "2025-02-19-ffmpeg" },
     { post: "2025-03-12-fsd" },
   ];
 }
