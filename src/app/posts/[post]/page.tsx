@@ -115,6 +115,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-02-07-typescript" },
     { post: "2025-02-10-javascript-this" },
     { post: "2025-02-13-browser-rendering-process" },
+    { post: "2025-02-16-debounce-throttle" },
     { post: "2025-03-12-fsd" },
   ];
 }
