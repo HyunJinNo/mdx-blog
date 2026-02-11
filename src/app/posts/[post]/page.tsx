@@ -119,6 +119,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-02-18-troubleshooting-react-native-modal-in-flatlist" },
     { post: "2025-02-19-ffmpeg" },
     { post: "2025-02-20-webm-webp-avif" },
+    { post: "2025-02-21-img-vs-background-image" },
     { post: "2025-03-12-fsd" },
   ];
 }
