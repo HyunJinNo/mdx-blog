@@ -121,6 +121,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-02-20-webm-webp-avif" },
     { post: "2025-02-21-img-vs-background-image" },
     { post: "2025-02-24-event-loop" },
+    { post: "2025-03-04-controlled-and-uncontrolled-component" },
     { post: "2025-03-12-fsd" },
   ];
 }
