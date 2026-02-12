@@ -126,6 +126,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-03-10-javascript-prototype" },
     { post: "2025-03-12-fsd" },
     { post: "2025-04-07-fsd-example-nextjs" },
+    { post: "2025-04-08-fsd-example-react-native" },
   ];
 }
 
