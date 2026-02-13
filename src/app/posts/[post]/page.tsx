@@ -139,6 +139,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-06-19-react-native-apk" },
     { post: "2025-06-23-disjoint-set" },
     { post: "2025-08-03-eclipse-lombok" },
+    { post: "2025-10-01-lis" },
   ];
 }
 
