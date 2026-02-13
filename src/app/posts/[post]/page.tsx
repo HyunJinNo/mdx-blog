@@ -130,6 +130,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-04-11-createportal-modal" },
     { post: "2025-04-11-sitemap-robotstxt" },
     { post: "2025-04-13-cookie" },
+    { post: "2025-04-14-origin-and-site" },
   ];
 }
 
