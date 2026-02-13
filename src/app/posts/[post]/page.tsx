@@ -132,6 +132,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-04-13-cookie" },
     { post: "2025-04-14-origin-and-site" },
     { post: "2025-04-27-nextjs-docker" },
+    { post: "2025-05-29-react-native-dotenv" },
   ];
 }
 
