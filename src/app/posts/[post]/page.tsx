@@ -147,6 +147,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-12-07-font-optimization" },
     { post: "2025-12-09-purgecss" },
     { post: "2025-12-19-qrcode" },
+    { post: "2026-01-19-mitm" },
   ];
 }
 

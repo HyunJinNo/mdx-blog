@@ -1,0 +1,177 @@
+export const metadata = {
+  title: "중간에서 만나기 (Meet in the Middle) 알고리즘",
+  description:
+    "중간에서 만나기 (Meet in the Middle) 알고리즘에 대해 정리한 페이지입니다.",
+  date: "2026-01-19 00:00:00 +/-TTTT",
+  categories: ["Algorithms"],
+  tags: ["algorithm"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/algorithms/computer.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> Algorithm
+
+## 1. 개요
+
+`중간에서 만나기(Meet in the Middle)` 알고리즘에 대해 정리한 페이지입니다.
+
+## 2. 중간에서 만나기 (Meet in the Middle)
+
+### 2.1. 개념
+
+`중간에서 만나기(MITM, Meet in the Middle)` 알고리즘은 하나의 그룹에 대해 `완전 탐색(Brute Force)`을 하면 경우의 수가 너무 커서 불가능할 때,
+**두 개의 그룹으로 나누어 각각 계산한 뒤 중간에서 결과를 합쳐 시간을 줄이는 알고리즘**입니다.
+
+### 2.2. 특징
+
+`중간에서 만나기` 알고리즘의 특징은 원래 집합을 절반으로 분할한 뒤, 각 절반에서 가능한 모든 경우의 수를 계산한 후, 두 결과를 합친다는 점입니다.
+중간에서 만나기 알고리즘은 다음 3단계로 이루어집니다.
+
+1. `문제 분할`  
+   원래 집합을 절반으로 분할합니다.
+2. `부분 문제 해결`  
+   각 절반에서 가능한 모든 경우의 수를 계산합니다.
+3. `결과 결합`  
+   두 결과를 **정렬 / 해시 / 이분 탐색**으로 결합합니다.
+
+### 2.3. 동작 원리
+
+원소의 개수가 40개인 배열이 있을 때, 합의 특정 값 S가 되는 부분 집합이 존재하는지 확인한다면,
+2<sup>40</sup>(=1,099,511,627,776)개의 모든 부분 집합을 탐색해야 하므로 사실상 불가능합니다.
+하지만 `중간에서 만나기` 알고리즘을 통해 전체 배열을 절반으로 나누어
+첫 번째 반의 모든 부분 집합의 합 A와 두 번째 반의 모든 부분집합의 합 B에 대해 `A + B = S`가 되는 조합을 찾을 수 있습니다.
+
+## 3. Example
+
+- [1208번: 부분수열의 합 2](https://www.acmicpc.net/problem/1208)
+
+  ```javascript
+  const path = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+  const input = require("fs").readFileSync(path).toString().split("\n");
+
+  // N: 정수의 개수, 1 <= N <= 40
+  // S: 합, -1_000_000 <= S <= 1_000_000
+  const [N, S] = input[0].split(" ").map(Number);
+  const arr = input[1].split(" ").map(Number); // -100_000 <= arr[i] <= 100_000
+
+  const leftArr = arr.slice(0, Math.floor(N / 2));
+  const rightArr = arr.slice(Math.floor(N / 2));
+
+  const getSubsetSums = (arr) => {
+    const result = [];
+
+    const dfs = (index, sum) => {
+      if (index === arr.length) {
+        result.push(sum);
+        return;
+      }
+
+      // 해당 원소를 포함하는 경우
+      dfs(index + 1, sum + arr[index]);
+
+      // 해당 원소를 포함하지 않는 경우
+      dfs(index + 1, sum);
+    };
+
+    dfs(0, 0);
+
+    return result;
+  };
+
+  const leftSums = getSubsetSums(leftArr);
+  const rightSums = new Map();
+
+  for (const rightSum of getSubsetSums(rightArr)) {
+    rightSums.set(rightSum, (rightSums.get(rightSum) ?? 0) + 1);
+  }
+
+  rightSums.set(0, rightSums.get(0) - 1);
+
+  let answer = 0;
+
+  for (const leftSum of leftSums) {
+    if (leftSum === S) {
+      answer++;
+    }
+
+    if (rightSums.has(S - leftSum)) {
+      answer += rightSums.get(S - leftSum);
+    }
+  }
+
+  console.log(S === 0 ? answer - 1 : answer);
+  ```
+
+- [1450번: 냅색문제](https://www.acmicpc.net/problem/1450)
+
+  ```javascript
+  const path = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+  const input = require("fs").readFileSync(path).toString().split("\n");
+
+  // N: 물건의 수, 1 <= N <= 30
+  // C: 최대 용량, 0 <= C <= 1_000_000_000
+  const [N, C] = input[0].split(" ").map(Number);
+  const arr = input[1].split(" ").map(Number); // 1 <= arr[i] <= 1_000_000_000
+
+  const leftArr = arr.slice(0, Math.floor(N / 2));
+  const rightArr = arr.slice(Math.floor(N / 2));
+
+  const getSubsetSums = (arr) => {
+    const result = [];
+
+    const dfs = (index, sum) => {
+      if (index === arr.length) {
+        result.push(sum);
+        return;
+      }
+
+      // 해당 원소를 포함하는 경우
+      dfs(index + 1, sum + arr[index]);
+
+      // 해당 원소를 포함하지 않는 경우
+      dfs(index + 1, sum);
+    };
+
+    dfs(0, 0);
+
+    return result;
+  };
+
+  const leftSums = getSubsetSums(leftArr);
+  const rightSums = getSubsetSums(rightArr).sort((a, b) => a - b);
+  let answer = 0;
+
+  for (const leftSum of leftSums) {
+    if (leftSum > C) {
+      continue;
+    }
+
+    let left = -1;
+    let right = rightSums.length;
+
+    while (left + 1 < right) {
+      const mid = Math.floor((left + right) / 2);
+      const rightSum = rightSums[mid];
+
+      if (leftSum + rightSum <= C) {
+        left = mid;
+      } else {
+        right = mid;
+      }
+    }
+
+    answer += left + 1;
+  }
+
+  console.log(answer);
+  ```
+
+## 4. 참고 자료
+
+- [Meet in the middle / 중간에서 만나기](https://killerwhale0917.tistory.com/5)
+- [밋 인더 미들 (Meet in the middle, 중간에서 만나기) 알고리즘 (백준 BOJ 1450)](https://restudycafe.tistory.com/523)
