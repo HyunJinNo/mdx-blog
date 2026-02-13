@@ -137,6 +137,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-05-30-react-native-path-alias" },
     { post: "2025-06-15-react-native-toast" },
     { post: "2025-06-19-react-native-apk" },
+    { post: "2025-06-23-disjoint-set" },
   ];
 }
 
