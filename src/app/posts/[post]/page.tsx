@@ -144,6 +144,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-11-19-localtunnel" },
     { post: "2025-11-21-webrtc-example-part-1" },
     { post: "2025-12-05-image-lazy-loading" },
+    { post: "2025-12-07-font-optimization" },
   ];
 }
 
