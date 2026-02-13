@@ -1,0 +1,185 @@
+export const metadata = {
+  title: "QR 코드",
+  description: "QR 코드에 대해 정리한 페이지입니다.",
+  date: "2025-12-19 00:00:00 +/-TTTT",
+  categories: ["Front-end"],
+  tags: ["react", "qr-code"],
+  math: true,
+  toc: true,
+  pin: false,
+  imagePath: "/images/front-end/qrcode/pic1.avif",
+  comments: true,
+};
+
+> **<u>Tags</u>**
+>
+> React, QR Code
+
+## 1. 개요
+
+`QR 코드`에 대해 정리한 페이지입니다.
+
+## 2. QR 코드
+
+### 2.1. QR 코드란?
+
+`QR 코드 (Quick Response Code)`는 2차원 바코드의 한 종류로,
+기존의 1차원 바코드보다 훨씬 많은 정보를 저장할 수 있으며 빠른 인식이 가능하도록 설계된 코드입니다.
+
+### 2.2. QR 코드의 특징
+
+QR 코드의 특징은 다음과 같습니다.
+
+- `빠른 인식 속도`  
+  3개의 **위치 탐지 패턴** 덕분에 어느 방향에서도 즉시 인식할 수 있으며, 360도 모든 방향에서 빠른 스캔이 가능합니다.
+- `대용량 데이터 저장`  
+  1차원 바코드와 달리 가로, 세로 두 방향으로 데이터를 저장하여 대용량의 데이터를 저장할 수 있습니다.
+
+  | 데이터 유형            | 최대 저장 용량 |
+  | ---------------------- | -------------- |
+  | 숫자                   | 7089자         |
+  | 영문                   | 4296자         |
+  | 바이너리 데이터(8비트) | 2953자         |
+  | 한자                   | 1817자         |
+
+- `오류 정정(Error Correction) 기능`  
+  Reed-Solomon 코드를 이용하여 QR 코드의 일부가 찢어지거나 가려지는 등 일부가 훼손되어도 데이터를 복원할 수 있습니다.
+
+  | 레벨             | 복원 가능 비율 |
+  | ---------------- | -------------- |
+  | **L** (Low)      | 약 7%          |
+  | **M** (Medium)   | 약 15%         |
+  | **Q** (Quartile) | 약 25%         |
+  | **H** (High)     | 약 30%         |
+
+### 2.3. QR 코드의 구조
+
+QR 코드는 다음과 같이 정확한 의미를 가진 패턴들로 구성됩니다.
+
+#### 2.3.1. 위치 탐지 패턴 (Finder Pattern)
+
+![위치 탐지 패턴 (Finder Pattern)](/images/front-end/qrcode/pic2.avif)
+
+위치 탐지 패턴은 우측 하단을 제외한 **좌상단 / 우상단 / 좌하단**에 위치한 정사각형입니다.
+이 위치 탐지 패턴을 통해 QR 코드의 회전 방향과 위치를 식별할 수 있으므로 어느 방향이나 각도에서 QR 코드를 찍어도 정확하고 빠르게 인식할 수 있습니다.
+
+#### 2.3.2. 정렬 패턴 (Alignment Pattern)
+
+![정렬 패턴 (Alignment Pattern)](/images/front-end/qrcode/pic3.avif)
+
+버전 2부터 추가된 정렬 패턴은 QR 코드의 중앙 또는 우하단 근처에 위치합니다.
+정렬 패턴은 QR 코드의 크기가 커지더라도 정방향이 아닌 방향에서 QR 코드를 인식할 수 있게 원근 왜곡을 보정하는 역할을 합니다.
+
+#### 2.3.3. 타이밍 패턴 (Timing Pattern)
+
+![타이밍 패턴 (Timing Pattern)](/images/front-end/qrcode/pic4.avif)
+
+타이밍 패턴은 좌상단의 Finder와 우상단의 Finder 사이, 그리고 좌상단의 Finder와 좌하단의 Finder 사이에 위치하는,
+검은색과 흰색이 교대로 배열된 1 모듈 너비의 선입니다.
+타이밍 패턴은 스캐너가 각 모듈의 좌표와 크기를 보정하는 기준선 역할을 합니다.
+즉, 카메라가 왜곡되어도 정확한 격자를 복원할 수 있게 됩니다.
+
+#### 2.3.4. 버전 정보
+
+![버전 정보 / 버전 2](/images/front-end/qrcode/pic5.avif)
+
+QR 코드 크기는 버전으로 정의됩니다. 최초로 개발된 QR 버전 1은 `21 x 21`셀이었으며, 크기를 4셀씩 확장하면서 버전을 늘렸으며,
+최신 버전인 40은 `177 x 177`셀로 이루어져 있습니다.
+
+| 버전 | 크기      |
+| ---- | --------- |
+| 1    | 21 x 21   |
+| 2    | 25 x 25   |
+| 3    | 29 x 29   |
+| ...  | ...       |
+| 40   | 177 x 177 |
+
+#### 2.3.5. 포맷 정보 (Format Information)
+
+포맷 정보는 위치 탐지 패턴 주변에 고정된 영역으로, 오류 정정 수준(5비트 / L(01), M(00), Q(11), H(10))과 마스크 패턴 정보를 포함합니다.
+
+#### 2.3.6. 데이터 영역
+
+URL, 텍스트, 숫자 등 실제 저장 데이터와 오류 정정 코드워드(Reed-Solomon)가 오른쪽 아래부터 지그재그 패턴으로 배열됩니다.
+
+#### 2.3.7. 여백
+
+여백은 QR 코드 주변 최소 4셀 너비의 공백 영역으로, 배경과 QR 코드를 명확히 구분하여 스캐너가 영역을 정확히 인식하도록 하는 역할을 합니다.
+
+### 2.4. React에서 QR 코드 생성하기
+
+React에서 QR 코드를 생성하기 위해선 다음 2가지 라이브러리 중 하나를 선택할 수 있습니다.
+
+#### 2.4.1. qrcode
+
+[soldair/node-qrcode: qr code generator](https://github.com/soldair/node-qrcode)
+
+`qrcode` 라이브러리는 서버(Node.js)와 클라이언트에서 모두 사용이 가능하며, PNG, SVG, Data URL, Canvas 등 다양한 출력 방법을 지원합니다.
+
+```bash
+npm install qrcode
+npm install --save-dev @types/qrcode
+```
+
+```typescript
+import { useEffect, useRef } from "react";
+import QRCode from "qrcode";
+
+export const QrcodePage = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!canvasRef.current) {
+      return;
+    }
+
+    QRCode.toCanvas(canvasRef.current, "https://hyunjinno.github.io/", {
+      width: 128,
+      errorCorrectionLevel: "L",
+    });
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center gap-8 py-40">
+      <canvas ref={canvasRef} />
+    </div>
+  );
+};
+```
+
+![qrcode](/images/front-end/qrcode/pic6.avif)
+
+#### 2.4.2. qrcode.react
+
+[zpao/qrcode.react: A \<QRCode /> component for use with React.](https://github.com/zpao/qrcode.react)
+
+`qrcode.react` 라이브러리는 React 전용 QR 코드 라이브러리로, 컴포넌트 형태로 매우 간단하게 사용할 수 있습니다.
+
+```bash
+npm install qrcode.react
+```
+
+```typescript
+import { QRCodeSVG } from "qrcode.react";
+
+export const QrcodeReactPage = () => {
+  return (
+    <div className="flex flex-col items-center gap-8 py-40">
+      <QRCodeSVG value="https://hyunjinno.github.io/" />
+    </div>
+  );
+};
+```
+
+![qrcode.react](/images/front-end/qrcode/pic7.avif)
+
+## 3. 참고 자료
+
+- [QR코드, 정사각형 속 숨겨진 비밀 : 네이버 블로그](https://m.blog.naver.com/with_msip/222412884297)
+- [QR 코드의 해부학: 그 구성 요소와 사용법을 알아보세요.](https://www.qrcode-tiger.com/ko/anatomy-of-a-qr-code)
+- [QR 코드란 무엇입니까?｜ 2D 코드의 기본｜"바코드의 지식과 힌트" 바코드의 규격이나 판독 노하우의 참고 사이트 | KEYENCE](https://www.keyence.co.kr/ss/products/auto_id/barcode_lecture/basic_2d/qr/)
+- [QR코드 - 나무위키](https://namu.wiki/w/QR%EC%BD%94%EB%93%9C)
+- [QR 코드 - 위키백과, 우리 모두의 백과사전](https://ko.wikipedia.org/wiki/QR_%EC%BD%94%EB%93%9C)
+- [Error correction feature | QRcode.com | DENSO WAVE](https://www.qrcode.com/en/about/error_correction.html)
+- [soldair/node-qrcode: qr code generator](https://github.com/soldair/node-qrcode)
+- [zpao/qrcode.react: A \<QRCode /> component for use with React.](https://github.com/zpao/qrcode.react)
