@@ -134,6 +134,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-04-27-nextjs-docker" },
     { post: "2025-05-29-react-native-dotenv" },
     { post: "2025-05-29-react-navigation" },
+    { post: "2025-05-30-react-native-path-alias" },
   ];
 }
 
