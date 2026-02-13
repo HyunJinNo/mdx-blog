@@ -129,6 +129,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-04-08-fsd-example-react-native" },
     { post: "2025-04-11-createportal-modal" },
     { post: "2025-04-11-sitemap-robotstxt" },
+    { post: "2025-04-13-cookie" },
   ];
 }
 
