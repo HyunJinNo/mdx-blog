@@ -24,7 +24,7 @@ export const PostCard = ({
   return (
     <article>
       <Link
-        className="group relative flex h-45 flex-row justify-between rounded-md border border-gray-200 shadow"
+        className="group relative flex min-h-45 flex-row justify-between rounded-md border border-gray-200 shadow"
         href={`/posts/${postPath}`}
       >
         <div className="absolute top-0 right-0 bottom-0 left-0 z-10 rounded-md duration-300 hover:bg-gray-200/30" />
@@ -46,7 +46,7 @@ export const PostCard = ({
         </div>
         <div className="relative h-45 min-w-80">
           <Image
-            className="rounded-r-md"
+            className="rounded-r-md object-cover"
             src={imagePath}
             alt="preview Image"
             fill={true}
