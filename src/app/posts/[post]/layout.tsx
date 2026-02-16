@@ -1,3 +1,4 @@
+import { convertDateFormat } from "@/shared/lib/utils";
 import { PostMetadata } from "@/shared/model";
 import Image from "next/image";
 
@@ -37,7 +38,10 @@ export default async function MdxLayout({
         <p className="mb-6 text-lg">{metadata.description}</p>
         <div className="text-custom-gray flex flex-col gap-4 text-sm">
           <span>
-            Posted: <time>{metadata.date.toDateString()}</time>
+            Posted{" "}
+            <time className="font-medium">
+              {convertDateFormat(metadata.date)}
+            </time>
           </span>
           <div className="relative aspect-video">
             <Image

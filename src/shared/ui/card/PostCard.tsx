@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendar } from "@react-icons/all-files/fa/FaRegCalendar";
 import { FaFolderOpen } from "@react-icons/all-files/fa/FaFolderOpen";
+import { convertDateFormat } from "@/shared/lib/utils";
 
 interface PostCardProps {
   title: string;
@@ -35,7 +36,7 @@ export const PostCard = ({
           <div className="text-custom-gray mt-4 flex flex-row items-center gap-7">
             <div className="flex flex-row items-center gap-2">
               <FaRegCalendar className="text-sm" />
-              <time className="text-sm">{date.toDateString()}</time>
+              <time className="text-sm">{convertDateFormat(date)}</time>
             </div>
             <div className="flex flex-row items-center gap-2">
               <FaFolderOpen />
