@@ -16,7 +16,7 @@ export const getPostList = async () => {
         title: metadata.title,
         description: metadata.description,
         date: metadata.date,
-        category: metadata.categories[0],
+        category: metadata.category,
         imagePath: metadata.imagePath,
         postPath: file.split(".")[0],
       };

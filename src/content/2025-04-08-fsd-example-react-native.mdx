@@ -2,14 +2,11 @@ export const metadata = {
   title: "[개발 기록] React Native 프로젝트에 FSD 아키텍처 적용하기",
   description:
     "React Native 프로젝트에서 FSD 아키텍처를 적용하면서 경험한 내용에 대해 정리한 페이지입니다.",
-  date: "2025-04-08 16:28:00 +/-TTTT",
-  categories: ["Front-end"],
+  date: new Date("2025-04-08"),
+  category: "Front-end",
   tags: ["react-native", "fsd", "development-history", "typescript", "mobile"],
-  math: true,
-  toc: true,
   pin: false,
   imagePath: "/images/front-end/fsd-example-react-native/pic0.webp",
-  comments: true,
 };
 
 > **<u>Tags</u>**
@@ -1012,7 +1009,7 @@ export const DiaryUpdateScreen = ({
 
 반면에, `RootStackScreenProps` 타입을 사용하면 다음과 같이 FSD 아키텍처의 단방향 의존성 원칙을 깨뜨리지 않을 수 있습니다.
 
-```tsx
+```typescript
 /* @src/pages/ui/DiaryUpdateScreen.tsx */
 
 import { DiaryUpdateEditor } from "@src/widgets/diaryUpdateEditor";

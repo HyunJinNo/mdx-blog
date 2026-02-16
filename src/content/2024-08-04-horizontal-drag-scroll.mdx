@@ -3,14 +3,11 @@ import { Video } from "@/shared/ui/video";
 export const metadata = {
   title: "좌우 드래그 스크롤 구현 방법",
   description: "좌우 드래그 스크롤 구현 방법에 대해 설명하는 페이지입니다.",
-  date: "2024-08-04 00:00:00 +/-TTTT",
-  categories: ["Front-end"],
+  date: new Date("2024-08-04"),
+  category: "Front-end",
   tags: ["typescript", "nextjs"],
-  math: true,
-  toc: true,
   pin: false,
   imagePath: "/images/front-end/front-end.avif",
-  comments: true,
 };
 
 > **<u>Tags</u>**
@@ -300,11 +297,11 @@ export default function useDragScroll(): DragScrollType {
 
 다음과 같이 좌우 드래그 스크롤을 적용할 HTML 태그 요소에 이벤트를 등록합니다.
 
-```tsx
+```typescript
 const scrollHook = useDragScroll();
 ```
 
-```tsx
+```typescript
 <div
   className="overflow-x-auto"
   ref={scrollHook.listRef}

@@ -37,7 +37,7 @@ export default async function MdxLayout({
         <p className="mb-6 text-lg">{metadata.description}</p>
         <div className="text-custom-gray flex flex-col gap-4 text-sm">
           <span>
-            Posted: <time>{metadata.date}</time>
+            Posted: <time>{metadata.date.toDateString()}</time>
           </span>
           <div className="relative aspect-video">
             <Image

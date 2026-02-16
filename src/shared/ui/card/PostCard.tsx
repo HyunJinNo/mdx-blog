@@ -6,7 +6,7 @@ import { FaFolderOpen } from "@react-icons/all-files/fa/FaFolderOpen";
 interface PostCardProps {
   title: string;
   description: string;
-  date: string;
+  date: Date;
   category: string;
   imagePath: string;
   postPath: string;
@@ -35,7 +35,7 @@ export const PostCard = ({
           <div className="text-custom-gray mt-4 flex flex-row items-center gap-7">
             <div className="flex flex-row items-center gap-2">
               <FaRegCalendar className="text-sm" />
-              <time className="text-sm">{date}</time>
+              <time className="text-sm">{date.toDateString()}</time>
             </div>
             <div className="flex flex-row items-center gap-2">
               <FaFolderOpen />
