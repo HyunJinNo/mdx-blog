@@ -18,6 +18,7 @@ export const getPostList = async () => {
         date: metadata.date,
         category: metadata.category,
         imagePath: metadata.imagePath,
+        tagList: metadata.tags,
         postPath: file.split(".")[0],
       };
     }),
