@@ -1,6 +1,6 @@
-import { PostMetadata } from "@/shared/model";
 import fs from "fs";
 import path from "path";
+import { PostMetadata } from "./postMetadata";
 
 const postsDirectory = path.join(process.cwd(), "src/content");
 
