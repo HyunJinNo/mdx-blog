@@ -1,14 +1,14 @@
-import { PostMetadata } from "@/shared/model";
 import fs from "fs";
 import path from "path";
+import { PostMetadata } from "./postMetadata";
 
 const postsDirectory = path.join(process.cwd(), "src/content");
 
 export const getPostList = async () => {
-  const files = fs.readdirSync(postsDirectory);
+  const fileList = fs.readdirSync(postsDirectory);
 
-  const posts = await Promise.all(
-    files.reverse().map(async (file) => {
+  const postList = await Promise.all(
+    fileList.reverse().map(async (file) => {
       const mod = await import(`@/content/${file}`);
       const metadata: PostMetadata = mod.metadata;
 
@@ -23,5 +23,5 @@ export const getPostList = async () => {
     }),
   );
 
-  return posts;
+  return postList;
 };

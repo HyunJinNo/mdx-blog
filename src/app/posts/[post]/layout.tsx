@@ -1,5 +1,5 @@
+import { PostMetadata } from "@/entities/post";
 import { convertDateFormat } from "@/shared/lib/utils";
-import { PostMetadata } from "@/shared/model";
 import Image from "next/image";
 
 export async function generateMetadata({
