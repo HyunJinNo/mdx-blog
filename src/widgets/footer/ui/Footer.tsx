@@ -1,13 +1,15 @@
 export const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="text-custom-gray h-20 w-full border-t border-gray-200 py-4 text-xs">
       <p>
-        © <time>2026</time> {/* TODO */}
+        © <time>{year}</time>
         <a
           className="font-medium underline-offset-4 hover:text-teal-500 hover:underline"
           href="https://github.com/HyunJinNo"
         >
-          {"HyunJinNo. "}
+          {" HyunJinNo. "}
         </a>
         <span className="group relative">
           Some rights reserved.
