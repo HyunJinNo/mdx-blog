@@ -1,3 +1,4 @@
+export { getArchiveList } from "./model/getArchiveList";
 export { getPostList } from "./model/getPostList";
 export { getRecentlyUpdatedPostList } from "./model/getRecentlyUpdatedPostList";
 export { getTrendingTagList } from "./model/getTrendingTagList";

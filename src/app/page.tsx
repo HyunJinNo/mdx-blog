@@ -9,7 +9,7 @@ export default async function Home() {
     <main className="flex flex-col gap-8 dark:bg-black">
       {postList.slice(0, 10).map((post) => (
         <PostCard
-          key={post.title}
+          key={post.postPath}
           title={post.title}
           description={post.description}
           date={post.date}
