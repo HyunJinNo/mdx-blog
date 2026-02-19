@@ -14,6 +14,6 @@ export const getCategoryList = async () => {
   return categoryList.map((value) => ({
     title: value[0],
     count: value[1],
-    categoryPath: value[0].toLowerCase(),
+    categoryPath: value[0],
   }));
 };

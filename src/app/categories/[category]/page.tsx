@@ -1,5 +1,5 @@
 import { getPostListByCategory } from "@/entities/post";
-import { convertDateFormat, decodeText } from "@/shared/lib/utils";
+import { convertDateFormat } from "@/shared/lib/utils";
 import Link from "next/link";
 import { FaFolderOpen } from "@react-icons/all-files/fa/FaFolderOpen";
 
@@ -9,7 +9,7 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const decodedCategory = decodeText(category);
+  const decodedCategory = decodeURIComponent(category);
 
   return {
     title: decodedCategory,
@@ -23,7 +23,7 @@ export default async function Page({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  const decodedCategory = decodeText(category);
+  const decodedCategory = decodeURIComponent(category);
   const postList = await getPostListByCategory(decodedCategory);
 
   return (
