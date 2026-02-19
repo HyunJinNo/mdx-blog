@@ -8,8 +8,8 @@ export const TrendingTagList = async () => {
     <section className="flex w-full flex-col gap-4 border-l border-gray-200 pb-4 pl-4">
       <h2 className="font-medium text-[#585858]">Trending Tags</h2>
       <div className="flex flex-wrap gap-2">
-        {tagList.map((tag) => (
-          <TrendingTag key={tag} title={tag} />
+        {tagList.map((tagName) => (
+          <TrendingTag key={tagName} tagName={tagName} />
         ))}
       </div>
     </section>
