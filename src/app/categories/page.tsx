@@ -1,4 +1,4 @@
-import { CategoryCard } from "@/entities/post";
+import { CategoryCard, getCategoryList } from "@/entities/post";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,11 +6,20 @@ export const metadata: Metadata = {
   description: "Catetories 페이지",
 };
 
-export default function Page() {
+export default async function Page() {
+  const categoryList = await getCategoryList();
+
   return (
     <main className="flex w-full flex-col gap-8 dark:bg-black">
       <h1 className="text-[2rem] font-bold">Categories</h1>
-      <CategoryCard />
+      {categoryList.map((category) => (
+        <CategoryCard
+          key={category.categoryPath}
+          title={category.title}
+          count={category.count}
+          categoryPath={category.categoryPath}
+        />
+      ))}
     </main>
   );
 }
