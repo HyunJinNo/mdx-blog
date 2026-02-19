@@ -1,5 +1,4 @@
-import { getPostList } from "@/entities/post";
-import { PostCard } from "@/shared/ui/card";
+import { getPostList, PostCard } from "@/entities/post";
 import { Pagination } from "@/shared/ui/pagination";
 import { notFound } from "next/navigation";
 
