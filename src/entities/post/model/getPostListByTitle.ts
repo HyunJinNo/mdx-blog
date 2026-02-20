@@ -1,7 +1,7 @@
-import { getPostList } from "./getPostList";
+import { getAllPostList } from "./getAllPostList";
 
 export const getPostListByTitle = async (title: string) => {
-  const postList = await getPostList();
+  const postList = await getAllPostList();
 
   return postList.filter((post) =>
     post.title

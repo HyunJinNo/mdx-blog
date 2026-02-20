@@ -1,7 +1,7 @@
-import { getPostList } from "./getPostList";
+import { getAllPostList } from "./getAllPostList";
 
 export const getArchiveList = async () => {
-  const postList = await getPostList();
+  const postList = await getAllPostList();
   const postMap = new Map<number, typeof postList>();
 
   postList.forEach((post) => {

@@ -1,4 +1,4 @@
-import { getPostList, PostCard } from "@/entities/post";
+import { getAllPostList, PostCard } from "@/entities/post";
 import { Pagination } from "@/shared/ui/pagination";
 import { notFound } from "next/navigation";
 
@@ -14,7 +14,7 @@ export default async function Page({
     notFound();
   }
 
-  const postList = await getPostList();
+  const postList = await getAllPostList();
 
   return (
     <main className="flex flex-col gap-8 dark:bg-black">

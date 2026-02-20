@@ -4,7 +4,7 @@ import { PostMetadata } from "./postMetadata";
 
 const postsDirectory = path.join(process.cwd(), "src/content");
 
-export const getPostList = async () => {
+export const getAllPostList = async () => {
   const fileList = fs.readdirSync(postsDirectory);
 
   const postList = await Promise.all(
