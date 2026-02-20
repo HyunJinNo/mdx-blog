@@ -60,17 +60,18 @@ export default async function RootLayout({
         <Sidebar />
         <div className="flex w-full flex-col pr-7 pl-75">
           <Header />
-          <SearchResultViewer postList={postList} />
-          <div className="mt-12 flex w-full flex-row justify-between gap-8 pl-6">
-            <div className="flex w-full min-w-0 flex-col gap-12">
-              {children}
-              <Footer />
+          <SearchResultViewer postList={postList}>
+            <div className="mt-12 flex w-full flex-row justify-between gap-8 pl-6">
+              <div className="flex w-full min-w-0 flex-col gap-12">
+                {children}
+                <Footer />
+              </div>
+              <div className="flex w-70 flex-col gap-16">
+                <RecentlyUpdatedPostList />
+                <TrendingTagList />
+              </div>
             </div>
-            <div className="flex w-70 flex-col gap-16">
-              <RecentlyUpdatedPostList />
-              <TrendingTagList />
-            </div>
-          </div>
+          </SearchResultViewer>
           <aside className="fixed right-20 bottom-15">
             <ScrollToTopButton />
           </aside>

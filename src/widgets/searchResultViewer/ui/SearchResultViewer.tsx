@@ -12,9 +12,13 @@ interface SearchResultViewerProps {
     tagList: string[];
     postPath: string;
   }[];
+  children: React.ReactNode;
 }
 
-export const SearchResultViewer = ({ postList }: SearchResultViewerProps) => {
+export const SearchResultViewer = ({
+  postList,
+  children,
+}: SearchResultViewerProps) => {
   const [searchResultList, setSearchResultList] = useState<
     {
       title: string;
@@ -41,6 +45,10 @@ export const SearchResultViewer = ({ postList }: SearchResultViewerProps) => {
   useEffect(() => {
     updateSearchResultList(input);
   }, [input]);
+
+  if (input === "") {
+    return children;
+  }
 
   return (
     <div className="w-full px-6">
