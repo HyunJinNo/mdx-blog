@@ -3,6 +3,7 @@
 import { useSearchInputStore } from "@/features/searchPostListByTitle";
 import { useEffect, useEffectEvent, useState } from "react";
 import { SearchResult } from "./SearchResult";
+import { useDebounce } from "@/shared/lib/hooks";
 
 interface SearchResultViewerProps {
   postList: {
@@ -28,19 +29,20 @@ export const SearchResultViewer = ({
       postPath: string;
     }[]
   >([]);
-
-  const updateSearchResultList = useEffectEvent((input: string) => {
-    setSearchResultList(
-      postList.filter((post) =>
-        post.title
-          .replaceAll(" ", "")
-          .toLowerCase()
-          .includes(input.replaceAll(" ", "").toLowerCase()),
-      ),
-    );
-  });
-
   const { input } = useSearchInputStore();
+
+  const updateSearchResultList = useEffectEvent(
+    useDebounce((input: string) => {
+      setSearchResultList(
+        postList.filter((post) =>
+          post.title
+            .replaceAll(" ", "")
+            .toLowerCase()
+            .includes(input.replaceAll(" ", "").toLowerCase()),
+        ),
+      );
+    }, 100),
+  );
 
   useEffect(() => {
     updateSearchResultList(input);
