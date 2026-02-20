@@ -1,9 +1,16 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSearchInputStore } from "../model/searchInputStore";
+import { usePathname } from "next/navigation";
 
 export const SearchInput = () => {
-  const { input, setSearchInputState } = useSearchInputStore();
+  const { input, initialize, setSearchInputState } = useSearchInputStore();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    initialize();
+  }, [initialize, pathname]);
 
   return (
     <input
