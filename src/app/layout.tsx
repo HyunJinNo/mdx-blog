@@ -33,6 +33,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link
+          rel="icon"
+          href="/images/icon/falling-star-logo.webp"
+          sizes="any"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function () {
