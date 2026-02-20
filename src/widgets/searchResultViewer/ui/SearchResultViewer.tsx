@@ -1,8 +1,8 @@
 "use client";
 
-import { SearchResult } from "@/entities/post";
 import { useSearchInputStore } from "@/features/searchPostListByTitle";
 import { useEffect, useEffectEvent, useState } from "react";
+import { SearchResult } from "./SearchResult";
 
 interface SearchResultViewerProps {
   postList: {
