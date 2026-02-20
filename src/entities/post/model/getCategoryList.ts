@@ -1,7 +1,7 @@
-import { getPostList } from "./getPostList";
+import { getAllPostList } from "./getAllPostList";
 
 export const getCategoryList = async () => {
-  const postList = await getPostList();
+  const postList = await getAllPostList();
   const categoryMap = new Map<string, number>();
 
   postList.forEach((post) => {

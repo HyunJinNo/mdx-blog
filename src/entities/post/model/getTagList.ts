@@ -1,7 +1,7 @@
-import { getPostList } from "./getPostList";
+import { getAllPostList } from "./getAllPostList";
 
 export const getTagList = async () => {
-  const postList = await getPostList();
+  const postList = await getAllPostList();
   const tagMap = new Map<string, number>();
 
   postList.forEach((post) => {
