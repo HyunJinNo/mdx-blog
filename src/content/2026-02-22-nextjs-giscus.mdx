@@ -1,0 +1,233 @@
+export const metadata = {
+  title: "Next.js Giscus 사용 방법",
+  description:
+    "Next.js 프로젝트에서 Giscus 사용 방법에 대해 정리한 페이지입니다.",
+  date: new Date("2026-02-22"),
+  category: "Front-end",
+  tags: ["typescript", "nextjs", "giscus"],
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+};
+
+> **<u>Tags</u>**
+>
+> TypeScript, Next.js, Giscus
+
+## 1. 개요
+
+Next.js 프로젝트에서 Giscus 사용 방법에 대해 정리한 페이지입니다.
+
+## 2. Giscus 사용하기
+
+### 2.1. Step 1 - Discussions 기능 활성화하기
+
+먼저 Discussions 기능을 활성화해야 합니다.
+다음과 같이 Giscus에 연결할 **Public 저장소**에서 `Settings > General`로 이동한 후
+Discussions 항목을 체크하여 Discussions 기능을 활성화합니다.
+
+![Settings 탭](/images/front-end/nextjs-giscus/pic1.avif)
+
+![General](/images/front-end/nextjs-giscus/pic2.avif)
+
+![Discussions 활성화](/images/front-end/nextjs-giscus/pic3.avif)
+
+![Discussions 기능](/images/front-end/nextjs-giscus/pic4.avif)
+
+### 2.2. Step 2 - Giscus 앱 설치하기
+
+[GitHub Apps - giscus](https://github.com/apps/giscus)에 접속하여 Giscus 앱을 설치한 후, 해당 저장소에 권한을 부여합니다.
+
+![Giscus 앱 설치](/images/front-end/nextjs-giscus/pic5.avif)
+
+![Giscus 앱 설치](/images/front-end/nextjs-giscus/pic6.avif)
+
+![권한 부여하기](/images/front-end/nextjs-giscus/pic7.avif)
+
+![권한 부여 완료](/images/front-end/nextjs-giscus/pic8.avif)
+
+### 2.3. Step 3 - Giscus 설정값 설정하기
+
+[giscus](https://giscus.app/ko)에 접속하여 저장소, 테마 등을 설정합니다.
+
+#### 2.3.1. 저장소 설정
+
+위에서 설정한 저장소 이름을 입력하면 됩니다. 아래와 같이 `"통과했습니다! 이 저장소는 모든 조건을 만족합니다."`가 표시되면 성공한 것입니다.
+
+![저장소 설정](/images/front-end/nextjs-giscus/pic9.avif)
+
+#### 2.3.2. 페이지 ↔️ Discussions 연결
+
+페이지와 Discussion을 연결할 방법을 선택합니다. 저는 `pathname` 방식을 선택하였습니다.
+
+![페이지 ↔️ Discussions 연결](/images/front-end/nextjs-giscus/pic10.avif)
+
+#### 2.3.3. Discussion 카테고리
+
+새 Discussion이 만들어질 카테고리를 설정합니다. 저는 Giscus에서 권장하는 `Announcements` 카테고리를 선택하였습니다.
+
+![Discussion 카테고리](/images/front-end/nextjs-giscus/pic11.avif)
+
+#### 2.3.4. 기능
+
+추가 기능을 선택합니다. 저의 경우 초기 로딩 속도를 고려하여 지연 로딩 기능을 추가하였습니다.
+
+![기능](/images/front-end/nextjs-giscus/pic12.avif)
+
+#### 2.3.5. 테마
+
+마지막으로 원하는 Giscus 테마를 선택합니다.
+
+![테마](/images/front-end/nextjs-giscus/pic13.avif)
+
+#### 2.3.6. giscus 사용
+
+Giscus 설정 이후에 다음과 같은 script 태그가 표시됩니다. 추후 해당 정보를 사용하기 위해 복사해 둡니다.
+
+```html
+<script
+  src="https://giscus.app/client.js"
+  data-repo="HyunJinNo/mdx-blog"
+  data-repo-id="R_kgDOQ9dfZA"
+  data-category="Announcements"
+  data-category-id="DIC_kwDOQ9dfZM4C285K"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="ko"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+```
+
+### 2.4. @giscus/react 패키지 설치하기
+
+Giscus를 React 프레임워크인 Next.js 프로젝트에서 사용할 예정이므로 단순히 script 태그를 사용하는 것보단, wrapper를 사용하는 것이 좋습니다.
+다음 명령어를 입력하여 @giscus/react 패키지를 설치합니다.
+
+```bash
+npm i @giscus/react
+```
+
+### 2.5. Comment 컴포넌트 만들기
+
+다음과 같이 Comment 컴포넌트를 생성합니다. **Giscus는 클라이언트 사이드에서 동작하므로 해당 컴포넌트를 클라이언트 컴포넌트로 선언해야 합니다.**
+repo, repoId 등의 값들은, script 태그에 있는 prop들을 옮기면 됩니다.
+
+> **<u>Info.</u>**
+>
+> div 태그를 사용할 필요는 없습니다. 저의 경우 블로그 게시글과의 간격 유지를 위해 사용하였습니다.
+
+```typescript
+/* @/features/comment/ui/Comment.tsx */
+
+"use client";
+
+import Giscus from "@giscus/react";
+
+export const Comment = () => {
+  return (
+    <div className="mt-20">
+      <Giscus
+        id="comments"
+        repo="HyunJinNo/mdx-blog"
+        repoId="R_kgDOQ9dfZA"
+        category="Announcements"
+        categoryId="DIC_kwDOQ9dfZM4C285K"
+        mapping="pathname"
+        strict="0"
+        reactionsEnabled="1"
+        emitMetadata="0"
+        inputPosition="bottom"
+        theme="preferred_color_scheme"
+        lang="ko"
+        loading="lazy"
+      />
+    </div>
+  );
+};
+```
+
+### 2.6. Giscus 사용 예시
+
+다음과 같이 블로그 게시글 하단에 댓글 기능을 추가하였습니다.
+
+```typescript
+import { PostMetadata } from "@/entities/post";
+import { Comment } from "@/features/comment";
+import { convertDateFormat } from "@/shared/lib/utils";
+import Image from "next/image";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ post: string }>;
+}) {
+  const { post } = await params;
+  const mod = await import(`@/content/${post}.mdx`);
+  const metadata: PostMetadata = mod.metadata;
+
+  return {
+    title: metadata.title,
+    description: metadata.description,
+  };
+}
+
+export default async function MdxLayout({
+  params,
+  children,
+}: {
+  params: Promise<{ post: string }>;
+  children: React.ReactNode;
+}) {
+  const { post } = await params;
+  const mod = await import(`@/content/${post}.mdx`);
+  const metadata: PostMetadata = mod.metadata;
+
+  // Create any shared layout or styles here
+  return (
+    <main className="flex w-full flex-col">
+      <header className="mb-8 flex flex-col">
+        <h1 className="mb-2 text-3xl font-semibold text-black">
+          {metadata.title}
+        </h1>
+        <p className="mb-6 text-lg">{metadata.description}</p>
+        <div className="text-custom-gray flex flex-col gap-4 text-sm">
+          <span>
+            Posted{" "}
+            <time className="font-medium">
+              {convertDateFormat(metadata.date)}
+            </time>
+          </span>
+          <div className="relative aspect-video">
+            <Image
+              className="rounded-xl border border-gray-100 bg-gray-100 object-cover"
+              src={metadata.imagePath}
+              alt="Preview Image"
+              fill={true}
+            />
+          </div>
+          <div className="flex flex-row items-center justify-between">
+            <span>By HyunJinNo</span>
+            <span>10 min read</span>
+          </div>
+        </div>
+      </header>
+      {children}
+      <Comment />
+    </main>
+  );
+}
+```
+
+![Giscus 사용 예시](/images/front-end/nextjs-giscus/pic14.avif)
+
+![Giscus 사용 예시](/images/front-end/nextjs-giscus/pic15.avif)
+
+## 3. 참고 자료
+
+- [giscus/giscus: A commenting system powered by GitHub Discussions.](https://github.com/giscus/giscus)
+- [giscus/giscus-component: Component library for giscus, a comment system powered by GitHub Discussions.](https://github.com/giscus/giscus-component)
