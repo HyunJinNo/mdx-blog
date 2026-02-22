@@ -92,7 +92,7 @@ const components = {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           {...props}
-          className="rounded-lg border border-gray-200 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
+          className="cursor-zoom-in rounded-lg border border-gray-200 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
           alt={props.alt}
         />
       </PhotoView>

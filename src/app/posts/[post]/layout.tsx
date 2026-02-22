@@ -49,7 +49,7 @@ export default async function MdxLayout({
             <div className="relative aspect-video">
               <PhotoView src={metadata.imagePath}>
                 <Image
-                  className="rounded-xl border border-gray-100 bg-gray-100 object-cover"
+                  className="cursor-zoom-in rounded-xl border border-gray-100 bg-gray-100 object-cover"
                   src={metadata.imagePath}
                   alt="Preview Image"
                   fill={true}
