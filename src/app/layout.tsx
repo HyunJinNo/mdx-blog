@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "react-photo-view/dist/react-photo-view.css";
 import { Sidebar } from "@/widgets/sidebar";
 import localFont from "next/font/local";
 import { Header } from "@/widgets/header";
