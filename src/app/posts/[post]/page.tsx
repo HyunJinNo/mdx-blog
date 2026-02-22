@@ -149,6 +149,7 @@ export function generateStaticParams(): { post: string }[] {
     { post: "2025-12-19-qrcode" },
     { post: "2026-01-19-mitm" },
     { post: "2026-02-20-troubleshooting-nextjs-module-not-found" },
+    { post: "2026-02-22-nextjs-giscus" },
   ];
 }
 
