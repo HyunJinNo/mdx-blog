@@ -1,4 +1,5 @@
 import { PostMetadata } from "@/entities/post";
+import { Comment } from "@/features/comment";
 import { convertDateFormat } from "@/shared/lib/utils";
 import Image from "next/image";
 
@@ -53,11 +54,12 @@ export default async function MdxLayout({
           </div>
           <div className="flex flex-row items-center justify-between">
             <span>By HyunJinNo</span>
-            <span>10 min read</span>
+            <span>10 min read(TODO)</span>
           </div>
         </div>
       </header>
       {children}
+      <Comment />
     </main>
   );
 }
