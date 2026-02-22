@@ -1,6 +1,7 @@
 import { PostMetadata } from "@/entities/post";
 import { Comment } from "@/features/comment";
 import { convertDateFormat } from "@/shared/lib/utils";
+import { PhotoProvider, PhotoView } from "@/shared/ui/photo";
 import Image from "next/image";
 
 export async function generateMetadata({
@@ -31,35 +32,39 @@ export default async function MdxLayout({
 
   // Create any shared layout or styles here
   return (
-    <main className="flex w-full flex-col">
-      <header className="mb-8 flex flex-col">
-        <h1 className="mb-2 text-3xl font-semibold text-black">
-          {metadata.title}
-        </h1>
-        <p className="mb-6 text-lg">{metadata.description}</p>
-        <div className="text-custom-gray flex flex-col gap-4 text-sm">
-          <span>
-            Posted{" "}
-            <time className="font-medium">
-              {convertDateFormat(metadata.date)}
-            </time>
-          </span>
-          <div className="relative aspect-video">
-            <Image
-              className="rounded-xl border border-gray-100 bg-gray-100 object-cover"
-              src={metadata.imagePath}
-              alt="Preview Image"
-              fill={true}
-            />
+    <PhotoProvider>
+      <main className="flex w-full flex-col">
+        <header className="mb-8 flex flex-col">
+          <h1 className="mb-2 text-3xl font-semibold text-black">
+            {metadata.title}
+          </h1>
+          <p className="mb-6 text-lg">{metadata.description}</p>
+          <div className="text-custom-gray flex flex-col gap-4 text-sm">
+            <span>
+              Posted{" "}
+              <time className="font-medium">
+                {convertDateFormat(metadata.date)}
+              </time>
+            </span>
+            <div className="relative aspect-video">
+              <PhotoView src={metadata.imagePath}>
+                <Image
+                  className="rounded-xl border border-gray-100 bg-gray-100 object-cover"
+                  src={metadata.imagePath}
+                  alt="Preview Image"
+                  fill={true}
+                />
+              </PhotoView>
+            </div>
+            <div className="flex flex-row items-center justify-between">
+              <span>By HyunJinNo</span>
+              <span>10 min read(TODO)</span>
+            </div>
           </div>
-          <div className="flex flex-row items-center justify-between">
-            <span>By HyunJinNo</span>
-            <span>10 min read(TODO)</span>
-          </div>
-        </div>
-      </header>
-      {children}
-      <Comment />
-    </main>
+        </header>
+        {children}
+        <Comment />
+      </main>
+    </PhotoProvider>
   );
 }
