@@ -73,18 +73,48 @@ const components = {
     </code>
   ),
   h2: ({ children }) => (
-    <h2 className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-semibold text-black">
+    <h2
+      className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-semibold text-black"
+      id={children
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-가-힣]/g, "")}
+    >
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="mt-10 mb-4 text-xl font-semibold text-black">{children}</h3>
+    <h3
+      className="mt-10 mb-4 text-xl font-semibold text-black"
+      id={children
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-가-힣]/g, "")}
+    >
+      {children}
+    </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="mt-8 mb-4 text-lg font-semibold text-black">{children}</h4>
+    <h4
+      className="mt-8 mb-4 text-lg font-semibold text-black"
+      id={children
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-가-힣]/g, "")}
+    >
+      {children}
+    </h4>
   ),
   h5: ({ children }) => (
-    <h5 className="mt-6 mb-2 font-semibold text-black">{children}</h5>
+    <h5
+      className="mt-6 mb-2 font-semibold text-black"
+      id={children
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-가-힣]/g, "")}
+    >
+      {children}
+    </h5>
   ),
   img: (props) => (
     <span className="my-2 flex items-center justify-center">
