@@ -1,9 +1,37 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useEffect, useEffectEvent, useState } from "react";
 
 export const TableOfContents = () => {
   const pathname = usePathname();
+  const [headingList, setHeadingList] = useState<
+    { tagName: string; textContent: string; id: string }[]
+  >([]);
+
+  const updateHeadingList = useEffectEvent(
+    (arr: { tagName: string; textContent: string; id: string }[]) => {
+      setHeadingList(arr);
+    },
+  );
+
+  useEffect(() => {
+    const arr = [];
+
+    for (const element of document.body.getElementsByTagName("main")[0]
+      .children) {
+      if (["H2", "H3", "H4", "H5", "H6"].includes(element.tagName)) {
+        arr.push({
+          tagName: element.tagName,
+          textContent: element.textContent,
+          id: element.id,
+        });
+      }
+    }
+
+    console.log(arr);
+    updateHeadingList(arr);
+  }, []);
 
   if (!pathname.startsWith("/posts")) {
     return null;
@@ -13,7 +41,38 @@ export const TableOfContents = () => {
     <section className="animate-fade-up sticky top-12 flex w-full flex-col gap-4 border-l border-gray-200 pb-4 pl-4">
       <h2 className="font-medium text-[#585858]">Contents</h2>
       <nav>
-        <ul></ul>
+        <ul className="text-custom-gray flex flex-col gap-2.5 text-sm">
+          {headingList.map((heading) => (
+            <li key={heading.id}>
+              <a
+                className="hover:text-custom-blue"
+                href={`#${heading.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  const element = document.getElementById(heading.id);
+
+                  if (element) {
+                    // 요소의 위치를 얻어서 위로 스크롤 조정
+                    const offset = 30;
+                    const elementTop = element.getBoundingClientRect().top;
+                    const scrollTop =
+                      window.pageYOffset || document.documentElement.scrollTop;
+
+                    window.scrollTo({
+                      top: scrollTop + elementTop - offset,
+                      behavior: "smooth",
+                    });
+
+                    window.history.pushState(null, "", `#${heading.id}`);
+                  }
+                }}
+              >
+                {heading.textContent}
+              </a>
+            </li>
+          ))}
+        </ul>
       </nav>
     </section>
   );
