@@ -10,6 +10,7 @@ import { ScrollToTopButton } from "@/features/scrollToTop";
 import { Footer } from "@/widgets/footer";
 import { SearchResultViewer } from "@/widgets/searchResultViewer";
 import { getAllPostList } from "@/entities/post";
+import { TableOfContents } from "@/entities/toc";
 
 const pretendardFont = localFont({
   src: "./PretendardVariable.woff2",
@@ -70,6 +71,7 @@ export default async function RootLayout({
               <div className="flex w-70 flex-col gap-16">
                 <RecentlyUpdatedPostList />
                 <TrendingTagList />
+                <TableOfContents />
               </div>
             </div>
           </SearchResultViewer>
