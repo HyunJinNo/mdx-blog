@@ -20,7 +20,7 @@ export default async function Page() {
             <ul>
               {postMap.get(year)!.map((post) => (
                 <li
-                  className="flex h-12 flex-row items-center gap-2 odd:bg-linear-to-r odd:from-[#FBFCFD] odd:to-white"
+                  className="flex h-12 flex-row items-center gap-2 odd:bg-linear-to-r odd:from-[#FBFCFD] odd:to-white odd:dark:from-[#111111] odd:dark:via-[#222222] odd:dark:to-white/5"
                   key={post.postPath}
                 >
                   <span className="w-6">
@@ -33,7 +33,7 @@ export default async function Page() {
                   </span>
                   <Link
                     key={post.postPath}
-                    className="text-custom-blue text-lg underline-offset-4 hover:text-teal-500 hover:underline"
+                    className="text-custom-blue text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
                     href={`/posts/${post.postPath}`}
                   >
                     {post.title}

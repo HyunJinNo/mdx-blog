@@ -60,7 +60,7 @@ export default async function RootLayout({
       </head>
       <body className="flex flex-row">
         <Sidebar />
-        <div className="flex w-full flex-col pr-7 pl-75">
+        <div className="flex w-full flex-col bg-white pr-7 pl-75 transition-colors duration-300 dark:bg-black">
           <Header />
           <SearchResultViewer postList={postList}>
             <div className="mt-12 flex w-full flex-row justify-between gap-8 pl-6">

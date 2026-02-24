@@ -14,7 +14,7 @@ import { PhotoView } from "./shared/ui/photo";
 const components = {
   a: ({ children, href }) => (
     <Link
-      className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline"
+      className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
       href={href}
     >
       {children}
@@ -46,9 +46,9 @@ const components = {
           (promptType === "Environment" ||
             promptType === "Info." ||
             promptType === "Tags") &&
-            "bg-[#E1F5FE]",
-          promptType === "Caution" && "bg-[#FFF3CD]",
-          "relative mt-2 mb-4 flex flex-col -space-y-4 rounded-xl pt-4 pr-4 pl-12 text-[#2E2E2EC4]",
+            "bg-[#E1F5FE] dark:bg-[#073B68CC]",
+          promptType === "Caution" && "bg-[#FFF3CD] dark:bg-[#5A4503E0]",
+          "relative mt-2 mb-4 flex flex-col -space-y-4 rounded-xl pt-4 pr-4 pl-12 text-[#2E2E2EC4] dark:text-[#D8D4D4BF]",
         ].join(" ")}
       >
         {promptType === "Tips" && (
@@ -68,13 +68,13 @@ const components = {
     );
   },
   code: ({ children }) => (
-    <code className="rounded-md bg-[#E7F3F8] px-1.25 py-0.75 text-sm font-normal text-[#337EA9]">
+    <code className="rounded-md bg-[#E7F3F8] px-1.25 py-0.75 text-sm font-normal text-[#337EA9] dark:bg-white/25 dark:text-[#C9DEF1]">
       {children}
     </code>
   ),
   h2: ({ children }) => (
     <h2
-      className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-semibold text-black"
+      className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-semibold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -85,7 +85,7 @@ const components = {
   ),
   h3: ({ children }) => (
     <h3
-      className="mt-10 mb-4 text-xl font-semibold text-black"
+      className="mt-10 mb-4 text-xl font-semibold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -96,7 +96,7 @@ const components = {
   ),
   h4: ({ children }) => (
     <h4
-      className="mt-8 mb-4 text-lg font-semibold text-black"
+      className="mt-8 mb-4 text-lg font-semibold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -107,7 +107,7 @@ const components = {
   ),
   h5: ({ children }) => (
     <h5
-      className="mt-6 mb-2 font-semibold text-black"
+      className="mt-6 mb-2 font-semibold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -140,7 +140,7 @@ const components = {
       props.children.props?.className.split("-")[1] ?? "plaintext";
 
     return (
-      <div className="mt-2 mb-5 flex flex-col rounded-xl border border-gray-200 bg-white p-1 text-sm leading-5.5 shadow">
+      <div className="mt-2 mb-5 flex flex-col rounded-xl border border-gray-200 bg-white p-1 text-sm leading-5.5 shadow dark:bg-neutral-300">
         <div className="flex h-9 flex-row items-center justify-between px-2 text-[#A3A3A3]">
           <div className="flex flex-row items-center gap-1.5 text-xs">
             <FaCircle className="text-red-400" />
@@ -176,13 +176,13 @@ const components = {
   table: ({ children }) => <table className="mb-6">{children}</table>,
   td: ({ children }) => <td className="px-4 py-2">{children}</td>,
   th: ({ children }) => (
-    <th className="bg-white px-4 text-start">{children}</th>
+    <th className="bg-white px-4 text-start dark:bg-black">{children}</th>
   ),
   thead: ({ children }) => (
     <thead className="h-10 border-b-2 border-gray-200">{children}</thead>
   ),
   tr: ({ children }) => (
-    <tr className="h-10 border-b border-gray-200 odd:bg-[#FBFCFD]">
+    <tr className="dark:border-custom-gray h-10 border-b border-gray-200 odd:bg-[#FBFCFD] odd:dark:bg-white/5">
       {children}
     </tr>
   ),

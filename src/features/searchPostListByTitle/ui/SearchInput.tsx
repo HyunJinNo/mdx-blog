@@ -14,7 +14,7 @@ export const SearchInput = () => {
 
   return (
     <input
-      className="h-8 w-50 rounded-2xl pr-4 pl-9 outline-1 -outline-offset-2 outline-gray-200 focus:outline-gray-400"
+      className="h-8 w-50 rounded-2xl pr-4 pl-9 outline-1 -outline-offset-2 outline-gray-200 focus:outline-gray-400 dark:text-[#868686]"
       type="search"
       autoComplete="off"
       placeholder="Search..."

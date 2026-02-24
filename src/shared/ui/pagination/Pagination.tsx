@@ -10,7 +10,7 @@ interface PaginationProps {
 export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
   return (
     <nav className="flex h-7 items-center justify-center text-[#555555]">
-      <ul className="flex flex-row items-center gap-3">
+      <ul className="flex flex-row items-center gap-4">
         {/* 이전 페이지 */}
         <li>
           {currentPage === 1 ? (
@@ -19,7 +19,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </div>
           ) : (
             <Link
-              className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+              className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
               href={currentPage === 2 ? "/" : `page${currentPage - 1}`}
             >
               <FaChevronLeft />
@@ -33,7 +33,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             (page) => (
               <li key={page}>
                 <Link
-                  className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+                  className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
                   href={page === 1 ? "/" : `/page${page}`}
                 >
                   {page}
@@ -45,7 +45,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           <>
             <li>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
                 href="/"
               >
                 1
@@ -58,7 +58,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </li>
             <li>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
                 href={`page${currentPage - 1}`}
               >
                 {currentPage - 1}
@@ -85,7 +85,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           ).map((page) => (
             <li key={page}>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
                 href={`/page${page}`}
               >
                 {page}
@@ -96,7 +96,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           <>
             <li>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
                 href={`/page${currentPage + 1}`}
               >
                 {currentPage + 1}
@@ -109,7 +109,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </li>
             <li>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
                 href={`page${totalPages}`}
               >
                 {totalPages}
@@ -126,7 +126,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </div>
           ) : (
             <Link
-              className="flex h-7 items-center justify-center rounded-lg px-1.5 outline-gray-200 duration-150 hover:outline"
+              className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
               href={`/page${currentPage + 1}`}
             >
               <FaChevronRight />

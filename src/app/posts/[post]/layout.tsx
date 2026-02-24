@@ -35,7 +35,7 @@ export default async function MdxLayout({
     <PhotoProvider>
       <main className="flex w-full flex-col">
         <header className="mb-8 flex flex-col">
-          <h1 className="mb-2 text-3xl font-semibold text-black">
+          <h1 className="mb-2 text-3xl font-semibold text-black dark:text-white">
             {metadata.title}
           </h1>
           <p className="mb-6 text-lg">{metadata.description}</p>
@@ -56,10 +56,15 @@ export default async function MdxLayout({
                 />
               </PhotoView>
             </div>
-            <div className="flex flex-row items-center justify-between">
-              <span>By HyunJinNo</span>
-              <span>10 min read(TODO)</span>
-            </div>
+            <span>
+              By{" "}
+              <a
+                className="text-custom-gray font-semibold underline-offset-4 hover:text-teal-500 hover:underline dark:text-gray-400"
+                href="https://github.com/HyunJinNo"
+              >
+                HyunJinNo
+              </a>
+            </span>
           </div>
         </header>
         {children}
