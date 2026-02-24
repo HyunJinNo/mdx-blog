@@ -6,7 +6,11 @@ import { FaChevronRight } from "@react-icons/all-files/fa/FaChevronRight";
 
 export const Breadcrumb = () => {
   const pathname = usePathname();
-  const segments = pathname.split("/").filter(Boolean);
+  const segments = pathname
+    .split("/")
+    .filter(Boolean)
+    .filter((value) => value !== "posts")
+    .map(decodeURIComponent);
 
   return (
     <nav>
