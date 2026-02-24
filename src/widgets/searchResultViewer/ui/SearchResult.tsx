@@ -22,7 +22,7 @@ export const SearchResult = ({
       <header className="flex flex-col gap-2">
         <h2>
           <Link
-            className="text-custom-blue text-2xl font-semibold underline-offset-4 hover:text-teal-500 hover:underline"
+            className="text-custom-blue text-2xl font-semibold underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
             href={`/posts/${postPath}`}
           >
             {title}

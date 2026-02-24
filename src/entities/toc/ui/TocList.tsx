@@ -23,8 +23,8 @@ export const TocList = ({ activeId, tocNode }: TocListProps) => {
           tocNode.tagName === "H4" && "pl-10",
           tocNode.tagName === "H5" && "pl-13",
           activeId === tocNode.id &&
-            "text-custom-blue border-custom-blue -ml-px border-l font-medium",
-          "hover:text-custom-blue truncate",
+            "text-custom-blue border-custom-blue -ml-px border-l font-medium dark:border-blue-300 dark:text-blue-300",
+          "hover:text-custom-blue truncate hover:dark:text-blue-300",
         ].join(" ")}
         href={`#${tocNode.id}`}
         onClick={(e) => {

@@ -6,7 +6,9 @@ export const RecentlyUpdatedPostList = async () => {
 
   return (
     <section className="flex w-full flex-col gap-2 border-l border-gray-200 pb-4 pl-4">
-      <h2 className="font-medium text-[#585858]">Recently Updated</h2>
+      <h2 className="font-medium text-[#585858] dark:text-[#A7A7A7]">
+        Recently Updated
+      </h2>
       <ul className="ml-1 flex flex-col gap-1.5">
         {recentlyUpdatedPostList.map((post) => (
           <li key={post.postPath} className="truncate">
