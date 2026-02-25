@@ -33,3 +33,23 @@ export default async function Page({
     </main>
   );
 }
+
+export function generateStaticParams(): { page: string }[] {
+  return [
+    { page: "page2" },
+    { page: "page3" },
+    { page: "page4" },
+    { page: "page5" },
+    { page: "page6" },
+    { page: "page7" },
+    { page: "page8" },
+    { page: "page9" },
+    { page: "page10" },
+    { page: "page11" },
+    { page: "page12" },
+    { page: "page13" },
+    { page: "page14" },
+  ];
+}
+
+export const dynamicParams = false;

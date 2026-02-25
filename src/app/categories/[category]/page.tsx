@@ -56,3 +56,19 @@ export default async function Page({
     </main>
   );
 }
+
+export function generateStaticParams(): { category: string }[] {
+  return [
+    { category: "Algorithms" },
+    { category: "Back-end" },
+    { category: "Chess" },
+    { category: "Computer Science" },
+    { category: "Design Patterns" },
+    { category: "Front-end" },
+    { category: "Raspberry Pi" },
+    { category: "기타" },
+    { category: "네이버 부스트캠프 웹・모바일 9기" },
+  ];
+}
+
+export const dynamicParams = false;
