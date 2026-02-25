@@ -41,7 +41,7 @@ export default async function RootLayout({
       <head>
         <link
           rel="icon"
-          href="/images/icon/falling-star-logo.webp"
+          href="/mdx-blog/images/icon/falling-star-logo.webp"
           sizes="any"
         />
         <script
