@@ -60,7 +60,7 @@ Nginx을 사용하면 SSL 인증서를 적용할 수 있으므로 HTTPS를 적�
 sudo apt install nginx
 ```
 
-![Nginx 설치](/images/raspberry-pi/nginx/pic1.avif)
+![Nginx 설치](/mdx-blog/images/raspberry-pi/nginx/pic1.avif)
 
 ### 3.2. Nginx 설치 확인
 
@@ -70,7 +70,7 @@ sudo apt install nginx
 nginx -v
 ```
 
-![Nginx 설치 확인](/images/raspberry-pi/nginx/pic2.avif)
+![Nginx 설치 확인](/mdx-blog/images/raspberry-pi/nginx/pic2.avif)
 
 ## 4. Step 2 - Nginx 설정 파일 생성
 
@@ -81,7 +81,7 @@ cd /etc/nginx
 ls -l
 ```
 
-![Nginx 디렉토리 구조 확인](/images/raspberry-pi/nginx/pic3.avif)
+![Nginx 디렉토리 구조 확인](/mdx-blog/images/raspberry-pi/nginx/pic3.avif)
 
 주요 파일 및 디렉토리에 대해 설명하면 다음과 같습니다.
 
@@ -117,7 +117,7 @@ sudo touch myApp
 파일을 생성하면 다음 예제와 같이 서버 블록을 설정합니다.
 80번 포트에서 HTTP 요청을 수신하면 로컬 서버의 3000번 포트로 요청을 전달하게 됩니다.
 
-![리버스 프록시 서버 블록 설정](/images/raspberry-pi/nginx/pic4.avif)
+![리버스 프록시 서버 블록 설정](/mdx-blog/images/raspberry-pi/nginx/pic4.avif)
 
 주요 키워드에 설명하면 다음과 같습니다.
 
@@ -146,7 +146,7 @@ nginx에 대한 설정을 하기 위해선 `nginx.conf` 파일을 수정해야 �
 sudo nano /etc/nginx/nginx.conf
 ```
 
-![nginx.conf 파일](/images/raspberry-pi/nginx/pic5.avif)
+![nginx.conf 파일](/mdx-blog/images/raspberry-pi/nginx/pic5.avif)
 
 파일 내용에 대해 설명하자면 다음과 같습니다.
 
@@ -176,7 +176,7 @@ sudo nano /etc/nginx/nginx.conf
 
 위에서 활성화한 사이트 설정 파일을 가져오기 위해 다음과 같이 작성합니다.
 
-![활성화한 사이트 설정 파일 가져오기](/images/raspberry-pi/nginx/pic6.avif)
+![활성화한 사이트 설정 파일 가져오기](/mdx-blog/images/raspberry-pi/nginx/pic6.avif)
 
 ### 5.2. 80번 포트 열기
 
@@ -194,7 +194,7 @@ sudo ufw allow 80
 sudo nginx -t
 ```
 
-![설정 파일에 대한 문법 검사](/images/raspberry-pi/nginx/pic7.avif)
+![설정 파일에 대한 문법 검사](/mdx-blog/images/raspberry-pi/nginx/pic7.avif)
 
 문법 검사가 완료되면 다음 명령어를 입력하여 Nginx를 재시작합니다.
 
@@ -208,7 +208,7 @@ sudo systemctl restart nginx
 sudo systemctl status nginx
 ```
 
-![Nginx 설정 완료](/images/raspberry-pi/nginx/pic8.avif)
+![Nginx 설정 완료](/mdx-blog/images/raspberry-pi/nginx/pic8.avif)
 
 Nginx 설정이 완료되었음을 확인할 수 있습니다.
 
@@ -221,10 +221,10 @@ Nginx 설정이 성공적으로 이루어졌는지 확인해보겠습니다.
 pm2 start npm -- start
 ```
 
-![pm2로 서비스 실행](/images/raspberry-pi/nginx/pic9.avif)
+![pm2로 서비스 실행](/mdx-blog/images/raspberry-pi/nginx/pic9.avif)
 
 서비스가 실행되면 웹 사이트에 접속합니다.
 
-![80번 포트 사용](/images/raspberry-pi/nginx/pic10.avif)
+![80번 포트 사용](/mdx-blog/images/raspberry-pi/nginx/pic10.avif)
 
 위와 같이 포트 번호를 명시하지 않아도(= 80번 포트 사용) 서비스에 접속할 수 있음을 확인할 수 있습니다.

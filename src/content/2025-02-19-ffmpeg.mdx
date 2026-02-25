@@ -59,19 +59,19 @@ CLI로 사용할 수 있으며, 개발자들이 애플리케이션에 통합할 
 
 [Download FFmpeg](https://www.ffmpeg.org/download.html)
 
-![Download FFmpeg](/images/etc/ffmpeg/pic1.avif)
+![Download FFmpeg](/mdx-blog/images/etc/ffmpeg/pic1.avif)
 
-![Download FFmpeg](/images/etc/ffmpeg/pic2.avif)
+![Download FFmpeg](/mdx-blog/images/etc/ffmpeg/pic2.avif)
 
 #### 4.1.2. 환경 변수 등록하기
 
 다음과 같이 원하는 디렉토리에 압축 파일을 풀고 `bin` 폴더의 주소를 복사합니다. 저는 `로컬 디스크(C:)`를 선택했습니다.
 
-![로컬 디스크(C:)](/images/etc/ffmpeg/pic3.avif)
+![로컬 디스크(C:)](/mdx-blog/images/etc/ffmpeg/pic3.avif)
 
 이후 `시스템 환경 변수 편집`에 들어가서 다음과 같이 방금 복사한 `bin` 폴더의 주소를 환경 변수에 등록합니다.
 
-![환경 변수 등록](/images/etc/ffmpeg/pic4.avif)
+![환경 변수 등록](/mdx-blog/images/etc/ffmpeg/pic4.avif)
 
 ### 4.2. macOS
 
@@ -99,9 +99,9 @@ FFmpeg가 잘 설치되었는지 확인하기 위해 명령 프롬프트에서 `
 ffmpeg
 ```
 
-![Windows에서 버전 확인 결과](/images/etc/ffmpeg/pic5.avif)
+![Windows에서 버전 확인 결과](/mdx-blog/images/etc/ffmpeg/pic5.avif)
 
-![macOS에서 버전 확인 결과](/images/etc/ffmpeg/pic20.avif)
+![macOS에서 버전 확인 결과](/mdx-blog/images/etc/ffmpeg/pic20.avif)
 
 ## 5. Step 2 - FFmpeg 사용 예시
 
@@ -113,7 +113,7 @@ ffmpeg
 ffmpeg -i input.mp4
 ```
 
-![파일 정보 확인](/images/etc/ffmpeg/pic8.avif)
+![파일 정보 확인](/mdx-blog/images/etc/ffmpeg/pic8.avif)
 
 ### 5.2. 비디오 포맷 변환
 
@@ -121,7 +121,7 @@ ffmpeg -i input.mp4
 ffmpeg -i input.mp4 output.webm
 ```
 
-![파일 정보 확인](/images/etc/ffmpeg/pic7.avif)
+![파일 정보 확인](/mdx-blog/images/etc/ffmpeg/pic7.avif)
 
 ### 5.3. 이미지 포맷 변환
 
@@ -129,7 +129,7 @@ ffmpeg -i input.mp4 output.webm
 ffmpeg -i input.jpg output.webp
 ```
 
-![이미지 포맷 변환](/images/etc/ffmpeg/pic6.avif)
+![이미지 포맷 변환](/mdx-blog/images/etc/ffmpeg/pic6.avif)
 
 ### 5.4. 비디오 특정 구간 자르기
 
@@ -140,7 +140,7 @@ ffmpeg -i input.mp4 -ss 00:00:10 -to 00:00:25 output.mp4
 - `-ss 00:00:10`: 시작 시간
 - `-to 00:00:25`: 종료 시간
 
-![비디오 특정 구간 자르기](/images/etc/ffmpeg/pic9.avif)
+![비디오 특정 구간 자르기](/mdx-blog/images/etc/ffmpeg/pic9.avif)
 
 또는
 
@@ -151,7 +151,7 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 15 output.mp4
 - `-ss 00:00:10`: 시작 시간
 - `-t 15`: 지속 시간 (15초, 00:00:10 ~ 00:00:25)
 
-![비디오 특정 구간 자르기](/images/etc/ffmpeg/pic10.avif)
+![비디오 특정 구간 자르기](/mdx-blog/images/etc/ffmpeg/pic10.avif)
 
 ### 5.5. 해상도 변경 (720p)
 
@@ -159,7 +159,7 @@ ffmpeg -i input.mp4 -ss 00:00:10 -t 15 output.mp4
 ffmpeg -i input.mp4 -vf scale=1280:720 output.mp4
 ```
 
-![해상도 변경](/images/etc/ffmpeg/pic11.avif)
+![해상도 변경](/mdx-blog/images/etc/ffmpeg/pic11.avif)
 
 또는
 
@@ -167,7 +167,7 @@ ffmpeg -i input.mp4 -vf scale=1280:720 output.mp4
 ffmpeg -i input.mp4 -s 1280x720 output.mp4
 ```
 
-![해상도 변경](/images/etc/ffmpeg/pic13.avif)
+![해상도 변경](/mdx-blog/images/etc/ffmpeg/pic13.avif)
 
 ### 5.6. gif 생성
 
@@ -184,7 +184,7 @@ ffmpeg -i input.webm -vf "fps=15,scale=500:-1" output.gif
 - `fps=15`: 초당 15 프레임
 - `scale=500:-1`: 가로 500px, 비율 유지
 
-![gif 생성 1](/images/etc/ffmpeg/pic12.avif)
+![gif 생성 1](/mdx-blog/images/etc/ffmpeg/pic12.avif)
 
 #### 5.6.2. 방법 2
 
@@ -228,7 +228,7 @@ ffmpeg -i output.webm -ss 00:00:02 -to 00:00:04 -loop 0 output.webp
 
 - `-loop 0`: 애니메이션이 무한 반복되도록 설정
 
-![WebM을 Animated WebP로 만들기](/images/etc/ffmpeg/pic18.avif)
+![WebM을 Animated WebP로 만들기](/mdx-blog/images/etc/ffmpeg/pic18.avif)
 
 ### 5.8. 비디오에서 오디오 추출
 
@@ -239,7 +239,7 @@ ffmpeg -i input.mp4 -q:a 0 -map a output.mp3
 - `-q:a 0`: 최고 품질 오디오 유지
 - `-map a`: 오디오 스트림만 추출
 
-![비디오에서 오디오 추출](/images/etc/ffmpeg/pic14.avif)
+![비디오에서 오디오 추출](/mdx-blog/images/etc/ffmpeg/pic14.avif)
 
 ### 5.9. 비디오에서 이미지 추출
 
@@ -251,7 +251,7 @@ ffmpeg -i input.webm -ss 00:00:29.5 -frames:v 1 -q:v 1 output.avif
 - `-frames:v 1`: 프레임 하나만 추출
 - `-q:v 1`: 이미지 품질 (1이 가장 높고, 31이 가장 낮음)
 
-![비디오에서 이미지를 추출한 결과](/images/etc/ffmpeg/pic19.avif)
+![비디오에서 이미지를 추출한 결과](/mdx-blog/images/etc/ffmpeg/pic19.avif)
 
 ### 5.10. 여러 개의 비디오 병합
 
@@ -268,7 +268,7 @@ file input2.mp4
 ffmpeg -f concat -safe 0 -i file_list.txt -c copy output.mp4
 ```
 
-![여러 개의 비디오 병합](/images/etc/ffmpeg/pic15.avif)
+![여러 개의 비디오 병합](/mdx-blog/images/etc/ffmpeg/pic15.avif)
 
 ### 5.11. 여러 개의 오디오 병합
 
@@ -288,7 +288,7 @@ file 100-118.wav
 ffmpeg -f concat -safe 0 -i file_list.txt -c copy output.wav
 ```
 
-![여러 개의 오디오 병합](/images/etc/ffmpeg/pic17.avif)
+![여러 개의 오디오 병합](/mdx-blog/images/etc/ffmpeg/pic17.avif)
 
 ### 5.12. Windows에서 화면 녹화
 
@@ -312,7 +312,7 @@ ffmpeg -f gdigrab -framerate 30 -i desktop -vf "crop=iw:900:0:120" output.webm
 
 화면 녹화를 중단하고 저장하려면 FFmpeg이 실행 중인 터미널에서 `q` 키를 입력합니다.
 
-![FFmpeg으로 Windows 화면 녹화](/images/etc/ffmpeg/pic16.avif)
+![FFmpeg으로 Windows 화면 녹화](/mdx-blog/images/etc/ffmpeg/pic16.avif)
 
 ### 5.13. 사용할 수 있는 옵션
 

@@ -34,7 +34,7 @@ export const metadata = {
 
 이벤트 루프는 다음 요소들과 상호 작용합니다.
 
-![이벤트 루프는 콜 스택, Web API, 태스크 큐와 상호 작용합니다.](/images/cs/event-loop/pic1.avif)
+![이벤트 루프는 콜 스택, Web API, 태스크 큐와 상호 작용합니다.](/mdx-blog/images/cs/event-loop/pic1.avif)
 
 - `콜 스택(Call Stack)`  
   함수가 호출될 때 생성된 `실행 컨텍스트`를 저장하는 LIFO (Last-In-First-Out) 자료구조입니다.
@@ -94,56 +94,56 @@ console.log("D");
 1. **console.log("A");**  
    먼저 콜 스택에 `console.log("A");`가 추가되어 실행된 후 콜 스택에서 제거됩니다.
 
-   ![console.log('A');가 콜 스택에 추가](/images/cs/event-loop/pic2.avif)
+   ![console.log('A');가 콜 스택에 추가](/mdx-blog/images/cs/event-loop/pic2.avif)
 
-   ![console.log('A');가 콜 스택에서 제거](/images/cs/event-loop/pic3.avif)
+   ![console.log('A');가 콜 스택에서 제거](/mdx-blog/images/cs/event-loop/pic3.avif)
 
 2. **setTimeout(() => \{ console.log("B"); }, 0);**  
    `setTimeout` 코드가 콜 스택에 쌓인 후 `setTimeout`의 콜백 함수가 Web API로 옮겨지고 타이머가 작동합니다.
    타이머가 0초로 설정되었으므로 바로 타이머가 종료되고 콜백 함수가 매크로태스크 큐로 이동합니다.
 
-   ![setTimeout](/images/cs/event-loop/pic4.avif)
+   ![setTimeout](/mdx-blog/images/cs/event-loop/pic4.avif)
 
-   ![setTimeout](/images/cs/event-loop/pic5.avif)
+   ![setTimeout](/mdx-blog/images/cs/event-loop/pic5.avif)
 
-   ![setTimeout](/images/cs/event-loop/pic6.avif)
+   ![setTimeout](/mdx-blog/images/cs/event-loop/pic6.avif)
 
 3. **Promise.resolve("C").then((res) => console.log(res));**  
    `Promise` 코드가 콜 스택에 쌓인 후 `then`의 콜백 함수가 마이크로태스크 큐로 이동합니다.
 
-   ![Promise](/images/cs/event-loop/pic7.avif)
+   ![Promise](/mdx-blog/images/cs/event-loop/pic7.avif)
 
-   ![Promise](/images/cs/event-loop/pic8.avif)
+   ![Promise](/mdx-blog/images/cs/event-loop/pic8.avif)
 
 4. **console.log("D");**  
    콜 스택에 `console.log("D");`가 추가되어 실행된 후 콜 스택에서 제거됩니다.
 
-   ![console.log('D');가 콜 스택에 추가](/images/cs/event-loop/pic9.avif)
+   ![console.log('D');가 콜 스택에 추가](/mdx-blog/images/cs/event-loop/pic9.avif)
 
-   ![console.log('A');가 콜 스택에서 제거](/images/cs/event-loop/pic10.avif)
+   ![console.log('A');가 콜 스택에서 제거](/mdx-blog/images/cs/event-loop/pic10.avif)
 
 5. **마이크로태스크 큐의 콜백 처리**  
    콜 스택에 더 이상 실행할 코드가 남아있지 않는 경우 이벤트 루프는 태스크 큐에서 대기 중인 콜백 함수를 꺼내 콜 스택으로 옮깁니다.
    이 때 마이크로태스크 큐의 콜백부터 먼저 처리합니다.
 
-   ![마이크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic11.avif)
+   ![마이크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic11.avif)
 
-   ![마이크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic12.avif)
+   ![마이크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic12.avif)
 
-   ![마이크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic13.avif)
+   ![마이크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic13.avif)
 
-   ![마이크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic14.avif)
+   ![마이크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic14.avif)
 
 6. **매크로태스크 큐의 콜백 처리**  
    마이크로태스크 큐에 콜백이 더 이상 존재하지 않는 경우 이벤트 루프는 매크로태스크 큐의 콜백을 콜 스택으로 옮깁니다.
 
-   ![매크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic15.avif)
+   ![매크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic15.avif)
 
-   ![매크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic16.avif)
+   ![매크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic16.avif)
 
 실제 실행 결과도 다음과 같습니다.
 
-![실행 결과](/images/cs/event-loop/pic17.avif)
+![실행 결과](/mdx-blog/images/cs/event-loop/pic17.avif)
 
 #### 2.4.2. 예시 2 - async/await
 
@@ -169,45 +169,45 @@ console.log("D");
 1. **console.log("C");**  
    먼저 콜 스택에 `console.log("C");`가 추가되어 실행된 후 콜 스택에서 제거됩니다.
 
-   ![console.log('C');가 콜 스택에 추가](/images/cs/event-loop/pic18.avif)
+   ![console.log('C');가 콜 스택에 추가](/mdx-blog/images/cs/event-loop/pic18.avif)
 
-   ![console.log('C');가 콜 스택에서 제거](/images/cs/event-loop/pic19.avif)
+   ![console.log('C');가 콜 스택에서 제거](/mdx-blog/images/cs/event-loop/pic19.avif)
 
 2. **myFunc() 호출**  
    비동기 함수인 `myFunc()`이 호출됩니다.
 3. **console.log("B");**  
    콜 스택에 `console.log("B");`가 추가되어 실행된 후 콜 스택에서 제거됩니다.
 
-   ![console.log('B');가 콜 스택에 추가](/images/cs/event-loop/pic20.avif)
+   ![console.log('B');가 콜 스택에 추가](/mdx-blog/images/cs/event-loop/pic20.avif)
 
-   ![console.log('B');가 콜 스택에서 제거](/images/cs/event-loop/pic21.avif)
+   ![console.log('B');가 콜 스택에서 제거](/mdx-blog/images/cs/event-loop/pic21.avif)
 
 4. **const result = await A();**  
    비동기 함수 `A()`를 호출합니다.
    이 때 **`await` 키워드로 인해 myFunc 내부의 코드 실행을 일시 중단하고 콜 스택에서 빠져나와
    `await` 키워드 이후의 나머지 코드는 await A()의 then()의 콜백 함수로 처리되어 마이크로태스크 큐에 추가됩니다.**
 
-   ![await 키워드](/images/cs/event-loop/pic22.avif)
+   ![await 키워드](/mdx-blog/images/cs/event-loop/pic22.avif)
 
-   ![await 키워드](/images/cs/event-loop/pic23.avif)
+   ![await 키워드](/mdx-blog/images/cs/event-loop/pic23.avif)
 
 5. **console.log("D");**  
    콜 스택에 `console.log("D");`가 추가되어 실행된 후 콜 스택에서 제거됩니다.
 
-   ![console.log('D');가 콜 스택에 추가](/images/cs/event-loop/pic24.avif)
+   ![console.log('D');가 콜 스택에 추가](/mdx-blog/images/cs/event-loop/pic24.avif)
 
-   ![console.log('D');가 콜 스택에서 제거](/images/cs/event-loop/pic25.avif)
+   ![console.log('D');가 콜 스택에서 제거](/mdx-blog/images/cs/event-loop/pic25.avif)
 
 6. **마이크로태스크 큐의 콜백 처리**  
    콜 스택에 더 이상 실행할 코드가 남아있지 않으므로 이벤트 루프는 마이크로태스크 큐에서 대기 중인 콜백 함수를 꺼내 콜 스택으로 옮깁니다.
 
-   ![마이크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic26.avif)
+   ![마이크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic26.avif)
 
-   ![마이크로태스크 큐의 콜백 처리](/images/cs/event-loop/pic27.avif)
+   ![마이크로태스크 큐의 콜백 처리](/mdx-blog/images/cs/event-loop/pic27.avif)
 
 실제 실행 결과도 다음과 같습니다.
 
-![실행 결과](/images/cs/event-loop/pic28.avif)
+![실행 결과](/mdx-blog/images/cs/event-loop/pic28.avif)
 
 위의 코드에서 주목할 점은 바로 `await` 키워드입니다.
 **`await` 키워드를 사용하면 해당 키워드를 사용한 코드의 나머지 코드 부분이 then()의 콜백 함수로 처리되어 마이크로태스크 큐에 옮겨집니다.**
@@ -234,17 +234,17 @@ console.log("D");
 **콜 스택이 비어있을 때(정확히는 콜 스택 내에 전역 실행 컨텍스트만 존재하고 더 이상 실행할 동기 코드가 없는 경우)만 실행**할 수 있습니다.
 만약 다음과 같이 무한 루프 함수가 실행되고 있으면 콜 스택이 비워지지 않으므로 비동기 코드가 실행되지 않습니다.
 
-![무한 루프 함수가 실행되고 있으면 콜 스택이 비워지지 않으므로 비동기 코드가 실행되지 않습니다.](/images/cs/event-loop/pic29.avif)
+![무한 루프 함수가 실행되고 있으면 콜 스택이 비워지지 않으므로 비동기 코드가 실행되지 않습니다.](/mdx-blog/images/cs/event-loop/pic29.avif)
 
 또한 무한 루프 함수가 아니더라도 콜 스택을 오래 차지하고 있는 코드가 실행되고 있으면 콜 스택이 비어지기 전까지 비동기 코드의 실행이 지연됩니다.
 
 예를 들어 다음 `setTimeout`은 의도한대로 약 1초 후에 콜백이 실행됩니다.
 
-![setTimeout](/images/cs/event-loop/pic30.avif)
+![setTimeout](/mdx-blog/images/cs/event-loop/pic30.avif)
 
 반면에 다음 자바스크립트 코드의 경우 반복문이 콜 스택을 오랫동안 차지하고 있으므로 `setTimeout`의 콜백이 실행되기까지 훨씬 더 오랜 시간이 걸리게 됩니다.
 
-![반복문이 콜 스택을 오랫동안 차지하므로 비동기 코드가 실행되기까지 훨씬 더 오랜 시간이 걸립니다.](/images/cs/event-loop/pic31.avif)
+![반복문이 콜 스택을 오랫동안 차지하므로 비동기 코드가 실행되기까지 훨씬 더 오랜 시간이 걸립니다.](/mdx-blog/images/cs/event-loop/pic31.avif)
 
 ## 3. 참고 자료
 

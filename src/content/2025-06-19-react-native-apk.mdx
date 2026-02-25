@@ -77,7 +77,7 @@ cd android
 >
 > <br />
 
-![Debug APK 빌드 결과](/images/front-end/react-native-apk/pic1.avif)
+![Debug APK 빌드 결과](/mdx-blog/images/front-end/react-native-apk/pic1.avif)
 
 빌드 완료 후 다음 경로에서 빌드된 APK를 확인할 수 있습니다.
 
@@ -85,7 +85,7 @@ cd android
 android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-![android/app/build/outputs/apk/debug 디렉토리에서 app-debug.apk를 확인할 수 있습니다.](/images/front-end/react-native-apk/pic2.avif)
+![android/app/build/outputs/apk/debug 디렉토리에서 app-debug.apk를 확인할 수 있습니다.](/mdx-blog/images/front-end/react-native-apk/pic2.avif)
 
 ## 4. Release APK 빌드하기
 
@@ -154,7 +154,7 @@ keytool -genkeypair -v -keystore release.keystore -alias my-key-alias -keyalg RS
 
 명령어 입력 이후 다음과 같이 **비밀번호**와 이름, 조직 등 문항을 입력하면 keystore 파일이 생성됩니다.
 
-![android.app 폴더에 keystore를 생성합니다.](/images/front-end/react-native-apk/pic3.avif)
+![android.app 폴더에 keystore를 생성합니다.](/mdx-blog/images/front-end/react-native-apk/pic3.avif)
 
 ### 4.2. Step 2 - Gradle에 서명 정보 추가하기
 
@@ -216,7 +216,7 @@ android {
 /* ... */
 ```
 
-![build.gradle 파일을 열고 수정한 내용](/images/front-end/react-native-apk/pic4.avif)
+![build.gradle 파일을 열고 수정한 내용](/mdx-blog/images/front-end/react-native-apk/pic4.avif)
 
 ### 4.3. Step 3 - Release APK 생성하기
 
@@ -261,7 +261,7 @@ PS C:\Users\user\vscode\braille-translator\android>
 android/app/build/outputs/apk/release/app-release.apk
 ```
 
-![android/app/build/outputs/apk/release 디렉토리에서 app-release.apk를 확인할 수 있습니다.](/images/front-end/react-native-apk/pic5.avif)
+![android/app/build/outputs/apk/release 디렉토리에서 app-release.apk를 확인할 수 있습니다.](/mdx-blog/images/front-end/react-native-apk/pic5.avif)
 
 ## 5. 참고: Release AAB 빌드하기
 
@@ -272,7 +272,7 @@ android/app/build/outputs/apk/release/app-release.apk
 npx react-native build-android --mode=release
 ```
 
-![Release AAB 빌드 결과](/images/front-end/react-native-apk/pic6.avif)
+![Release AAB 빌드 결과](/mdx-blog/images/front-end/react-native-apk/pic6.avif)
 
 빌드 완료 후 다음 경로에서 빌드된 AAB를 확인할 수 있습니다.
 
@@ -280,7 +280,7 @@ npx react-native build-android --mode=release
 android/app/build/outputs/bundle/release/app-release.aab
 ```
 
-![android/app/build/outputs/bundle/release 디렉토리에서 app-release.aab를 확인할 수 있습니다.](/images/front-end/react-native-apk/pic7.avif)
+![android/app/build/outputs/bundle/release 디렉토리에서 app-release.aab를 확인할 수 있습니다.](/mdx-blog/images/front-end/react-native-apk/pic7.avif)
 
 ## 6. 참고 자료
 

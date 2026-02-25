@@ -39,7 +39,7 @@ sudo nano /etc/ssh/sshd_config
 
 위의 명령어를 입력하면 다음과 같은 화면이 표시될 것입니다.
 
-![sshd_config 파일](/images/raspberry-pi/ssh-port/pic1.avif)
+![sshd_config 파일](/mdx-blog/images/raspberry-pi/ssh-port/pic1.avif)
 
 ### 3.2. 포트 번호 변경
 
@@ -50,7 +50,7 @@ sudo nano /etc/ssh/sshd_config
 
 [TCP/UDP의 포트 목록](https://ko.wikipedia.org/wiki/TCP/UDP%EC%9D%98_%ED%8F%AC%ED%8A%B8_%EB%AA%A9%EB%A1%9D)
 
-![포트 번호 변경](/images/raspberry-pi/ssh-port/pic2.avif)
+![포트 번호 변경](/mdx-blog/images/raspberry-pi/ssh-port/pic2.avif)
 
 `Ctrl + X`를 누른 다음 `Y` 그리고 `Enter`를 눌러 변경사항을 저장합니다.
 
@@ -64,13 +64,13 @@ services 파일에는 리눅스에서 네트워크 서비스를 위해 사용하
 sudo nano /etc/services
 ```
 
-![services 파일](/images/raspberry-pi/ssh-port/pic3.avif)
+![services 파일](/mdx-blog/images/raspberry-pi/ssh-port/pic3.avif)
 
 ### 4.2. Services 파일 수정
 
 ssh 부분의 `22/tcp`를 위에서 선언한 포트 번호로 변경합니다.
 
-![services 파일 수정](/images/raspberry-pi/ssh-port/pic4.avif)
+![services 파일 수정](/mdx-blog/images/raspberry-pi/ssh-port/pic4.avif)
 
 `Ctrl + X`를 누른 다음 `Y` 그리고 `Enter`를 눌러 변경사항을 저장합니다.
 
@@ -84,7 +84,7 @@ SSH 포트 변경을 완료하려면 라즈베리파이를 재부팅해야 합�
 
 다음 명령어를 입력하여 UFW 상태를 확인합니다.
 
-![UFW 상태 확인](/images/raspberry-pi/ssh-port/pic5.avif)
+![UFW 상태 확인](/mdx-blog/images/raspberry-pi/ssh-port/pic5.avif)
 
 ### 5.2. 변경된 SSH 포트 접속 허용
 
@@ -94,7 +94,7 @@ SSH 포트 변경을 완료하려면 라즈베리파이를 재부팅해야 합�
 sudo ufw allow ssh
 ```
 
-![변경된 SSH 포트 접속 허용](/images/raspberry-pi/ssh-port/pic6.avif)
+![변경된 SSH 포트 접속 허용](/mdx-blog/images/raspberry-pi/ssh-port/pic6.avif)
 
 변경된 포트 번호에 대한 접속이 허용되었음을 확인할 수 있습니다.
 
@@ -110,7 +110,7 @@ sudo reboot
 
 ### 6.2. PuTTY로 원격 접속
 
-![PuTTY로 원격 접속](/images/raspberry-pi/ssh-port/pic7.avif)
+![PuTTY로 원격 접속](/mdx-blog/images/raspberry-pi/ssh-port/pic7.avif)
 
 PuTTY로 원격 접속을 시도합니다. 이 때 22번 포트로 접속하려고 하면 접근이 차단될 것이고, 변경된 SSH 포트로 접근하려고 하면 접속이 허용될 것입니다.
 

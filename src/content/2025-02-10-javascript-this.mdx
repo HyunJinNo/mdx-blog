@@ -38,13 +38,13 @@ export const metadata = {
 
 **브라우저**
 
-![브라우저](/images/cs/javascript-this/pic1.avif)
+![브라우저](/mdx-blog/images/cs/javascript-this/pic1.avif)
 
 <br />
 
 **Node.js**
 
-![Node.js](/images/cs/javascript-this/pic2.avif)
+![Node.js](/mdx-blog/images/cs/javascript-this/pic2.avif)
 
 <br />
 
@@ -59,7 +59,7 @@ export const metadata = {
 일반 함수로서 호출되는 경우 `this`는 `전역 객체`를 가리킵니다.
 이는 실행 컨텍스트 활성화 당시에 this가 지정되지 않은 경우 this는 전역 객체를 가리키기 때문입니다.
 
-![일반 함수에서의 this](/images/cs/javascript-this/pic3.avif)
+![일반 함수에서의 this](/mdx-blog/images/cs/javascript-this/pic3.avif)
 
 주의해야 할 점으로, 어떤 함수를 객체의 프로퍼티에 할당하는 경우 무조건 메서드로서 동작하는 것은 아닙니다.
 아래와 같이 **함수 이름 앞에 객체가 명시되어 있는 경우에만 메서드로서 동작하는 것이고, 그렇지 않은 경우 모두 일반 함수로서 동작합니다.**
@@ -80,7 +80,7 @@ console.log();
 obj.myMethod(); // 메서드로서 호출
 ```
 
-![일반 함수로서 호출 vs 메서드로서 호출](/images/cs/javascript-this/pic4.avif)
+![일반 함수로서 호출 vs 메서드로서 호출](/mdx-blog/images/cs/javascript-this/pic4.avif)
 
 ### 3.3. 객체 메서드에서의 this
 
