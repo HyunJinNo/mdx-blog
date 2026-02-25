@@ -5,7 +5,7 @@ export const metadata = {
   category: "Front-end",
   tags: ["createportal", "modal", "nextjs", "react", "typescript"],
   pin: false,
-  imagePath: "/images/front-end/front-end.avif",
+  imagePath: "/mdx-blog/images/front-end/front-end.avif",
 };
 
 > **<u>Tags</u>**
@@ -136,7 +136,7 @@ export const useModalBackHandler = (
 };
 ```
 
-![뒤로가기 버튼을 클릭하여 모달 창 닫기](/images/front-end/createportal-modal/pic1.webp)
+![뒤로가기 버튼을 클릭하여 모달 창 닫기](/mdx-blog/images/front-end/createportal-modal/pic1.webp)
 
 해당 커스텀 훅에 대한 설명은 다음 링크를 참고하시길 바랍니다.
 
@@ -172,7 +172,7 @@ export const usePreventBodyScroll = (dependency: boolean) => {
 };
 ```
 
-![모달 창이 열렸을 때 스크롤 막기](/images/front-end/createportal-modal/pic2.webp)
+![모달 창이 열렸을 때 스크롤 막기](/mdx-blog/images/front-end/createportal-modal/pic2.webp)
 
 ### 3.5. Step 5 - Modal 컴포넌트 생성하기
 
@@ -293,13 +293,13 @@ return createPortal(
 
 위와 같이 구현할 경우 아래 이미지에서 검은 부분, 즉 배경을 클릭하면 모달 창이 닫히게 됩니다.
 
-![배경 클릭 시 모달 창이 닫힙니다.](/images/front-end/createportal-modal/pic3.avif)
+![배경 클릭 시 모달 창이 닫힙니다.](/mdx-blog/images/front-end/createportal-modal/pic3.avif)
 
 <br />
 
 ### 3.6. Step 6 - ModalTemplate 컴포넌트 생성하기
 
-![ModalTemplate.tsx](/images/front-end/createportal-modal/pic4.avif)
+![ModalTemplate.tsx](/mdx-blog/images/front-end/createportal-modal/pic4.avif)
 
 제가 진행한 프로젝트에서는 모달 창을 닫기 위해 X 버튼이 반복적으로 사용되며, 모달 창의 스타일 역시 재사용됩니다.
 따라서 다음과 같이 재사용할 수 있는 ModalTemplate 컴포넌트를 구현하였습니다.
@@ -448,7 +448,7 @@ export const DeleteAccount = ({ userInfo }: DeleteAccountProps) => {
 };
 ```
 
-![Modal 사용하기](/images/front-end/createportal-modal/pic5.webp)
+![Modal 사용하기](/mdx-blog/images/front-end/createportal-modal/pic5.webp)
 
 ## 4. 참고 자료
 

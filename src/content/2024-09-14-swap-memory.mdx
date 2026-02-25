@@ -6,7 +6,7 @@ export const metadata = {
   category: "Raspberry Pi",
   tags: ["raspberry-pi", "linux", "memory"],
   pin: false,
-  imagePath: "/images/raspberry-pi/raspberry-pi.avif",
+  imagePath: "/mdx-blog/images/raspberry-pi/raspberry-pi.avif",
 };
 
 > **<u>Tags</u>**
@@ -35,7 +35,7 @@ export const metadata = {
 free -h
 ```
 
-![현재 스왑 메모리 확인하기](/images/raspberry-pi/swap-memory/pic1.avif)
+![현재 스왑 메모리 확인하기](/mdx-blog/images/raspberry-pi/swap-memory/pic1.avif)
 
 위의 사진에서 `Mem`은 실제 메모리를 나타내고, `Swap`은 스왑 메모리를 나타냅니다. 현재 스왑 메모리가 199Mi 만큼 설정되어 있음을 확인할 수 있습니다.
 
@@ -76,7 +76,7 @@ sudo swapon /swapfile
 
 스왑 파일을 활성화하면 다음과 같이 `free -h` 명령어를 통해 스왑 메모리가 활성화되어 있음을 확인할 수 있습니다.
 
-![스왑 메모리 활성화 확인](/images/raspberry-pi/swap-memory/pic2.avif)
+![스왑 메모리 활성화 확인](/mdx-blog/images/raspberry-pi/swap-memory/pic2.avif)
 
 ## 7. Step 5 - 시스템 부팅 시 스왑 메모리 자동 활성화 설정
 
@@ -89,7 +89,7 @@ sudo swapon /swapfile
 sudo nano /etc/fstab
 ```
 
-![/etc/fatab 파일 열기](/images/raspberry-pi/swap-memory/pic3.avif)
+![/etc/fatab 파일 열기](/mdx-blog/images/raspberry-pi/swap-memory/pic3.avif)
 
 파일의 마지막 줄에 다음 내용을 추가한 후 파일을 저장합니다.
 
@@ -97,7 +97,7 @@ sudo nano /etc/fstab
 /swapfile none swap sw 0 0
 ```
 
-![/etc/fatab 파일 수정](/images/raspberry-pi/swap-memory/pic4.avif)
+![/etc/fatab 파일 수정](/mdx-blog/images/raspberry-pi/swap-memory/pic4.avif)
 
 ## 8. 스왑 메모리 비활성화 및 삭제 방법
 
@@ -119,8 +119,8 @@ sudo rm /swapfile
 
 ### 8.1. 수정 전
 
-![수정 전](/images/raspberry-pi/swap-memory/pic4.avif)
+![수정 전](/mdx-blog/images/raspberry-pi/swap-memory/pic4.avif)
 
 ### 8.2. 수정 후
 
-![수정 후](/images/raspberry-pi/swap-memory/pic3.avif)
+![수정 후](/mdx-blog/images/raspberry-pi/swap-memory/pic3.avif)

@@ -29,27 +29,21 @@ export default async function Page({
           postPath={post.postPath}
         />
       ))}
-      <Pagination totalPages={14} currentPage={Number(page.slice(4))} />
+      <Pagination
+        totalPages={Math.ceil(postList.length / 10)}
+        currentPage={Number(page.slice(4))}
+      />
     </main>
   );
 }
 
-export function generateStaticParams(): { page: string }[] {
-  return [
-    { page: "page2" },
-    { page: "page3" },
-    { page: "page4" },
-    { page: "page5" },
-    { page: "page6" },
-    { page: "page7" },
-    { page: "page8" },
-    { page: "page9" },
-    { page: "page10" },
-    { page: "page11" },
-    { page: "page12" },
-    { page: "page13" },
-    { page: "page14" },
-  ];
+export async function generateStaticParams() {
+  const postList = await getAllPostList();
+
+  return Array.from(
+    { length: Math.ceil(postList.length / 10) },
+    (_, index) => `page${index + 1}`,
+  ).map((value) => ({ page: value }));
 }
 
 export const dynamicParams = false;

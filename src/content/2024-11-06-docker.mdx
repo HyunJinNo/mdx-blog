@@ -5,7 +5,7 @@ export const metadata = {
   category: "Raspberry Pi",
   tags: ["raspberry-pi", "linux", "docker"],
   pin: false,
-  imagePath: "/images/raspberry-pi/docker/docker.webp",
+  imagePath: "/mdx-blog/images/raspberry-pi/docker/docker.webp",
 };
 
 > **<u>Tags</u>**
@@ -100,9 +100,9 @@ docker -v
 sudo systemctl status docker
 ```
 
-![Docker 버전 확인](/images/raspberry-pi/docker/pic1.avif)
+![Docker 버전 확인](/mdx-blog/images/raspberry-pi/docker/pic1.avif)
 
-![Docker 상태 확인](/images/raspberry-pi/docker/pic2.avif)
+![Docker 상태 확인](/mdx-blog/images/raspberry-pi/docker/pic2.avif)
 
 ### 4.2. Step 2 - Docker 그룹에 사용자 추가하기
 
@@ -126,7 +126,7 @@ sudo reboot now
 groups $USER
 ```
 
-![Docker 그룹 확인](/images/raspberry-pi/docker/pic3.avif)
+![Docker 그룹 확인](/mdx-blog/images/raspberry-pi/docker/pic3.avif)
 
 ### 4.3. Step 3 - Docker Compose 설치하기
 
@@ -171,7 +171,7 @@ docker compose --version
 docker search node
 ```
 
-![이미지 검색](/images/raspberry-pi/docker/pic4.avif)
+![이미지 검색](/mdx-blog/images/raspberry-pi/docker/pic4.avif)
 
 #### 4.4.2. 이미지 태그 지정 - docker tag
 
@@ -181,7 +181,7 @@ docker search node
 docker tag solitour-frontend:v2.0.1 hyunjinno/solitour-frontend:v2.0.1
 ```
 
-![이미지 태그 지정](/images/raspberry-pi/docker/pic7.avif)
+![이미지 태그 지정](/mdx-blog/images/raspberry-pi/docker/pic7.avif)
 
 #### 4.4.3. 이미지 업로드 - docker push
 
@@ -191,7 +191,7 @@ docker tag solitour-frontend:v2.0.1 hyunjinno/solitour-frontend:v2.0.1
 docker push hyunjinno/solitour-frontend:v2.0.1
 ```
 
-![이미지 업로드](/images/raspberry-pi/docker/pic6.avif)
+![이미지 업로드](/mdx-blog/images/raspberry-pi/docker/pic6.avif)
 
 > **<u>Caution</u>**
 >
@@ -213,7 +213,7 @@ docker pull node
 docker images
 ```
 
-![이미지 목록 확인](/images/raspberry-pi/docker/pic5.avif)
+![이미지 목록 확인](/mdx-blog/images/raspberry-pi/docker/pic5.avif)
 
 #### 4.4.6. 이미지 삭제 - docker rmi
 
@@ -335,11 +335,11 @@ docker exec -it my-app bash
 
 예를 들어 아래와 같이 `-it` 옵션을 사용하지 않는 경우 명령어 실행 후 바로 종료됩니다.
 
-![-it 옵션을 사용하지 않는 경우](/images/raspberry-pi/docker/pic8.avif)
+![-it 옵션을 사용하지 않는 경우](/mdx-blog/images/raspberry-pi/docker/pic8.avif)
 
 반면에 `-it` 옵션을 사용하는 경우 컨테이너 내부의 Bash Shell로 들어가 직접 명령어를 실행할 수 있습니다.
 
-![-it 옵션을 사용하는 경우](/images/raspberry-pi/docker/pic9.avif)
+![-it 옵션을 사용하는 경우](/mdx-blog/images/raspberry-pi/docker/pic9.avif)
 
 ### 4.5. Step 5 - Docker Compose 명령어 사용하기
 

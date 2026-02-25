@@ -1,4 +1,4 @@
-import { getPostListByCategory } from "@/entities/post";
+import { getCategoryList, getPostListByCategory } from "@/entities/post";
 import { convertDateFormat } from "@/shared/lib/utils";
 import Link from "next/link";
 import { FaFolderOpen } from "@react-icons/all-files/fa/FaFolderOpen";
@@ -57,18 +57,12 @@ export default async function Page({
   );
 }
 
-export function generateStaticParams(): { category: string }[] {
-  return [
-    { category: "Algorithms" },
-    { category: "Back-end" },
-    { category: "Chess" },
-    { category: "Computer Science" },
-    { category: "Design Patterns" },
-    { category: "Front-end" },
-    { category: "Raspberry Pi" },
-    { category: "기타" },
-    { category: "네이버 부스트캠프 웹・모바일 9기" },
-  ];
+export async function generateStaticParams() {
+  const categoryList = await getCategoryList();
+
+  return categoryList.map((category) => ({
+    category: category.title,
+  }));
 }
 
 export const dynamicParams = false;
