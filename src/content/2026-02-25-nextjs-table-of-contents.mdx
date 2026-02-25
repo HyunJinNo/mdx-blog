@@ -474,15 +474,8 @@ export const TocList = ({ activeId, tocNode }: TocListProps) => {
       >
         {tocNode.textContent}
       </a>
-      {tocNode.children.length !== 0 && (
-        <ul
-          className={[
-            "flex flex-col gap-2.5 transition-all duration-300 ease-in-out",
-            containsActive(tocNode)
-              ? "opacity-100"
-              : "-mt-2.5 max-h-0 opacity-0",
-          ].join(" ")}
-        >
+      {tocNode.children.length !== 0 && containsActive(tocNode) && (
+        <ul className={["flex flex-col gap-2.5"].join(" ")}>
           {tocNode.children.map((child) => (
             <TocList key={child.id} activeId={activeId} tocNode={child} />
           ))}
@@ -547,6 +540,10 @@ export const TableOfContents = () => {
   type="video/webm"
   width={720}
 />
+
+> **<u>Caution</u>**
+>
+> 영상에서 목차가 부드럽게 펼쳐지는 애니메이션은 현재 블로그에서는 삭제하였습니다.
 
 ## 3. 참고 자료
 
