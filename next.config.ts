@@ -4,7 +4,7 @@ import createMDX from "@next/mdx";
 const nextConfig: NextConfig = {
   /* config options here */
   output: "export",
-  basePath: "mdx-blog",
+  basePath: "/mdx-blog",
   images: {
     unoptimized: true,
   },
