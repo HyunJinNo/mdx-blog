@@ -7,6 +7,18 @@ on:
     # TODO: main 브랜치에 푸시할 때 실행
     branches: ["dev/#25"]
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 # 실행할 jobs 설정
 jobs:
   # Build job
