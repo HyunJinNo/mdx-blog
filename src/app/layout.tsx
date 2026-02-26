@@ -60,22 +60,22 @@ export default async function RootLayout({
       </head>
       <body className="flex flex-row">
         <Sidebar />
-        <div className="flex w-full flex-col bg-white pr-7 pl-75 transition-colors duration-300 dark:bg-black">
+        <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-300 dark:bg-black">
           <Header />
           <SearchResultViewer postList={postList}>
-            <div className="mt-12 flex w-full flex-row justify-between gap-8 pl-6">
+            <div className="mt-12 flex w-full flex-row justify-between gap-8">
               <div className="flex w-full min-w-0 flex-col gap-12">
                 {children}
                 <Footer />
               </div>
-              <div className="flex w-70 flex-col gap-16">
+              <div className="desktop:flex hidden w-70 flex-col gap-16">
                 <RecentlyUpdatedPostList />
                 <TrendingTagList />
                 <TableOfContents />
               </div>
             </div>
           </SearchResultViewer>
-          <aside className="fixed right-20 bottom-15">
+          <aside className="desktop:right-20 tablet:right-9 fixed right-3 bottom-15">
             <ScrollToTopButton />
           </aside>
         </div>

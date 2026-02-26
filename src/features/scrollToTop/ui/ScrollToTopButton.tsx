@@ -10,7 +10,7 @@ export const ScrollToTopButton = () => {
     <button
       className={[
         !visible && "opacity-0",
-        `flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 shadow duration-300 hover:-translate-y-1`,
+        `flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white shadow duration-300 hover:-translate-y-1 dark:bg-black`,
       ].join(" ")}
       onClick={scrollToTop}
     >
