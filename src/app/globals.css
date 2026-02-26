@@ -25,7 +25,8 @@
 /* 반응형 분기점 설정 */
 @theme {
   --breakpoint-*: initial;
-  --breakpoint-tablet: 53.125rem;
+  --breakpoint-tablet: 48rem;
+  --breakpoint-laptop: 53.125rem;
   --breakpoint-desktop: 75rem;
 }
 
