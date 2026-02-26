@@ -13,7 +13,7 @@ export const Breadcrumb = () => {
     .map(decodeURIComponent);
 
   return (
-    <nav>
+    <nav className="laptop:block hidden min-w-0">
       <ol className="flex flex-row items-center gap-2">
         <li>
           {segments.length === 0 ? (
@@ -33,10 +33,10 @@ export const Breadcrumb = () => {
           const isLast = index === segments.length - 1;
 
           return (
-            <li key={href} className="flex flex-row items-center gap-2">
+            <li key={href} className="flex min-w-0 flex-row items-center gap-2">
               <FaChevronRight className="text-custom-gray text-[0.5rem]" />
               {isLast ? (
-                <span className="text-custom-gray">
+                <span className="text-custom-gray truncate">
                   {segment.charAt(0).toUpperCase() + segment.slice(1)}
                 </span>
               ) : (
