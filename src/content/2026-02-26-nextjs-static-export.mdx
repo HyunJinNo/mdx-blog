@@ -38,15 +38,101 @@ Next.js 프로젝트를 GitHub Pages에 정적 배포하는 방법에 대해 정
 
 [GitHub Actions로 CI/CD 구축 방법](/posts/2024-11-03-github-actions-ci-cd)
 
-## 3. Step 1 - GitHub Pages 설정하기
+## 3. Step 1 - generateStaticParams 설정하기
 
-먼저 정적 배포하고자 하는 Repository에서 `Settings > Pages`로 이동한 후 `Build and deployment`의 `source`를 `GitHub Actions`로 지정합니다.
+![generateStaticParams 설정 이전](/mdx-blog/images/front-end/nextjs-static-export/pic1.avif)
 
-![Settings > Pages](/mdx-blog/images/front-end/nextjs-static-export/pic1.avif)
+먼저 Next.js 프로젝트를 정적 배포하기 위해선 모든 동적 라우트를 SSG로 변경해야 합니다.
+`npm run build` 명령어를 실행하여 빌드한 결과물을 보면 위의 사진과 같이 서버에서 on-demand로 렌더링되는 페이지가 있음을 확인할 수 있습니다.
 
-![GitHub Actions](/mdx-blog/images/front-end/nextjs-static-export/pic2.avif)
+동적 라우트를 SSG로 변경하기 위해선 `generateStaticParams` 함수를 통해 빌드 시점에 모든 라우트를 정의하면 됩니다.
+다음과 같이 `generateStaticParams`를 설정하고 다시 빌드하면, 모든 페이지가 정적으로 생성되는 것을 확인할 수 있습니다.
 
-## 4. Step 2 - next.config.ts 설정하기
+```typescript
+/* @/app/categories/[category]/page.tsx */
+
+import { getCategoryList, getPostListByCategory } from "@/entities/post";
+import { convertDateFormat } from "@/shared/lib/utils";
+import Link from "next/link";
+import { FaFolderOpen } from "@react-icons/all-files/fa/FaFolderOpen";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
+
+  return {
+    title: decodedCategory,
+    description: `${category} 페이지`,
+  };
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
+  const postList = await getPostListByCategory(decodedCategory);
+
+  return (
+    <main className="flex w-full flex-col gap-8 dark:bg-black">
+      <h1 className="flex flex-row items-baseline gap-2 text-[2rem] font-bold">
+        <FaFolderOpen className="text-custom-gray text-2xl" />
+        {decodedCategory}
+        <span className="text-custom-gray pl-2 text-xl font-light">
+          {postList.length}
+        </span>
+      </h1>
+      <ul className="marker:text-custom-gray list-disc pl-4">
+        {postList.map((post) => (
+          <li key={post.postPath}>
+            <div className="flex flex-row items-center gap-2 py-2 pr-4">
+              <Link
+                className="text-custom-blue text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+                href={`/posts/${post.postPath}`}
+              >
+                {post.title}
+              </Link>
+              <span className="flex-1 border border-dashed border-gray-300" />
+              <time className="text-custom-gray">
+                {convertDateFormat(post.date)}
+              </time>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
+
+export async function generateStaticParams() {
+  const categoryList = await getCategoryList();
+
+  return categoryList.map((category) => ({
+    category: category.title,
+  }));
+}
+
+export const dynamicParams = false;
+```
+
+![generateStaticParams 설정 이후](/mdx-blog/images/front-end/nextjs-static-export/pic2.avif)
+
+## 4. Step 2 - GitHub Pages 설정하기
+
+GitHub Pages로 배포하기 위해선 먼저 정적 배포하고자 하는 Repository에서 `Settings > Pages`로 이동한 후
+`Build and deployment`의 `source`를 `GitHub Actions`로 지정합니다.
+
+![Settings > Pages](/mdx-blog/images/front-end/nextjs-static-export/pic3.avif)
+
+![GitHub Actions](/mdx-blog/images/front-end/nextjs-static-export/pic4.avif)
+
+## 5. Step 3 - next.config.ts 설정하기
 
 `next.config.ts` 파일에서 `output: "export"`를 설정함으로써 **정적 HTML, CSS, JavaScript만 포함하는 out 폴더 결과물**을 내보낼 수 있습니다.
 또한 GitHub Pages는 `HyunJinNo.github.io/<Repository 이름>` URL을 사용하므로 basePath로 Repository 이름을 설정합니다.
@@ -71,9 +157,9 @@ const nextConfig: NextConfig = {
 >
 > basePath를 설정하기 않는 경우, 다음과 같이 css 파일이나 이미지 경로에서 오류가 발생합니다.
 >
-> ![basePath 미설정 시 발생하는 오류](/mdx-blog/images/front-end/nextjs-static-export/pic3.avif)
+> ![basePath 미설정 시 발생하는 오류](/mdx-blog/images/front-end/nextjs-static-export/pic5.avif)
 
-## 5. Step 3 - Workflow 작성하기
+## 6. Step 4 - Workflow 작성하기
 
 ```yml
 # workflow 이름 설정
@@ -143,7 +229,7 @@ jobs:
 
 위의 workflow 설정에 대해 설명하자면 다음과 같습니다.
 
-### 5.1. workflow 이름 설정하기
+### 6.1. workflow 이름 설정하기
 
 ```yml
 # workflow 이름 설정
@@ -152,9 +238,9 @@ name: Deploy Next.js site to Pages
 
 먼저 위와 같이 workflow 이름을 설정해야 합니다. workflow 이름은 `name` 필드에서 설정합니다. 이 이름은 GitHub의 Actions 탭에 표시됩니다.
 
-![workflow 이름](/mdx-blog/images/front-end/nextjs-static-export/pic4.avif)
+![workflow 이름](/mdx-blog/images/front-end/nextjs-static-export/pic6.avif)
 
-### 5.2. 이벤트 설정하기
+### 6.2. 이벤트 설정하기
 
 ```yml
 # workflow를 트리거하는 이벤트 설정
@@ -167,7 +253,7 @@ on:
 가장 많이 사용하는 이벤트로는 push, pull_request 등이 있습니다.
 위의 예시는 main 브랜치에 코드 푸시가 이루어질 때 workflow를 트리거합니다.
 
-### 5.3. GITHUB_TOKEN 권한 설정하기
+### 6.3. GITHUB_TOKEN 권한 설정하기
 
 ```yml
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -185,7 +271,7 @@ permissions:
 | pages: write    | Pages 배포           |
 | id-token: write | OIDC 인증용          |
 
-### 5.4. concurrency 설정하기
+### 6.4. concurrency 설정하기
 
 ```yml
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
@@ -197,7 +283,7 @@ concurrency:
 
 동시에 여러 배포가 실행되지 않도록 방지하는 부분으로, 이전 배포는 취소하지 않습니다.
 
-### 5.5. Job 설정하기
+### 6.5. Job 설정하기
 
 ```yml
 # 실행할 jobs 설정
@@ -298,7 +384,7 @@ Shell 명령어를 실행하거나, GitHub에서 제공하는 액션(Action)을 
 6. 정적 파일 업로드하기
 7. GitHub Pages에 정적 배포하기
 
-#### 5.5.1. GitHub Repository에 push된 코드 가져오기
+#### 6.5.1. GitHub Repository에 push된 코드 가져오기
 
 먼저 GitHub Repository에 있는 코드를 가져와야 합니다.
 GitHub에서 제공하는 액션으로 [actions/checkout](https://github.com/marketplace/actions/checkout)이 있으며,
@@ -316,7 +402,7 @@ steps:
 예를 들어, [actions/checkout@v6](https://github.com/marketplace/actions/checkout)는
 Code Repository를 체크아웃(=코드 가져오기)하는 액션입니다.
 
-#### 5.5.2. Node.js 설치하기
+#### 6.5.2. Node.js 설치하기
 
 코드를 가져온 후에는 애플리케이션을 빌드할 수 있도록 Node.js를 설치해야 합니다.
 GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https://github.com/marketplace/actions/setup-node-js-environment)을
@@ -330,7 +416,7 @@ GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https:
     node-version: 24
 ```
 
-#### 5.5.3. 의존성 설치하기
+#### 6.5.3. 의존성 설치하기
 
 애플리케이션을 빌드하기 위해 `npm install` 명령어를 실행하여 의존성을 설치합니다.
 package.json 기반으로 node_modules 설치합니다.
@@ -341,7 +427,7 @@ package.json 기반으로 node_modules 설치합니다.
   run: npm install
 ```
 
-#### 5.5.4. GitHub Pages 배포 환경 초기화하기
+#### 6.5.4. GitHub Pages 배포 환경 초기화하기
 
 ```yml
 - name: Setup Pages
@@ -351,7 +437,7 @@ package.json 기반으로 node_modules 설치합니다.
 
 애플리케이션 빌드 전, GitHub Pages 배포 환경을 초기화합니다.
 
-#### 5.5.5. Next.js 애플리케이션 빌드하기
+#### 6.5.5. Next.js 애플리케이션 빌드하기
 
 ```yml
 - name: Build with Next.js
@@ -360,7 +446,7 @@ package.json 기반으로 node_modules 설치합니다.
 
 `npm run build` 명령어를 실행하여 Next.js 애플리케이션을 빌드합니다.
 
-#### 5.5.6. 정적 파일 업로드하기
+#### 6.5.6. 정적 파일 업로드하기
 
 ```yml
 - name: Upload artifact
@@ -371,7 +457,7 @@ package.json 기반으로 node_modules 설치합니다.
 
 `./out` 폴더를 GitHub Pages 서버로 업로드합니다.
 
-#### 5.5.7. GitHub Pages에 정적 배포하기
+#### 6.5.7. GitHub Pages에 정적 배포하기
 
 ```yml
 # Deployment job
@@ -390,13 +476,13 @@ deploy:
 마지막으로 빌드된 결과물을 GitHub Pages에 정적 배포합니다.
 여기서 `environment` 부분은 GitHub UI에 배포 URL 표시하는 부분입니다.
 
-## 6. Step 4 - GitHub Pages 정적 배포 결과
+## 7. Step 5 - GitHub Pages 정적 배포 결과
 
 GitHub Pages 정적 배포 결과는 다음과 같습니다.
 
-![GitHub Pages 정적 배포 결과](/mdx-blog/images/front-end/nextjs-static-export/pic5.avif)
+![GitHub Pages 정적 배포 결과](/mdx-blog/images/front-end/nextjs-static-export/pic7.avif)
 
-## 7. 참고 자료
+## 8. 참고 자료
 
 - [Release: GitHub Pages 정적 배포 by HyunJinNo · Pull Request #27 · HyunJinNo/mdx-blog](https://github.com/HyunJinNo/mdx-blog/pull/27)
 - [Getting Started: Deploying | Next.js](https://nextjs.org/docs/app/getting-started/deploying)
