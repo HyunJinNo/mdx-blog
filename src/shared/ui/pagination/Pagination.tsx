@@ -20,7 +20,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           ) : (
             <Link
               className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
-              href={currentPage === 2 ? "/" : `page${currentPage - 1}`}
+              href={currentPage === 2 ? "/" : `/page${currentPage - 1}`}
             >
               <FaChevronLeft />
             </Link>
@@ -59,7 +59,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             <li>
               <Link
                 className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
-                href={`page${currentPage - 1}`}
+                href={`/page${currentPage - 1}`}
               >
                 {currentPage - 1}
               </Link>
@@ -110,7 +110,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             <li>
               <Link
                 className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
-                href={`page${totalPages}`}
+                href={`/page${totalPages}`}
               >
                 {totalPages}
               </Link>
