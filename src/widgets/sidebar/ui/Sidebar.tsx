@@ -14,9 +14,9 @@ import { ToggleThemeButton } from "@/features/toggleTheme";
 export const Sidebar = () => {
   return (
     <aside className="laptop:flex fixed top-0 bottom-0 left-0 hidden w-65 flex-col">
-      {/* eslint-disable-next-line @next/next/no-img-element*/}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className="absolute -z-10 h-full object-cover"
+        className="absolute -z-10 h-full w-full object-cover"
         src="/mdx-blog/images/background.avif"
         alt="background"
       />

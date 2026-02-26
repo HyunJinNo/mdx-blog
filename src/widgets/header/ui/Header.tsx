@@ -21,10 +21,7 @@ export const Header = () => {
       <button className="laptop:hidden">
         <FaSearch className="text-custom-gray" />
       </button>
-      <div className="laptop:block relative hidden w-50">
-        <FaSearch className="text-custom-gray/50 absolute top-2 left-3 scale-90" />
-        <SearchInput />
-      </div>
+      <SearchInput />
     </header>
   );
 };
