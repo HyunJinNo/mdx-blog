@@ -59,7 +59,7 @@ export const SearchResultViewer = ({
           <p className="text-custom-gray">검색 결과가 없습니다.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+        <div className="desktop:grid-cols-2 grid grid-cols-1 gap-x-12 gap-y-4">
           {searchResultList.map((post) => (
             <SearchResult
               key={post.postPath}
