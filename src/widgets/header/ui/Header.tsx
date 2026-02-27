@@ -1,10 +1,10 @@
 "use client";
 
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
-import { FaBars } from "@react-icons/all-files/fa/FaBars";
 import { SearchInput } from "@/features/searchPostListByTitle";
 import { Breadcrumb } from "@/shared/ui/breadcrumb";
 import { useHeaderTitle } from "../model/useHeaderTitle";
+import { HeaderMenuButton } from "./HeaderMenuButton";
 
 export const Header = () => {
   const { headerTitle } = useHeaderTitle();
@@ -12,9 +12,7 @@ export const Header = () => {
   return (
     <header className="desktop:pr-20 flex h-12 w-full flex-row items-center justify-between">
       <Breadcrumb />
-      <button className="laptop:hidden">
-        <FaBars className="text-custom-gray" />
-      </button>
+      <HeaderMenuButton />
       <div className="laptop:hidden text-custom-gray text-lg font-medium">
         {headerTitle}
       </div>
