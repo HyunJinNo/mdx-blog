@@ -11,6 +11,7 @@ import { Footer } from "@/widgets/footer";
 import { SearchResultViewer } from "@/widgets/searchResultViewer";
 import { getAllPostList } from "@/entities/post";
 import { TableOfContents } from "@/entities/toc";
+import { BottomNavigation } from "@/widgets/bottomNavigation";
 
 const pretendardFont = localFont({
   src: "./PretendardVariable.woff2",
@@ -79,6 +80,7 @@ export default async function RootLayout({
             <ScrollToTopButton />
           </aside>
         </div>
+        <BottomNavigation />
         <div id="modal-root" />
       </body>
     </html>
