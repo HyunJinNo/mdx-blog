@@ -40,7 +40,7 @@ export const TocTopBar = ({ postTitle }: TocTopBarProps) => {
   return (
     <>
       <div
-        className="invisible sticky top-0 z-50 flex h-12 flex-row items-center justify-between gap-1 border-b border-gray-200 bg-white px-4"
+        className="invisible sticky top-0 z-50 flex h-12 flex-row items-center justify-between gap-1 border-b border-gray-200 bg-white px-4 dark:bg-black"
         ref={topBarRef}
       >
         <div className="truncate font-medium">{postTitle}</div>
