@@ -24,11 +24,11 @@ export const PostCard = ({
   return (
     <article>
       <Link
-        className="group dark:border-custom-gray relative flex min-h-45 flex-row justify-between rounded-md border border-gray-50 shadow-sm"
+        className="group dark:border-custom-gray tablet:flex tablet:flex-row relative flex flex-col-reverse justify-between rounded-md border border-gray-50 shadow-sm"
         href={`/posts/${postPath}`}
       >
         <div className="absolute top-0 right-0 bottom-0 left-0 z-10 rounded-md duration-300 hover:bg-gray-200/30" />
-        <div className="flex flex-col justify-between pt-7 pr-7 pb-5 pl-7">
+        <div className="tablet:pt-7 tablet:pr-7 tablet:pb-5 tablet:pl-7 flex min-w-0 flex-col justify-between p-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-xl font-bold dark:text-slate-200">{title}</h1>
             <p className="text-custom-gray line-clamp-2">{description}</p>
@@ -36,17 +36,19 @@ export const PostCard = ({
           <div className="text-custom-gray mt-4 flex flex-row items-center gap-7">
             <div className="flex flex-row items-center gap-2">
               <FaRegCalendar className="text-sm" />
-              <time className="text-sm">{convertDateFormat(date)}</time>
+              <time className="text-sm whitespace-nowrap">
+                {convertDateFormat(date)}
+              </time>
             </div>
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex min-w-0 flex-row items-center gap-2">
               <FaFolderOpen />
-              <span className="text-sm">{category}</span>
+              <span className="truncate text-sm">{category}</span>
             </div>
           </div>
         </div>
-        <div className="relative h-45 min-w-80">
+        <div className="relative aspect-video min-w-2/5">
           <Image
-            className="rounded-r-md object-cover"
+            className="tablet:rounded-r-md rounded-t-md object-cover"
             src={imagePath}
             alt="preview Image"
             fill={true}

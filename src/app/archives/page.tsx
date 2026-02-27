@@ -33,7 +33,7 @@ export default async function Page() {
                   </span>
                   <Link
                     key={post.postPath}
-                    className="text-custom-blue text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+                    className="text-custom-blue truncate text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
                     href={`/posts/${post.postPath}`}
                   >
                     {post.title}

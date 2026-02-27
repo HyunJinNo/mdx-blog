@@ -29,13 +29,13 @@ export const SearchResult = ({
           </Link>
         </h2>
         <div className="text-custom-gray flex flex-row items-center gap-6 text-sm">
-          <div className="flex flex-row items-center gap-1">
+          <div className="flex flex-row items-center gap-1 whitespace-nowrap">
             <FaRegFolder className="text-xs" />
             {category}
           </div>
-          <div className="flex flex-row items-center gap-1">
+          <div className="flex min-w-0 flex-row items-center gap-1">
             <FaTag className="text-xs" />
-            {tagList.join(", ")}
+            <span className="truncate">{tagList.join(", ")}</span>
           </div>
         </div>
       </header>

@@ -22,6 +22,14 @@
   --color-custom-gray: #757575;
 }
 
+/* 반응형 분기점 설정 */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 48rem;
+  --breakpoint-laptop: 53.125rem;
+  --breakpoint-desktop: 75rem;
+}
+
 @theme {
   --animate-fade-up: fade-up 0.8s ease-in-out forwards;
 }
