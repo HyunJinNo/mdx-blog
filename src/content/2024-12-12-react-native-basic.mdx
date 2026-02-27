@@ -13,7 +13,7 @@ export const metadata = {
     "vscode",
   ],
   pin: false,
-  imagePath: "/mdx-blog/images/front-end/react-native-logo.avif",
+  imagePath: "/images/front-end/react-native-logo.avif",
 };
 
 > **<u>Tags</u>**
@@ -56,14 +56,14 @@ node -v
 npm -v
 ```
 
-![Node.js 버전 확인](/mdx-blog/images/front-end/react-native-basic/pic1.avif)
+![Node.js 버전 확인](/images/front-end/react-native-basic/pic1.avif)
 
 ### 2.2. JDK 설치하기
 
 Android를 대상으로 `React Native` 개발 환경을 설정하기 위해선 `Java SE Development Kit (JDK)`가 필요합니다.
 Android 개발을 하려면 `JDK 11` 이상이 필요합니다. 공식 문서에서는 높은 버전의 JDK를 사용하면 문제가 발생할 수 있으므로 `JDK 17`을 권장하고 있습니다.
 
-![JDK 17](/mdx-blog/images/front-end/react-native-basic/pic2.avif)
+![JDK 17](/images/front-end/react-native-basic/pic2.avif)
 
 <br />
 
@@ -71,26 +71,26 @@ Android 개발을 하려면 `JDK 11` 이상이 필요합니다. 공식 문서에
 
 [Java Platform, Standard Edition 17 Reference Implementations](https://jdk.java.net/java-se-ri/17)
 
-![openJDK 17](/mdx-blog/images/front-end/react-native-basic/pic3.avif)
+![openJDK 17](/images/front-end/react-native-basic/pic3.avif)
 
 <br />
 
 다운로드한 파일을 다음과 같이 압축 해제합니다.
 
-![압축 해제](/mdx-blog/images/front-end/react-native-basic/pic4.avif)
+![압축 해제](/images/front-end/react-native-basic/pic4.avif)
 
 <br />
 
 이후 `시스템 환경 변수 편집 > 환경 변수`으로 이동한 후 다음과 같이 변수 이름에 `JAVA_HOME`을,
 변수 값에 방금 설치한 `openJDK 17`의 경로를 지정하여 새로운 시스템 변수를 생성합니다.
 
-![시스템 변수](/mdx-blog/images/front-end/react-native-basic/pic5.avif)
+![시스템 변수](/images/front-end/react-native-basic/pic5.avif)
 
 <br />
 
 이후 시스템 변수 path의 편집 버튼을 누른 뒤 다음과 같이 `%JAVA_HOME%\bin`을 추가합니다.
 
-![시스템 변수 추가](/mdx-blog/images/front-end/react-native-basic/pic6.avif)
+![시스템 변수 추가](/images/front-end/react-native-basic/pic6.avif)
 
 <br />
 
@@ -100,7 +100,7 @@ Android 개발을 하려면 `JDK 11` 이상이 필요합니다. 공식 문서에
 java --version
 ```
 
-![Java 버전 확인](/mdx-blog/images/front-end/react-native-basic/pic7.avif)
+![Java 버전 확인](/images/front-end/react-native-basic/pic7.avif)
 
 ### 2.3. VSCode 설치하기
 
@@ -119,27 +119,27 @@ java --version
 이후 `SDK Platforms`에서 `Show Package Details`을 체크한 후 `Android SDK Platform 35`와
 `Intel x86 Atom_64 System Image` 항목을 체크합니다.
 
-![SDK Platforms](/mdx-blog/images/front-end/react-native-basic/pic8.avif)
+![SDK Platforms](/images/front-end/react-native-basic/pic8.avif)
 
 <br />
 
 그 후 `SDK Tools` 탭에서 `Show Package Details`을 체크한 후
 `Android SDK Build-Tools`의 `35.0.0` 항목을 체크한 후 Apply 버튼을 클릭하여 Android SDK와 관련된 빌드 도구들을 설치합니다.
 
-![SDK Tools](/mdx-blog/images/front-end/react-native-basic/pic9.avif)
+![SDK Tools](/images/front-end/react-native-basic/pic9.avif)
 
 <br />
 
 이후 `시스템 환경 변수 편집 > 환경 변수`으로 이동한 후 다음과 같이 변수 이름에 `ANDROID_HOME`을,
 변수 값에 방금 설치한 `Android SDK`의 경로를 지정하여 새로운 사용자 변수를 생성합니다.
 
-![사용자 변수 생성](/mdx-blog/images/front-end/react-native-basic/pic10.avif)
+![사용자 변수 생성](/images/front-end/react-native-basic/pic10.avif)
 
 <br />
 
 이후 사용자 변수 path의 편집 버튼을 누른 뒤 다음과 같이 `platform-tools` 경로를 추가합니다.
 
-![사용자 변수 편집](/mdx-blog/images/front-end/react-native-basic/pic11.avif)
+![사용자 변수 편집](/images/front-end/react-native-basic/pic11.avif)
 
 <br />
 
@@ -150,9 +150,9 @@ Get-ChildItem -Path Env:\
 adb --version
 ```
 
-![환경 변수 설정 확인](/mdx-blog/images/front-end/react-native-basic/pic12.avif)
+![환경 변수 설정 확인](/images/front-end/react-native-basic/pic12.avif)
 
-![ADB 설정 확인](/mdx-blog/images/front-end/react-native-basic/pic13.avif)
+![ADB 설정 확인](/images/front-end/react-native-basic/pic13.avif)
 
 ## 3. Step 2 - React Native 애플리케이션 생성하기
 
@@ -178,7 +178,7 @@ npx @react-native-community/cli@latest init <프로젝트 이름>
 먼저 안드로이드 기기에서 `설정 > 개발자 옵션`으로 들어간 후 `USB 디버깅`을 활성화합니다.
 만약 개발자 옵션이 보이지 않는 경우 `설정 -> 휴대전화 정보 > 소프트웨어 정보`에 들어간 후 `빌드번호` 항목을 여러 번 탭합니다.
 
-![USB 디버깅 활성화](/mdx-blog/images/front-end/react-native-basic/pic14.avif)
+![USB 디버깅 활성화](/images/front-end/react-native-basic/pic14.avif)
 
 <br />
 
@@ -188,7 +188,7 @@ npx @react-native-community/cli@latest init <프로젝트 이름>
 adb devices
 ```
 
-![기기 연결 확인](/mdx-blog/images/front-end/react-native-basic/pic15.avif)
+![기기 연결 확인](/images/front-end/react-native-basic/pic15.avif)
 
 <br />
 
@@ -198,7 +198,7 @@ adb devices
 adb reverse tcp:8081 tcp:8081
 ```
 
-![adb reverse](/mdx-blog/images/front-end/react-native-basic/pic16.avif)
+![adb reverse](/images/front-end/react-native-basic/pic16.avif)
 
 <br />
 
@@ -301,7 +301,7 @@ Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.L
  💡 JavaScript logs will be removed from Metro in React Native 0.77! Please use React Native DevTools as your default tool. Tip: Type j in the terminal to open (requires Google Chrome or Microsoft Edge).
 ```
 
-![React Native 애플리케이션 실행](/mdx-blog/images/front-end/react-native-basic/pic17.avif)
+![React Native 애플리케이션 실행](/images/front-end/react-native-basic/pic17.avif)
 
 ## 5. 참고 자료
 

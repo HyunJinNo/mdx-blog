@@ -5,7 +5,7 @@ export const metadata = {
   category: "Front-end",
   tags: ["react", "qr-code"],
   pin: false,
-  imagePath: "/mdx-blog/images/front-end/qrcode/pic1.avif",
+  imagePath: "/images/front-end/qrcode/pic1.avif",
 };
 
 > **<u>Tags</u>**
@@ -55,21 +55,21 @@ QR 코드는 다음과 같이 정확한 의미를 가진 패턴들로 구성됩�
 
 #### 2.3.1. 위치 탐지 패턴 (Finder Pattern)
 
-![위치 탐지 패턴 (Finder Pattern)](/mdx-blog/images/front-end/qrcode/pic2.avif)
+![위치 탐지 패턴 (Finder Pattern)](/images/front-end/qrcode/pic2.avif)
 
 위치 탐지 패턴은 우측 하단을 제외한 **좌상단 / 우상단 / 좌하단**에 위치한 정사각형입니다.
 이 위치 탐지 패턴을 통해 QR 코드의 회전 방향과 위치를 식별할 수 있으므로 어느 방향이나 각도에서 QR 코드를 찍어도 정확하고 빠르게 인식할 수 있습니다.
 
 #### 2.3.2. 정렬 패턴 (Alignment Pattern)
 
-![정렬 패턴 (Alignment Pattern)](/mdx-blog/images/front-end/qrcode/pic3.avif)
+![정렬 패턴 (Alignment Pattern)](/images/front-end/qrcode/pic3.avif)
 
 버전 2부터 추가된 정렬 패턴은 QR 코드의 중앙 또는 우하단 근처에 위치합니다.
 정렬 패턴은 QR 코드의 크기가 커지더라도 정방향이 아닌 방향에서 QR 코드를 인식할 수 있게 원근 왜곡을 보정하는 역할을 합니다.
 
 #### 2.3.3. 타이밍 패턴 (Timing Pattern)
 
-![타이밍 패턴 (Timing Pattern)](/mdx-blog/images/front-end/qrcode/pic4.avif)
+![타이밍 패턴 (Timing Pattern)](/images/front-end/qrcode/pic4.avif)
 
 타이밍 패턴은 좌상단의 Finder와 우상단의 Finder 사이, 그리고 좌상단의 Finder와 좌하단의 Finder 사이에 위치하는,
 검은색과 흰색이 교대로 배열된 1 모듈 너비의 선입니다.
@@ -78,7 +78,7 @@ QR 코드는 다음과 같이 정확한 의미를 가진 패턴들로 구성됩�
 
 #### 2.3.4. 버전 정보
 
-![버전 정보 / 버전 2](/mdx-blog/images/front-end/qrcode/pic5.avif)
+![버전 정보 / 버전 2](/images/front-end/qrcode/pic5.avif)
 
 QR 코드 크기는 버전으로 정의됩니다. 최초로 개발된 QR 버전 1은 `21 x 21`셀이었으며, 크기를 4셀씩 확장하면서 버전을 늘렸으며,
 최신 버전인 40은 `177 x 177`셀로 이루어져 있습니다.
@@ -144,7 +144,7 @@ export const QrcodePage = () => {
 };
 ```
 
-![qrcode](/mdx-blog/images/front-end/qrcode/pic6.avif)
+![qrcode](/images/front-end/qrcode/pic6.avif)
 
 #### 2.4.2. qrcode.react
 
@@ -168,7 +168,7 @@ export const QrcodeReactPage = () => {
 };
 ```
 
-![qrcode.react](/mdx-blog/images/front-end/qrcode/pic7.avif)
+![qrcode.react](/images/front-end/qrcode/pic7.avif)
 
 ## 3. 참고 자료
 

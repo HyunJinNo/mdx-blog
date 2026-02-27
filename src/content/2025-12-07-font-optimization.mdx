@@ -5,7 +5,7 @@ export const metadata = {
   category: "Front-end",
   tags: ["react", "font"],
   pin: false,
-  imagePath: "/mdx-blog/images/front-end/front-end.avif",
+  imagePath: "/images/front-end/front-end.avif",
 };
 
 > **<u>Tags</u>**
@@ -90,13 +90,13 @@ CSS에서 `@font-face`의 `font-display` 속성을 활용하면 폰트가 적용
 | 현대 브라우저 | 지원                                         | 지원                                     | 지원                                  |
 | 파일 확장자   | .ttf / .otf                                  | .woff                                    | .woff2                                |
 
-![TTF/OTF](/mdx-blog/images/front-end/font-optimization/pic1.avif)
+![TTF/OTF](/images/front-end/font-optimization/pic1.avif)
 
-![WOFF](/mdx-blog/images/front-end/font-optimization/pic2.avif)
+![WOFF](/images/front-end/font-optimization/pic2.avif)
 
-![WOFF2](/mdx-blog/images/front-end/font-optimization/pic3.avif)
+![WOFF2](/images/front-end/font-optimization/pic3.avif)
 
-![폰트 포맷들의 용량 비교](/mdx-blog/images/front-end/font-optimization/pic4.avif)
+![폰트 포맷들의 용량 비교](/images/front-end/font-optimization/pic4.avif)
 
 위의 사진을 보면 알 수 있듯이, WOFF2 포맷은 다른 폰트 포맷과 대비에 용량이 훨씬 작습니다.
 따라서 **WOFF2를 우선으로 적용하고 만약 브라우저가 WOFF2를 지원하지 않는 경우 WOFF를,
@@ -126,22 +126,22 @@ WOFF도 지원하지 않으면 TTF 또는 OTF를 적용하도록 구현**하는 
 
 예를 들어 다음과 같이 파일 용량이 766 KB인 Pretendard-Regular.woff2 파일이 있는 경우,
 
-![원본 폰트 파일 크기: 766 KB](/mdx-blog/images/front-end/font-optimization/pic5.avif)
+![원본 폰트 파일 크기: 766 KB](/images/front-end/font-optimization/pic5.avif)
 
 이 폰트 파일을 서브셋팅(Subsetting)하여 서브셋 폰트를 생성하면 파일 크기를 크게 줄일 수 있습니다.
 서브셋 폰트를 만드는 방법은 여러 가지가 있지만, 이 글에서는 Transfonter 서비스를 이용하여 생성하겠습니다.
 
 [Online @font-face generator — Transfonter](https://transfonter.org/)
 
-![Transfonter](/mdx-blog/images/front-end/font-optimization/pic6.avif)
+![Transfonter](/images/front-end/font-optimization/pic6.avif)
 
 변환하고자 하는 원본 폰트 파일을 선택한 후, Characters에 폰트를 적용할 문자(Ex. "서브셋 폰트")를 넣은 후 Convert 버튼을 누르면 서브셋 폰트를 생성할 수 있습니다.
 
-![Transfonter](/mdx-blog/images/front-end/font-optimization/pic7.avif)
+![Transfonter](/images/front-end/font-optimization/pic7.avif)
 
 실제로 서브셋 폰트를 사용하였을 때 파일 용량이 크게 줄어든 것을 확인할 수 있습니다.
 
-![서브셋 폰트 파일 크기: 2.1 KB](/mdx-blog/images/front-end/font-optimization/pic8.avif)
+![서브셋 폰트 파일 크기: 2.1 KB](/images/front-end/font-optimization/pic8.avif)
 
 ## 3. 참고 자료
 

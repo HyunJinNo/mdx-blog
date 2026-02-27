@@ -17,7 +17,7 @@ export const Sidebar = () => {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="absolute -z-10 h-full w-full object-cover"
-        src="/mdx-blog/images/background.avif"
+        src="/images/background.avif"
         alt="background"
       />
       <div className="flex h-full flex-col justify-between pt-14 pb-6">
@@ -28,7 +28,7 @@ export const Sidebar = () => {
               href="/"
             >
               <Image
-                src="/mdx-blog/logos/falling-star-logo.webp"
+                src="/logos/falling-star-logo.webp"
                 alt="avatar"
                 width={112}
                 height={112}
