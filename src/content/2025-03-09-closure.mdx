@@ -5,7 +5,7 @@ export const metadata = {
   category: "Computer Science",
   tags: ["javascript", "closure", "execution-context"],
   pin: false,
-  imagePath: "/mdx-blog/images/cs/study.avif",
+  imagePath: "/images/cs/study.avif",
 };
 
 > **<u>Tags</u>**
@@ -49,7 +49,7 @@ console.log(outer2()); // 2
 console.log(outer2()); // 3
 ```
 
-![inner 함수가 호출되어 inner 함수의 실행 컨텍스트가 활성화되면 outerEnvironmentReference가 outer 함수의 LexicalEnvironment를 필요로 하므로 수집 대상에서 제외됩니다.](/mdx-blog/images/cs/closure/pic1.avif)
+![inner 함수가 호출되어 inner 함수의 실행 컨텍스트가 활성화되면 outerEnvironmentReference가 outer 함수의 LexicalEnvironment를 필요로 하므로 수집 대상에서 제외됩니다.](/images/cs/closure/pic1.avif)
 
 또한 [2.1. 클로저의 개념](#21-클로저의-개념)에서 언급한 **"외부로 전달"** 이 return만을 의미하는 것은 아닙니다.
 다음과 같이 **별도의 외부 객체인 window의 메서드(setTimeout 또는 setInterval)** 에 전달할
@@ -73,7 +73,7 @@ function myFunc() {
 myFunc();
 ```
 
-![외부 객체인 window의 메서드에 전달할 콜백 함수 내부에서 지역 변수를 참조하는 경우 클로저가 발생합니다.](/mdx-blog/images/cs/closure/pic2.avif)
+![외부 객체인 window의 메서드에 전달할 콜백 함수 내부에서 지역 변수를 참조하는 경우 클로저가 발생합니다.](/images/cs/closure/pic2.avif)
 
 ### 2.3. 클로저와 메모리 관리
 
@@ -149,7 +149,7 @@ myFunc();
 </html>
 ```
 
-![클로저는 콜백 함수 내부에서 외부 변수를 참조할 때 활용할 수 있습니다.](/mdx-blog/images/cs/closure/pic3.webp)
+![클로저는 콜백 함수 내부에서 외부 변수를 참조할 때 활용할 수 있습니다.](/images/cs/closure/pic3.webp)
 
 또한 콜백 함수가 비동기적으로 실행될 때 클로저를 사용하면 함수 실행 시점의 변수를 참조할 수 있습니다.
 

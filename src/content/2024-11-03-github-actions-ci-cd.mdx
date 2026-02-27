@@ -15,7 +15,7 @@ export const metadata = {
     "yml",
   ],
   pin: false,
-  imagePath: "/mdx-blog/images/raspberry-pi/raspberry-pi.avif",
+  imagePath: "/images/raspberry-pi/raspberry-pi.avif",
 };
 
 > **<u>Tags</u>**
@@ -81,29 +81,29 @@ yml 설정 파일은 GitHub Repository에서 직접 만들어도 되고, 아니�
 
 먼저 다음과 같이 GitHub Repository의 Actions 탭을 클릭합니다.
 
-![Actions 탭](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic1.avif)
+![Actions 탭](/images/raspberry-pi/github-actions-ci-cd/pic1.avif)
 
 해당 페이지로 들어가면 위와 같이 GitHub에서 여러 가지 템플릿을 제공해 줍니다.
 원하는 템플릿을 검색하여 configure 버튼을 클릭하거나, 템플릿 없이 진행하려면 `set up a workflow yourself`를 클릭합니다.
 
-![템플릿 목록](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic3.avif)
+![템플릿 목록](/images/raspberry-pi/github-actions-ci-cd/pic3.avif)
 
 ### 4.2. VSCode에서 만들기
 
 먼저 다음과 같이 VSCode에서 `GitHub Actions` Extensions을 설치합니다.
 
-![GitHub Acitons Extensions](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic2.avif)
+![GitHub Acitons Extensions](/images/raspberry-pi/github-actions-ci-cd/pic2.avif)
 
 이후 프로젝트 최상단 디렉토리에서 `.github` 폴더를 생성하고 그 안에 `workflows`라는 폴더를 생성한 후 yml 설정 파일을 생성합니다.
 파일명은 원하는 대로 지으면 됩니다. 예를 들어 배포 관련 workflow 설정 파일을 생성한다면 `.github/workflows/deploy.yml` 구조가 될 수 있습니다.
 
-![.github/workflows/deploy.yml](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic10.avif)
+![.github/workflows/deploy.yml](/images/raspberry-pi/github-actions-ci-cd/pic10.avif)
 
 ## 5. Step 2 - Workflow 작성하기
 
 다음 예시는 Next.js 애플리케이션을 Raspberry Pi에 배포하고자 CI/CD를 구축한 예시입니다.
 
-![CI/CD 구축 예시](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic11.avif)
+![CI/CD 구축 예시](/images/raspberry-pi/github-actions-ci-cd/pic11.avif)
 
 위의 workflow 설정에 대해 설명하자면 다음과 같습니다.
 
@@ -116,7 +116,7 @@ name: GitHub Actions로 Next.js 앱 CI/CD 구축 예시
 
 먼저 위와 같이 workflow 이름을 설정해야 합니다. workflow 이름은 `name` 필드에서 설정합니다. 이 이름은 GitHub의 Actions 탭에 표시됩니다.
 
-![workflow 이름](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic5.avif)
+![workflow 이름](/images/raspberry-pi/github-actions-ci-cd/pic5.avif)
 
 ### 5.2. 이벤트 설정하기
 
@@ -134,7 +134,7 @@ on:
 
 ### 5.3. Job 설정하기
 
-![Job 설정](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic12.avif)
+![Job 설정](/images/raspberry-pi/github-actions-ci-cd/pic12.avif)
 
 `jobs` 필드는 workflow 내에서 실행될 개별 작업을 정의합니다. 각 job은 여러 단계를 포함할 수 있으며 병렬로 실행이 가능합니다.
 
@@ -217,7 +217,7 @@ GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https:
 애플리케이션을 빌드한 후에는 scp를 사용하여 빌드 파일을 Raspberry Pi로 전송해야 합니다.
 저는 [appleboy/scp-action@v0.1.7](https://github.com/appleboy/scp-action)라는 서드파티 액션을 사용하였습니다.
 
-![scp-action](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic13.avif)
+![scp-action](/images/raspberry-pi/github-actions-ci-cd/pic13.avif)
 
 Next.js에서는 빌드 시 `.next` 폴더가 생성되므로 해당 폴더를 source로 지정하면 됩니다.
 또한 위에서 Raspberry Pi의 IP 주소나 비밀번호, 포트 번호 등은 중요한 정보이므로 yml 파일에 직접 작성하지 않습니다.
@@ -226,11 +226,11 @@ Next.js에서는 빌드 시 `.next` 폴더가 생성되므로 해당 폴더를 s
 
 GitHub Secrets를 사용하려면 먼저 다음과 같이 GitHub Repository 내에서 `settings > Secrets and variable > Actions`로 이동합니다.
 
-![settings > Secrets and variable > Actions](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic6.avif)
+![settings > Secrets and variable > Actions](/images/raspberry-pi/github-actions-ci-cd/pic6.avif)
 
 이후 `New repository secret`을 클릭하여 `secrets`를 생성하면 됩니다.
 
-![secrets](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic7.avif)
+![secrets](/images/raspberry-pi/github-actions-ci-cd/pic7.avif)
 
 #### 5.3.5. ssh를 사용해 Raspberry Pi에 원격 접속한 후 pm2를 사용해 백그라운드로 실행하기
 
@@ -238,7 +238,7 @@ GitHub Secrets를 사용하려면 먼저 다음과 같이 GitHub Repository 내�
 `pm2`를 사용해 새롭게 백그라운드로 실행할 수 있도록 합니다.
 저는 [appleboy/ssh-action@v1.1.0](https://github.com/appleboy/ssh-action)라는 서드파티 액션을 사용하였습니다.
 
-![ssh-action](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic14.avif)
+![ssh-action](/images/raspberry-pi/github-actions-ci-cd/pic14.avif)
 
 위에 스크립트를 설명하자면 먼저 빌드 파일이 있는 폴더로 이동한 후 의존성 업데이트를 진행합니다. 이후 이전에 실행되고 있던 프로덕션 서버를 종료한 후 새로운 프로덕션 서버를 백그라운드로 실행합니다.
 
@@ -246,9 +246,9 @@ GitHub Secrets를 사용하려면 먼저 다음과 같이 GitHub Repository 내�
 
 CI/CD 테스트 결과는 다음과 같습니다.
 
-![CI/CD 테스트 결과](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic8.avif)
+![CI/CD 테스트 결과](/images/raspberry-pi/github-actions-ci-cd/pic8.avif)
 
-![CI/CD 테스트 결과](/mdx-blog/images/raspberry-pi/github-actions-ci-cd/pic9.avif)
+![CI/CD 테스트 결과](/images/raspberry-pi/github-actions-ci-cd/pic9.avif)
 
 ## 7. 참고 자료
 

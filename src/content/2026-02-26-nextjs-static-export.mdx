@@ -15,7 +15,7 @@ export const metadata = {
     "yml",
   ],
   pin: false,
-  imagePath: "/mdx-blog/images/front-end/front-end.avif",
+  imagePath: "/images/front-end/front-end.avif",
 };
 
 > **<u>Tags</u>**
@@ -40,7 +40,7 @@ Next.js 프로젝트를 GitHub Pages에 정적 배포하는 방법에 대해 정
 
 ## 3. Step 1 - generateStaticParams 설정하기
 
-![generateStaticParams 설정 이전](/mdx-blog/images/front-end/nextjs-static-export/pic1.avif)
+![generateStaticParams 설정 이전](/images/front-end/nextjs-static-export/pic1.avif)
 
 먼저 Next.js 프로젝트를 정적 배포하기 위해선 모든 동적 라우트를 SSG로 변경해야 합니다.
 `npm run build` 명령어를 실행하여 빌드한 결과물을 보면 위의 사진과 같이 서버에서 on-demand로 렌더링되는 페이지가 있음을 확인할 수 있습니다.
@@ -121,16 +121,16 @@ export async function generateStaticParams() {
 export const dynamicParams = false;
 ```
 
-![generateStaticParams 설정 이후](/mdx-blog/images/front-end/nextjs-static-export/pic2.avif)
+![generateStaticParams 설정 이후](/images/front-end/nextjs-static-export/pic2.avif)
 
 ## 4. Step 2 - GitHub Pages 설정하기
 
 GitHub Pages로 배포하기 위해선 먼저 정적 배포하고자 하는 Repository에서 `Settings > Pages`로 이동한 후
 `Build and deployment`의 `source`를 `GitHub Actions`로 지정합니다.
 
-![Settings > Pages](/mdx-blog/images/front-end/nextjs-static-export/pic3.avif)
+![Settings > Pages](/images/front-end/nextjs-static-export/pic3.avif)
 
-![GitHub Actions](/mdx-blog/images/front-end/nextjs-static-export/pic4.avif)
+![GitHub Actions](/images/front-end/nextjs-static-export/pic4.avif)
 
 ## 5. Step 3 - next.config.ts 설정하기
 
@@ -157,7 +157,7 @@ const nextConfig: NextConfig = {
 >
 > basePath를 설정하기 않는 경우, 다음과 같이 css 파일이나 이미지 경로에서 오류가 발생합니다.
 >
-> ![basePath 미설정 시 발생하는 오류](/mdx-blog/images/front-end/nextjs-static-export/pic5.avif)
+> ![basePath 미설정 시 발생하는 오류](/images/front-end/nextjs-static-export/pic5.avif)
 
 ## 6. Step 4 - Workflow 작성하기
 
@@ -238,7 +238,7 @@ name: Deploy Next.js site to Pages
 
 먼저 위와 같이 workflow 이름을 설정해야 합니다. workflow 이름은 `name` 필드에서 설정합니다. 이 이름은 GitHub의 Actions 탭에 표시됩니다.
 
-![workflow 이름](/mdx-blog/images/front-end/nextjs-static-export/pic6.avif)
+![workflow 이름](/images/front-end/nextjs-static-export/pic6.avif)
 
 ### 6.2. 이벤트 설정하기
 
@@ -480,11 +480,11 @@ deploy:
 
 GitHub Pages 정적 배포 결과는 다음과 같습니다.
 
-![GitHub Pages 정적 배포 결과](/mdx-blog/images/front-end/nextjs-static-export/pic7.avif)
+![GitHub Pages 정적 배포 결과](/images/front-end/nextjs-static-export/pic7.avif)
 
 ## 8. 참고 자료
 
-- [Release: GitHub Pages 정적 배포 by HyunJinNo · Pull Request #27 · HyunJinNo/mdx-blog](https://github.com/HyunJinNo/mdx-blog/pull/27)
+- [Release: GitHub Pages 정적 배포 by HyunJinNo · Pull Request #27 · HyunJinNo/mdx-blog](https://github.com/HyunJinNo/pull/27)
 - [Getting Started: Deploying | Next.js](https://nextjs.org/docs/app/getting-started/deploying)
 - [nextjs/deploy-github-pages: Next.js template to deploy to GitHub Pages as a static site.](https://github.com/nextjs/deploy-github-pages)
 - [Guides: Static Exports | Next.js](https://nextjs.org/docs/app/guides/static-exports)

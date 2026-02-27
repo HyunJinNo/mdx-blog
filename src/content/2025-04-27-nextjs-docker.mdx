@@ -6,7 +6,7 @@ export const metadata = {
   category: "Front-end",
   tags: ["docker", "nextjs"],
   pin: false,
-  imagePath: "/mdx-blog/images/raspberry-pi/docker/docker.webp",
+  imagePath: "/images/raspberry-pi/docker/docker.webp",
 };
 
 > **<u>Tags</u>**
@@ -62,12 +62,12 @@ docker run -p 3000:3000 --rm --add-host=host.docker.internal:host-gateway solito
 
 `Next.js` 애플리케이션에서 어떠한 설정을 하지 않고 Docker 이미지를 빌드하는 경우 다음과 같이 Docker 이미지 용량이 매우 커집니다.
 
-![최적화 전 Docker 이미지 용량: 1.87GB](/mdx-blog/images/front-end/nextjs-docker/pic1.avif)
+![최적화 전 Docker 이미지 용량: 1.87GB](/images/front-end/nextjs-docker/pic1.avif)
 
 `Next.js`에서는 프로덕션 배포에 필요한 파일만 포함해 Docker를 활용한 배포에 유용한 빌드 방식인 `standalone`을 지원합니다.
 다음 사진과 같이 `next.config.mjs` 파일에서 `output: "standalone"`을 설정합니다.
 
-![standalone](/mdx-blog/images/front-end/nextjs-docker/pic2.avif)
+![standalone](/images/front-end/nextjs-docker/pic2.avif)
 
 ### 2.3. Step 3 - .dockerignore 생성하기
 
@@ -125,7 +125,7 @@ Dockerfile
 Docker 이미지를 생성하기 위해선 먼저 `Dockerfile`을 작성해야 합니다.
 VSCode에서 Dockerfile을 쉽게 작성하기 위해 다음과 같이 VSCode에서 `Docker` extensions를 설치합니다.
 
-![Docker extensions](/mdx-blog/images/front-end/nextjs-docker/pic3.avif)
+![Docker extensions](/images/front-end/nextjs-docker/pic3.avif)
 
 이후 프로젝트 최상단 디렉토리에서 `Dockerfile` 파일을 생성합니다. 다음은 Next.js 애플리케이션을 빌드하고 실행하는 Dockerfile 예시입니다.
 
@@ -343,7 +343,7 @@ PS C:\Users\user\vscode\solitour-frontend> docker build -t solitour-frontend:v1.
  => => unpacking to docker.io/library/solitour-frontend:v1.1.0                                                                                        1.7s
 ```
 
-![Docker 이미지 빌드 결과](/mdx-blog/images/front-end/nextjs-docker/pic4.avif)
+![Docker 이미지 빌드 결과](/images/front-end/nextjs-docker/pic4.avif)
 
 ## 3. 컨테이너 실행하기
 
@@ -361,7 +361,7 @@ docker run -p 3000:3000 --rm --add-host=host.docker.internal:host-gateway solito
 
 컨테이너를 실행한 결과는 다음과 같습니다.
 
-![컨테이너 실행 결과](/mdx-blog/images/front-end/nextjs-docker/pic5.avif)
+![컨테이너 실행 결과](/images/front-end/nextjs-docker/pic5.avif)
 
 ## 4. 참고 자료
 

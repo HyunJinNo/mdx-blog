@@ -6,7 +6,7 @@ export const metadata = {
   category: "Front-end",
   tags: ["troubleshooting", "typescript", "nextjs", "fsd"],
   pin: false,
-  imagePath: "/mdx-blog/images/front-end/front-end.avif",
+  imagePath: "/images/front-end/front-end.avif",
 };
 
 > **<u>Tags</u>**
@@ -27,7 +27,7 @@ Next.js MDX 블로그 프로젝트에서 `Module not found` 오류를 해결한 
 
 다음 사진과 같이 fs 모듈을 찾을 수 없다는 `Module not found` 오류가 발생하였습니다.
 
-![Module not found: Can't resolve 'fs'](/mdx-blog/images/front-end/troubleshooting-nextjs-module-not-found/pic1.avif)
+![Module not found: Can't resolve 'fs'](/images/front-end/troubleshooting-nextjs-module-not-found/pic1.avif)
 
 ### 2.2. 🖥️ 발생 환경
 
@@ -99,7 +99,7 @@ export default async function RootLayout({
       <head>
         <link
           rel="icon"
-          href="/mdx-blog/images/icon/falling-star-logo.webp"
+          href="/images/icon/falling-star-logo.webp"
           sizes="any"
         />
         <script
@@ -320,7 +320,7 @@ export const getAllPostList = async () => {
 };
 ```
 
-![기존 폴더 구조](/mdx-blog/images/front-end/troubleshooting-nextjs-module-not-found/pic2.avif)
+![기존 폴더 구조](/images/front-end/troubleshooting-nextjs-module-not-found/pic2.avif)
 
 정리하자면, 클라이언트 컴포넌트인 `SearchResultViewer` 컴포넌트에서 `SearchResult` 컴포넌트를 가져오기 위해 `index.ts`를 import할 때
 fs 모듈을 사용하는 서버 전용 파일까지 함께 가져와서 발생한 문제였습니다.
@@ -339,9 +339,9 @@ getAllPostList.ts (fs 사용)
 
 위와 같이 문제를 해결한 결과는 다음과 같습니다.
 
-![변경 이후 폴더 구조](/mdx-blog/images/front-end/troubleshooting-nextjs-module-not-found/pic3.avif)
+![변경 이후 폴더 구조](/images/front-end/troubleshooting-nextjs-module-not-found/pic3.avif)
 
-![문제 해결 결과](/mdx-blog/images/front-end/troubleshooting-nextjs-module-not-found/pic4.avif)
+![문제 해결 결과](/images/front-end/troubleshooting-nextjs-module-not-found/pic4.avif)
 
 ## 4. 📚 참고 자료
 
