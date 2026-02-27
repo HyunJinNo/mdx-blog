@@ -19,19 +19,16 @@ export const ModalTemplate = ({
   return (
     <section
       className={[
-        "relative flex max-h-[calc(100vh-1rem)] w-96 flex-col rounded-xl bg-white",
+        "relative flex max-h-[calc(100vh-1rem)] w-96 max-w-[calc(100vw-1rem)] flex-col rounded-xl bg-white dark:border dark:border-white dark:bg-black",
         className,
       ].join(" ")}
     >
-      <div className="flex w-full flex-row items-center justify-between border-b border-gray-200 px-4 py-2">
-        <div>{title}</div>
+      <div className="flex w-full flex-row items-center justify-between gap-1 border-b border-gray-200 px-4 py-2">
+        <div className="truncate">{title}</div>
         <MdClose
           className="text-custom-gray hover:text-custom-blue cursor-pointer"
           size="1.5rem"
-          onClick={() => {
-            window.history.back();
-            closeModal();
-          }}
+          onClick={closeModal}
         />
       </div>
       {children}

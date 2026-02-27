@@ -26,7 +26,6 @@ export const Modal = ({ children, isOpen, closeModal }: ModalProps) => {
       ref={ref}
       onClick={(e) => {
         if (e.target === ref.current) {
-          window.history.back();
           closeModal();
         }
       }}
