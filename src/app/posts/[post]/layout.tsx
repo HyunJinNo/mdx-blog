@@ -1,5 +1,5 @@
 import { PostMetadata } from "@/entities/post";
-import { TocButton } from "@/entities/toc";
+import { TocButton, TocTopBar } from "@/entities/toc";
 import { Comment } from "@/features/comment";
 import { convertDateFormat } from "@/shared/lib/utils";
 import { PhotoProvider, PhotoView } from "@/shared/ui/photo";
@@ -69,6 +69,7 @@ export default async function MdxLayout({
           </div>
         </header>
         <TocButton postTitle={metadata.title} />
+        <TocTopBar postTitle={metadata.title} />
         {children}
         <Comment />
       </main>
