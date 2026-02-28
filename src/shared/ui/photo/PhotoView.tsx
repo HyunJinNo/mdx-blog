@@ -1,7 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { JSXElementConstructor, ReactElement } from "react";
-import { PhotoView as BasePhotoView } from "react-photo-view";
+
+const BasePhotoView = dynamic(
+  () => import("react-photo-view").then((mod) => mod.PhotoView),
+  { ssr: false },
+);
 
 interface PhotoViewProps {
   src: string;
