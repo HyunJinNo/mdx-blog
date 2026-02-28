@@ -23,7 +23,24 @@ export const metadata: Metadata = {
     default: "노현진's Blog",
     template: "%s | 노현진's Blog",
   },
+  authors: [{ name: "HyunJinNo", url: "https://github.com/HyunJinNo" }],
   description: "Next.js로 만든 MDX 블로그입니다.",
+  keywords: [
+    "hyunjinno",
+    "hyunjinno-dev",
+    "mdx-blog",
+    "블로그",
+    "노현진",
+    "노현진's Blog",
+  ],
+  openGraph: {
+    title: "노현진's Blog",
+    description: "Next.js로 만든 MDX 블로그입니다.",
+    url: "https://hyunjinno-dev.com",
+    images: [{ url: "/images/background.avif", width: 640, height: 960 }],
+    locale: "ko_KR",
+    type: "website",
+  },
 };
 
 export default async function RootLayout({
