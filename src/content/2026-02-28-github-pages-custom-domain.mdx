@@ -1,0 +1,113 @@
+export const metadata = {
+  title: "Next.js GitHub Pages 커스텀 도메인 적용 방법",
+  description:
+    "Next.js GitHub Pages 커스텀 도메인 적용 방법에 대해 정리한 페이지입니다.",
+  date: new Date("2026-02-28"),
+  category: "Front-end",
+  tags: ["domain", "gabia", "github-actions", "github-pages", "nextjs"],
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+};
+
+> **<u>Tags</u>**
+>
+> Domain, Gabia, GitHub Actions, GitHub Pages, Next.js
+
+## 1. 개요
+
+Next.js GitHub Pages 커스텀 도메인 적용 방법에 대해 정리한 페이지입니다.
+
+## 2. GitHub Pages 커스텀 도메인 적용하기
+
+### 2.1. 도메인 구매하기
+
+먼저 커스텀 도메인을 적용하기 위해선 도메인을 구매해야 합니다.
+여러 사이트가 있지만, 저는 [가비아](https://www.gabia.com/)에서 구매하였습니다.
+
+![도메인 구매하기](/images/front-end/github-pages-custom-domain/pic1.avif)
+
+### 2.2. DNS 설정하기
+
+`My가비아 > DNS 관리툴`로 이동합니다.
+
+![DNS 관리툴](/images/front-end/github-pages-custom-domain/pic2.avif)
+
+이후 구매한 도메인의 설정 버튼을 클릭합니다.
+
+![설정](/images/front-end/github-pages-custom-domain/pic3.avif)
+
+DNS 설정 페이지에서 다음과 같이 GitHub Pages의 IP 주소를 입력합니다.
+
+![GitHub Pages IP 주소 설정](/images/front-end/github-pages-custom-domain/pic4.avif)
+
+| Type  | Name | Value                          |
+| ----- | ---- | ------------------------------ |
+| A     | @    | 185.199.108.153                |
+| A     | @    | 185.199.109.153                |
+| A     | @    | 185.199.110.153                |
+| A     | @    | 185.199.111.153                |
+| cname | www  | `<GitHub 닉네임명>.github.io.` |
+
+> **<u>Info.</u>**
+>
+> `cname` 레코드에는 배포하는 Repository 이름과 상관없이, `<GitHub 닉네임명>.github.io.`을 입력하면 됩니다.
+
+### 2.3. 커스텀 도메인 설정하기
+
+GitHub Pages로 배포한 Repository에서 `Settings > Pages`로 이동한 후,
+`Custom domain`에 구매한 도메인명을 입력한 후 대기합니다.
+
+![커스텀 도메인 입력](/images/front-end/github-pages-custom-domain/pic5.avif)
+
+설정이 완료된 후 시간이 조금 지나면, 다음과 같이 `DNS check successful`이 표시됩니다.
+
+![커스텀 도메인 입력](/images/front-end/github-pages-custom-domain/pic6.avif)
+
+### 2.4. basePath 설정 제거하기
+
+이전에 GitHub Pages로 배포하였을 때, 다음과 같은 basePath 설정이 존재하였습니다.
+
+```typescript
+/* next.config.ts */
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  output: "export",
+  basePath: "/mdx-blog",
+  images: {
+    unoptimized: true,
+  },
+
+  /* ... */
+};
+```
+
+하지만 커스텀 도메인 적용 이후에는 해당 설정이 존재하는 경우 다음과 같이 css 파일이나 이미지 경로에서 오류가 발생합니다.
+
+![basePath 설정 제거 이전](/images/front-end/github-pages-custom-domain/pic7.avif)
+
+커스텀 도메인 적용 이후에는 다음과 같이 basePath 설정을 제거하면 됩니다.
+
+```typescript
+/* next.config.ts */
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
+
+  /* ... */
+};
+```
+
+![basePath 설정 제거 이후](/images/front-end/github-pages-custom-domain/pic8.avif)
+
+## 3. 참고 자료
+
+- [웹을 넘어 클라우드로. 가비아](https://www.gabia.com/)
+- [도메인 구매하기 (가비아)](https://velog.io/@beberiche/%EB%8F%84%EB%A9%94%EC%9D%B8-%EA%B5%AC%EB%A7%A4%ED%95%98%EA%B8%B0-%EA%B0%80%EB%B9%84%EC%95%84-8h2k3w97)
+- [GitHub Pages 가비아 도메인 연결하기](https://shxrecord.tistory.com/307)
+- [GitHub Pages 사이트의 사용자 지정 도메인 관리 - GitHub 문서](https://docs.github.com/ko/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)
+- [[git]깃블로그 가비아 도메인으로 퍼블리싱하기 – Seokmin.Lee](https://leesk212.github.io/git-%EA%B9%83%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B0%80%EB%B9%84%EC%95%84-%EB%8F%84%EB%A9%94%EC%9D%B8%EC%9C%BC%EB%A1%9C-%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%8B%B1%ED%95%98%EA%B8%B0/)

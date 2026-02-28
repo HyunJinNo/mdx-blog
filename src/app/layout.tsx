@@ -79,8 +79,8 @@ export default async function RootLayout({
           <aside className="desktop:right-20 tablet:right-9 fixed right-3 bottom-15">
             <ScrollToTopButton />
           </aside>
+          <BottomNavigation />
         </div>
-        <BottomNavigation />
         <div id="modal-root" />
       </body>
     </html>
