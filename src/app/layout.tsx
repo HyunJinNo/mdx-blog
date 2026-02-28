@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     "노현진",
     "노현진's Blog",
   ],
+  metadataBase: new URL("https://hyunjinno-dev.com"),
   openGraph: {
     title: "노현진's Blog",
     description: "Next.js로 만든 MDX 블로그입니다.",
