@@ -10,7 +10,11 @@ export const HeaderMenuButton = () => {
 
   return (
     <>
-      <button className="laptop:hidden" onClick={openModal}>
+      <button
+        className="laptop:hidden"
+        aria-label="메뉴 열기"
+        onClick={openModal}
+      >
         <FaBars className="text-custom-gray" />
       </button>
       <Modal isOpen={isOpen} closeModal={closeModal}>

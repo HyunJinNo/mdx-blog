@@ -16,6 +16,7 @@ export const TocButton = ({ postTitle }: TocButtonProps) => {
     <>
       <button
         className="desktop:hidden group mt-12 flex w-fit flex-row items-center gap-2 rounded-lg border border-gray-200 px-4 py-1 duration-300 hover:border-blue-500 hover:bg-blue-500"
+        aria-label="목차 목록 열기"
         onClick={openModal}
       >
         <span className="text-custom-gray group-hover:text-white">

@@ -40,7 +40,7 @@ export const Sidebar = () => {
             >
               {"노현진's Blog"}
             </Link>
-            <p className="mt-1 text-[15.2px] font-light tracking-wide text-[#eeeeee]">
+            <p className="mt-1 text-[15.2px] font-light tracking-wide text-white">
               A Passionate Developer
             </p>
           </header>
@@ -64,16 +64,28 @@ export const Sidebar = () => {
         <div className="flex flex-wrap gap-2 px-6">
           <ToggleThemeButton />
           <EmailLink />
-          <SidebarLink href="https://github.com/HyunJinNo">
+          <SidebarLink
+            href="https://github.com/HyunJinNo"
+            ariaLabel="HyunJinNo's GitHub"
+          >
             <FaGithub />
           </SidebarLink>
-          <SidebarLink href="https://hyunjinno.notion.site/3d1e9d32612740b8a5b7be16f5156d94">
+          <SidebarLink
+            href="https://hyunjinno.notion.site/3d1e9d32612740b8a5b7be16f5156d94"
+            ariaLabel="HyunJinNo's Notion"
+          >
             <FaUser />
           </SidebarLink>
-          <SidebarLink href="https://www.figma.com/design/holMZu0fmxxQQOLJy3d0Wg/HyunJinNo's-R%C3%A9sum%C3%A9?node-id=0-1&p=f&t=WK5OJVTZA62yFb9Y-0">
+          <SidebarLink
+            href="https://www.figma.com/design/holMZu0fmxxQQOLJy3d0Wg/HyunJinNo's-R%C3%A9sum%C3%A9?node-id=0-1&p=f&t=WK5OJVTZA62yFb9Y-0"
+            ariaLabel="HyunJinNo's Résumé"
+          >
             <FiFigma />
           </SidebarLink>
-          <SidebarLink href="https://www.figma.com/slides/crcjf68QabCbR1LQC18bE1/HyunJinNo's-Portfolio?node-id=1-303&t=EH7GJPvEhjEdV8IJ-0">
+          <SidebarLink
+            href="https://www.figma.com/slides/crcjf68QabCbR1LQC18bE1/HyunJinNo's-Portfolio?node-id=1-303&t=EH7GJPvEhjEdV8IJ-0"
+            ariaLabel="HyunJinNo's Portfolio"
+          >
             <FiFigma />
           </SidebarLink>
         </div>
