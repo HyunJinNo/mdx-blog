@@ -3,13 +3,13 @@ import Link from "next/link";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { vs } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { FaCode } from "@react-icons/all-files/fa/FaCode";
-import { FaRegClipboard } from "@react-icons/all-files/fa/FaRegClipboard";
 import { FaCircle } from "@react-icons/all-files/fa/FaCircle";
 import { FaRegLightbulb } from "@react-icons/all-files/fa/FaRegLightbulb";
 import { MdInfo } from "@react-icons/all-files/md/MdInfo";
 import { MdError } from "@react-icons/all-files/md/MdError";
 import { IoIosWarning } from "@react-icons/all-files/io/IoIosWarning";
 import { PhotoView } from "./shared/ui/photo";
+import { CopyButton } from "./shared/ui/button";
 
 const components = {
   a: ({ children, href }) => (
@@ -151,7 +151,7 @@ const components = {
             <FaCode />
             {language}
           </div>
-          <FaRegClipboard className="text-base" />
+          <CopyButton text={props.children.props?.children.trim()} />
         </div>
         <SyntaxHighlighter
           language={language}
