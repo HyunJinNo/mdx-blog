@@ -20,6 +20,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           ) : (
             <Link
               className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+              aria-label="이전 페이지"
               href={currentPage === 2 ? "/" : `/page${currentPage - 1}`}
             >
               <FaChevronLeft />
@@ -127,6 +128,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           ) : (
             <Link
               className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+              aria-label="다음 페이지"
               href={`/page${currentPage + 1}`}
             >
               <FaChevronRight />

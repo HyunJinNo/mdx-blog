@@ -14,6 +14,7 @@ export const CopyButton = ({ text }: CopyButtonProps) => {
   return (
     <button
       className="flex h-9 w-9 items-center justify-center text-base hover:text-teal-500"
+      aria-label="클립보드에 복사"
       onClick={() => copy(text)}
     >
       {copied ? <FaCheck className="text-teal-500" /> : <FaRegClipboard />}

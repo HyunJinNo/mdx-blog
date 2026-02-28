@@ -17,6 +17,7 @@ export const Header = () => {
         <SearchInput />
         <button
           className="text-custom-blue"
+          aria-label="블로그 게시글 검색 취소"
           onClick={() => setIsSearching(false)}
         >
           Cancel
@@ -32,7 +33,11 @@ export const Header = () => {
       <div className="laptop:hidden text-custom-gray text-lg font-medium">
         {headerTitle}
       </div>
-      <button className="laptop:hidden" onClick={() => setIsSearching(true)}>
+      <button
+        className="laptop:hidden"
+        aria-label="블로그 게시글 검색"
+        onClick={() => setIsSearching(true)}
+      >
         <FaSearch className="text-custom-gray" />
       </button>
       <div className="laptop:block hidden">
