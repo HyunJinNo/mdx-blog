@@ -1,0 +1,186 @@
+export const metadata = {
+  title: "[트러블슈팅] Next.js + react-photo-view",
+  description:
+    "Next.js MDX 블로그 프로젝트에서 react-photo-view 라이브러리를 사용하면서 발생한 빌드 오류를 해결한 과정에 대해 정리한 페이지입니다.",
+  date: new Date("2026-02-28"),
+  category: "Front-end",
+  tags: ["troubleshooting", "typescript", "nextjs"],
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+};
+
+> **<u>Tags</u>**
+>
+> Troubleshooting, Typescript, Next.js
+
+## 1. ✅ 개요
+
+Next.js MDX 블로그 프로젝트에서 react-photo-view 라이브러리를 사용하면서 발생한 빌드 오류를 해결한 과정에 대해 정리한 페이지입니다.
+
+## 2. ❓ 문제
+
+### 2.1. ⚠️ 오류
+
+> **<u>Tips</u>**
+>
+> 발생한 버그를 간략히 설명해 주세요.
+
+다음괴 같이 Next.js 애플리케이션 빌드 시 `Prerender Error`가 발생하였습니다.
+
+```bash
+user@MacBookProui-MacBookPro mdx-blog % npm run build
+> mdx-blog@1.0.0 build
+> next build
+• Next.js 16.1.4 (Turbopack)
+Creating an optimized production build
+• Compiled successfully in 1492.4ms
+• Finished TypeScript in 945.7ms
+• Collecting page data using 11 workers in 261.5ms
+Error occurred prerendering page "/posts/2025-04-07-fsd-example-nextjs". Read more: https://nextjs.org/docs/messages/prerender-error
+Error: Element type is invalid: expected a string (for built-in components) or a class/function
+(for composite components) but got: undefined.
+at ignore-listed frames {
+digest: 3649311722'
+Export encountered an error on /posts/[post]/page: /posts/2025-04-07-fsd-example-nextjs, exiting the build.
+× Next. js build worker exited with code: 1 and signal: null ry user@MacBookProui-MacBookPro mdx-blog%|
+```
+
+### 2.2. 🖥️ 발생 환경
+
+> **<u>Tips</u>**
+>
+> 운영체제, 브라우저, 의존성 목록 등을 작성해 주세요.
+
+- OS: MacOS
+- Next.js 16.1.4
+- react-photo-view v1.2.7
+
+### 2.3. 🕘 발생 일시
+
+> **<u>Tips</u>**
+>
+> 버그가 발생한 날짜와 시간을 입력해 주세요. (Ex. 2024년 10월 1일, 오후 3시 30분)
+
+- 2026년 2월 28일, 오후 4시 30분
+
+## 3. 📖 해결 과정
+
+![Prerender Error](/images/front-end/troubleshooting-react-photo-view/pic1.avif)
+
+먼저 에러 메시지에 따라 `/posts/2025-04-07-fsd-example-nextjs` 파일에서 `Prerender Error`가 발생하는 것을 알 수 있었고,
+**Element type is invalid ... but got: undefined**가 에러의 핵심임을 파악할 수 있었습니다.
+
+따라서 문단 단위로 지웠다가 다시 복구하면서 어느 부분에서 오류가 발생하는지 찾으려고 하였고,
+다음 사진과 같이 `3. FSD 아키텍처 적용하기` 문단에서 오류가 발생함을 확인할 수 있었습니다.
+
+![빌드 성공](/images/front-end/troubleshooting-react-photo-view/pic2.avif)
+
+그러나 오류 발생 위치를 파악하였지만, 원인 및 해결 방법에 대해선 찾기 어려웠습니다.
+특히 위의 사진과 같이 이미지와 텍스트 위치를 서로 바꾸었다고 빌드가 성공했다는 점이 이해하기 어려웠습니다.
+
+이와 같은 상황에서 오류의 원인이 이미지와 관련되어 있지 않을까라고 생각하였습니다.
+특히 이전까지 발생하지 않았던 오류가, `react-photo-view` 라이브러리를 사용한 이후부터 발생했다는 점에서 그런 생각이 들었습니다.
+
+```typescript
+/* @/mdx-components.tsx */
+
+/* ... */
+
+import type { MDXComponents } from "mdx/types";
+import { PhotoView } from "./shared/ui/photo";
+
+const components = {
+  /* ... */
+
+  img: (props) => (
+    <span className="my-2 flex items-center justify-center">
+      <PhotoView src={props.src}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          {...props}
+          className="cursor-zoom-in rounded-lg border border-gray-200 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
+          alt={props.alt}
+        />
+      </PhotoView>
+    </span>
+  ),
+
+  /* ... */
+} satisfies MDXComponents;
+
+export function useMDXComponents(): MDXComponents {
+  return components;
+}
+```
+
+```typescript
+/* @/shared/ui/photo/PhotoView.tsx */
+
+"use client";
+
+import { JSXElementConstructor, ReactElement } from "react";
+import { PhotoView as BasePhotoView } from "react-photo-view";
+
+interface PhotoViewProps {
+  src: string;
+  children: ReactElement<unknown, string | JSXElementConstructor<unknown>>;
+}
+
+export const PhotoView = ({ src, children }: PhotoViewProps) => {
+  return <BasePhotoView src={src}>{children}</BasePhotoView>;
+};
+```
+
+위에서 사용하고 있는 `PhotoView` 컴포넌트는 서버 컴포넌트를 prop으로 전달받고 있습니다.
+위와 같은 코드에서 `return <BasePhotoView src={src}>{children}</BasePhotoView>;`을 `return children;`으로 대신하였더니
+오류가 발생하지 않았습니다. 즉, 오류의 원인은 `react-photo-view` 라이브러리를 사용하는 부분에 있다는 점을 파악할 수 있었습니다.
+
+`react-photo-view` 라이브러리를 사용하면서 왜 오류가 발생했는지 파악하기 위해,
+먼저 `react-photo-view` 라이브러리 저장소를 찾아 코드를 확인해보았습니다.
+
+![react-photo-view](/images/front-end/troubleshooting-react-photo-view/pic3.avif)
+
+코드를 확인해보니 `react-photo-view`의 `PhotoView` 컴포넌트는 `useEffect`, `useRef` 등을 사용하는 등 **완전한 CSR 전용 컴포넌트**임을 확인할 수 있었습니다.
+
+**제가 사용하고 있는 MDX 블로그는 SSG 환경이었고, 정적 생성(SSG) 단계에서 import 자체는 서버에서 실행되기 때문에 발생한 문제였습니다.**
+따라서 `react-photo-view` 라이브러리는 SSR 환경에서는 안전하지 않기 때문에 브라우저에서만 로딩되도록 방지할 필요가 있었습니다.
+
+[Prerender Error with Next.js | Next.js](https://nextjs.org/docs/messages/prerender-error)
+
+실제 공식 문서에서도 `Prerender Error` 해결 방법 중 하나로 `5. Disable server-side rendering for components using browser APIs`를 설명하고 있었습니다.
+
+![Disable server-side rendering for components using browser APIs](/images/front-end/troubleshooting-react-photo-view/pic4.avif)
+
+따라서 다음과 같이 `next/dynamic`로 클라이언트 사이드(= 브라우저)에서 `react-photo-view`를 불러오도록 설정하였고,
+이후 빌드 시 오류가 발생하지 않게 되었습니다.
+
+```typescript
+/* @/shared/ui/photo/PhotoView.tsx */
+
+"use client";
+
+import dynamic from "next/dynamic";
+import { JSXElementConstructor, ReactElement } from "react";
+
+const BasePhotoView = dynamic(
+  () => import("react-photo-view").then((mod) => mod.PhotoView),
+  { ssr: false },
+);
+
+interface PhotoViewProps {
+  src: string;
+  children: ReactElement<unknown, string | JSXElementConstructor<unknown>>;
+}
+
+export const PhotoView = ({ src, children }: PhotoViewProps) => {
+  return <BasePhotoView src={src}>{children}</BasePhotoView>;
+};
+```
+
+![문제 해결 결과](/images/front-end/troubleshooting-react-photo-view/pic5.avif)
+
+## 4. 📚 참고 자료
+
+- [Prerender Error with Next.js | Next.js](https://nextjs.org/docs/messages/prerender-error)
+- [MinJieLiu/react-photo-view: An exquisite React photo preview component.](https://github.com/MinJieLiu/react-photo-view)
+- [Guides: Lazy Loading | Next.js](https://nextjs.org/docs/app/guides/lazy-loading)
