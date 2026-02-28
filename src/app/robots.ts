@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/images", "/logos", "/videos"],
     },
+    host: "https://hyunjinno-dev.com",
     sitemap: "https://hyunjinno-dev.com/sitemap.xml",
   };
 }
