@@ -63,6 +63,7 @@ Next.js(App Router)와 MDX 기반으로 제작한 개인 블로그입니다. 기
 | [Next.js 클립보드 복사 기능 구현 방법](https://hyunjinno-dev.com/posts/2026-02-28-clipboard-api)                              | 2026. 02. 28. |
 | [Next.js GitHub Pages 커스텀 도메인 적용 방법](https://hyunjinno-dev.com/posts/2026-02-28-github-pages-custom-domain)         | 2026. 02. 28. |
 | [[트러블슈팅] Next.js + react-photo-view](https://hyunjinno-dev.com/posts/2026-02-28-troubleshooting-react-photo-view)        | 2026. 02. 28. |
+| [서브셋 폰트로 웹 성능 개선하기](https://hyunjinno-dev.com/posts/2026-03-01-subset-font)                                      | 2026. 03. 01. |
 
 <br />
 <br />
