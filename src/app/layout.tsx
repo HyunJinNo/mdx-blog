@@ -58,6 +58,10 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <meta
+          name="naver-site-verification"
+          content="6ec4c644baa43419d9a3f9c3229d72d1e2706e46"
+        />
         <link
           rel="icon"
           href="/images/icon/falling-star-logo.webp"
