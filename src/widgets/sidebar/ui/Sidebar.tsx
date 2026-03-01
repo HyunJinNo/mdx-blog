@@ -42,7 +42,7 @@ export const Sidebar = () => {
             >
               {"노현진's Blog"}
             </Link>
-            <p className="mt-1 text-[15.2px] font-light tracking-wide text-white">
+            <p className="mt-1 text-[15.2px] tracking-wide text-white">
               A Passionate Developer
             </p>
           </header>
