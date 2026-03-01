@@ -14,8 +14,28 @@ import { TableOfContents } from "@/entities/toc";
 import { BottomNavigation } from "@/widgets/bottomNavigation";
 
 const pretendardFont = localFont({
-  src: "./PretendardVariable.woff2",
-  weight: "300 900",
+  src: [
+    {
+      path: "./Pretendard-Light.subset.woff2",
+      weight: "300",
+      style: "light",
+    },
+    {
+      path: "./Pretendard-Medium.subset.woff2",
+      weight: "500",
+      style: "medium",
+    },
+    {
+      path: "./Pretendard-Bold.subset.woff2",
+      weight: "700",
+      style: "bold",
+    },
+    {
+      path: "./Pretendard-Black.custom-subset.woff2",
+      weight: "900",
+      style: "Black",
+    },
+  ],
   display: "swap",
 });
 
