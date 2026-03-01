@@ -28,12 +28,10 @@ export default async function Page({
 
   return (
     <main className="flex w-full flex-col gap-8 dark:bg-black">
-      <h1 className="flex flex-row items-baseline gap-2 text-[2rem] font-bold">
+      <h1 className="flex flex-row items-baseline gap-2 text-[2rem]">
         <FaTag className="text-custom-gray text-base" />
-        {decodedTag}
-        <span className="text-custom-gray pl-2 text-xl font-light">
-          {postList.length}
-        </span>
+        <span className="font-bold">{decodedTag}</span>
+        <span className="text-custom-gray pl-2 text-xl">{postList.length}</span>
       </h1>
       <ul className="marker:text-custom-gray list-disc pl-4">
         {postList.map((post) => (

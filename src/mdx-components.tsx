@@ -90,13 +90,13 @@ const components = {
     );
   },
   code: ({ children }) => (
-    <code className="rounded-md bg-[#E7F3F8] px-1.25 py-0.75 text-sm font-normal text-[#337EA9] dark:bg-white/25 dark:text-[#C9DEF1]">
+    <code className="rounded-md bg-[#E7F3F8] px-1.25 py-0.75 text-sm font-medium text-[#337EA9] dark:bg-white/25 dark:text-[#C9DEF1]">
       {children}
     </code>
   ),
   h2: ({ children }) => (
     <h2
-      className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-semibold text-black dark:text-white"
+      className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-bold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -107,7 +107,7 @@ const components = {
   ),
   h3: ({ children }) => (
     <h3
-      className="mt-10 mb-4 text-xl font-semibold text-black dark:text-white"
+      className="mt-10 mb-4 text-xl font-bold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -118,7 +118,7 @@ const components = {
   ),
   h4: ({ children }) => (
     <h4
-      className="mt-8 mb-4 text-lg font-semibold text-black dark:text-white"
+      className="mt-8 mb-4 text-lg font-bold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -129,7 +129,7 @@ const components = {
   ),
   h5: ({ children }) => (
     <h5
-      className="mt-6 mb-2 font-semibold text-black dark:text-white"
+      className="mt-6 mb-2 font-bold text-black dark:text-white"
       id={children
         .toLowerCase()
         .replace(/\s+/g, "-")
@@ -146,6 +146,8 @@ const components = {
           {...props}
           className="cursor-zoom-in rounded-lg border border-gray-200 shadow-[0_4px_8px_0_rgba(0,0,0,0.2),0_6px_20px_0_rgba(0,0,0,0.19)]"
           alt={props.alt}
+          loading="lazy"
+          sizes="(max-width: 850px): 100vw, 80vw"
         />
       </PhotoView>
     </span>
@@ -169,7 +171,7 @@ const components = {
             <FaCircle className="text-[#E5E5E5]" />
             <FaCircle className="text-green-400" />
           </div>
-          <div className="flex flex-row items-center gap-1 font-normal">
+          <div className="flex flex-row items-center gap-1 font-medium">
             <FaCode />
             {language}
           </div>
@@ -192,9 +194,7 @@ const components = {
       </div>
     );
   },
-  strong: ({ children }) => (
-    <strong className="font-semibold">{children}</strong>
-  ),
+  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
   table: ({ children }) => <table className="mb-6">{children}</table>,
   td: ({ children }) => <td className="px-4 py-2">{children}</td>,
   th: ({ children }) => (

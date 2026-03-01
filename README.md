@@ -4,10 +4,11 @@
   <img src="https://github.com/user-attachments/assets/58419133-3522-4980-b1a8-e061d7aa1d9a" alt="mdx-blog" />
 </div>
 
+> 배포 링크 <br/> **https://hyunjinno-dev.com**
+
 <br />
 
 <div align="center">
-  <a href="https://github.com/HyunJinNo/mdx-blog/wiki" target="_blank"><img src="https://img.shields.io/badge/GitHub%20Wiki-181717?logo=github&logoColor=white"></a>
    <a href="https://github.com/users/HyunJinNo/projects/3" target="blank"><img src="https://img.shields.io/badge/🎯Backlog%20-02B78F?logo=none&logoColor=white"></a>
 </div>
 
@@ -62,6 +63,7 @@ Next.js(App Router)와 MDX 기반으로 제작한 개인 블로그입니다. 기
 | [Next.js 클립보드 복사 기능 구현 방법](https://hyunjinno-dev.com/posts/2026-02-28-clipboard-api)                              | 2026. 02. 28. |
 | [Next.js GitHub Pages 커스텀 도메인 적용 방법](https://hyunjinno-dev.com/posts/2026-02-28-github-pages-custom-domain)         | 2026. 02. 28. |
 | [[트러블슈팅] Next.js + react-photo-view](https://hyunjinno-dev.com/posts/2026-02-28-troubleshooting-react-photo-view)        | 2026. 02. 28. |
+| [서브셋 폰트로 웹 성능 개선하기](https://hyunjinno-dev.com/posts/2026-03-01-subset-font)                                      | 2026. 03. 01. |
 
 <br />
 <br />

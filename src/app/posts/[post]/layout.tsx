@@ -36,7 +36,7 @@ export default async function MdxLayout({
     <PhotoProvider>
       <main className="flex w-full flex-col">
         <header className="mb-8 flex flex-col">
-          <h1 className="mb-2 text-3xl font-semibold text-black dark:text-white">
+          <h1 className="mb-2 text-3xl font-bold text-black dark:text-white">
             {metadata.title}
           </h1>
           <p className="mb-6 text-lg">{metadata.description}</p>
@@ -54,13 +54,14 @@ export default async function MdxLayout({
                   src={metadata.imagePath}
                   alt="Preview Image"
                   fill={true}
+                  sizes="(max-width: 850px): 100vw, 80vw"
                 />
               </PhotoView>
             </div>
             <span>
               By{" "}
               <a
-                className="text-custom-gray font-semibold underline-offset-4 hover:text-teal-500 hover:underline dark:text-gray-400"
+                className="text-custom-gray font-bold underline-offset-4 hover:text-teal-500 hover:underline dark:text-gray-400"
                 href="https://github.com/HyunJinNo"
               >
                 HyunJinNo

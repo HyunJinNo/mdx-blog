@@ -14,11 +14,13 @@ import { ToggleThemeButton } from "@/features/toggleTheme";
 export const Sidebar = () => {
   return (
     <aside className="laptop:flex fixed top-0 bottom-0 left-0 hidden w-65 flex-col">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         className="absolute -z-10 h-full w-full object-cover"
         src="/images/background.avif"
         alt="background"
+        fetchPriority="high"
+        loading="eager"
+        fill={true}
       />
       <div className="flex h-full flex-col justify-between pt-14 pb-6">
         <div className="flex flex-col gap-10">
@@ -40,7 +42,7 @@ export const Sidebar = () => {
             >
               {"노현진's Blog"}
             </Link>
-            <p className="mt-1 text-[15.2px] font-light tracking-wide text-white">
+            <p className="mt-1 text-[15.2px] tracking-wide text-white">
               A Passionate Developer
             </p>
           </header>
