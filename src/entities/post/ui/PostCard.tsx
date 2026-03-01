@@ -52,6 +52,7 @@ export const PostCard = ({
             src={imagePath}
             alt="preview Image"
             fill={true}
+            sizes="(max-width: 768px) 100vw, 40vw"
           />
         </div>
       </Link>

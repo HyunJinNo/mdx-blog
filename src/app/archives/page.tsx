@@ -16,7 +16,7 @@ export default async function Page() {
       <div className="flex flex-col gap-6">
         {[...postMap.keys()].map((year) => (
           <div key={year} className="flex flex-col gap-6">
-            <time className="w-fit text-2xl font-extralight">{year}</time>
+            <time className="w-fit text-2xl font-light">{year}</time>
             <ul>
               {postMap.get(year)!.map((post) => (
                 <li

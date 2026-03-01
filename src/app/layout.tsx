@@ -15,7 +15,8 @@ import { BottomNavigation } from "@/widgets/bottomNavigation";
 
 const pretendardFont = localFont({
   src: "./PretendardVariable.woff2",
-  weight: "100 900",
+  weight: "300 900",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

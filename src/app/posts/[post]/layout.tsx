@@ -54,6 +54,7 @@ export default async function MdxLayout({
                   src={metadata.imagePath}
                   alt="Preview Image"
                   fill={true}
+                  sizes="(max-width: 850px): 100vw, 80vw"
                 />
               </PhotoView>
             </div>
