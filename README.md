@@ -4,10 +4,11 @@
   <img src="https://github.com/user-attachments/assets/58419133-3522-4980-b1a8-e061d7aa1d9a" alt="mdx-blog" />
 </div>
 
+> 배포 링크 <br/> **https://hyunjinno-dev.com**
+
 <br />
 
 <div align="center">
-  <a href="https://github.com/HyunJinNo/mdx-blog/wiki" target="_blank"><img src="https://img.shields.io/badge/GitHub%20Wiki-181717?logo=github&logoColor=white"></a>
    <a href="https://github.com/users/HyunJinNo/projects/3" target="blank"><img src="https://img.shields.io/badge/🎯Backlog%20-02B78F?logo=none&logoColor=white"></a>
 </div>
 
