@@ -12,14 +12,36 @@ import { PhotoView } from "./shared/ui/photo";
 import { CopyButton } from "./shared/ui/button";
 
 const components = {
-  a: ({ children, href }) => (
-    <Link
-      className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
-      href={href}
-    >
-      {children}
-    </Link>
-  ),
+  a: ({ children, href, ...props }) => {
+    if (!href || typeof href !== "string") {
+      return <>{children}</>;
+    }
+
+    const isExternal = href.startsWith("http");
+
+    if (isExternal) {
+      return (
+        <a
+          {...props}
+          className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={href}
+        >
+          {children}
+        </a>
+      );
+    }
+
+    return (
+      <Link
+        className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+        href={href}
+      >
+        {children}
+      </Link>
+    );
+  },
   blockquote: (props) => {
     const promptType =
       props.children[1].props.children.props.children.props.children;
