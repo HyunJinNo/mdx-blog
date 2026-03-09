@@ -3,6 +3,7 @@ import { TocButton, TocTopBar } from "@/entities/toc";
 import { Comment } from "@/features/comment";
 import { convertDateFormat } from "@/shared/lib/utils";
 import { PhotoProvider, PhotoView } from "@/shared/ui/photo";
+import { PostTailWrapper } from "@/widgets/postTailWrapper";
 import Image from "next/image";
 
 export async function generateMetadata({
@@ -72,6 +73,10 @@ export default async function MdxLayout({
         <TocButton postTitle={metadata.title} />
         <TocTopBar postTitle={metadata.title} />
         {children}
+        <PostTailWrapper
+          categoryTitle={metadata.category}
+          tagList={metadata.tags}
+        />
         <Comment />
       </main>
     </PhotoProvider>
