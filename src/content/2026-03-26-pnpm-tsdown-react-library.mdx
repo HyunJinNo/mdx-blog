@@ -1,0 +1,245 @@
+export const metadata = {
+  title: "pnpm + tsdown으로 React 라이브러리 만들기",
+  description:
+    "pnpm + tsdown으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.",
+  date: new Date("2026-03-26"),
+  category: "Front-end",
+  tags: ["nextra", "pnpm", "react", "tsdown"],
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+};
+
+> **<u>Tags</u>**
+>
+> nextra, pnpm, React, tsdown
+
+> **<u>Environment</u>**
+>
+> pnpm v10.32.1
+>
+> nextra v4.6.1
+>
+> tsdown v0.21.3
+>
+> react v19.2.3
+>
+> \@tsdown/css v0.21.4
+
+## 1. 개요
+
+`pnpm` + `tsdown`으로 React UI 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.
+[react-toc](https://github.com/HyunJinNo/react-toc) 라이브러리를 만들었던 과정을 정리하였습니다.
+
+## 2. 라이브러리 구조 설계하기
+
+```plaintext
+react-toc
+├── apps
+|   └── demo
+|       ├── src
+|       |   ├── app
+|       |   ├── components
+|       |   └── mdx-components.tsx
+|       ├── (...)
+|       ├── next.config.ts
+|       ├── package.json
+|       └── tsconfig.json
+├── packages
+|   └── react-toc
+|       ├── src
+|       |   ├── TocProvider.tsx
+|       |   ├── (...)
+|       |   └── index.ts
+|       ├── package.json
+|       ├── tsconfig.json
+|       └── tsdown.config.ts
+├── (...)
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-worksplace.yaml
+└── tsconfig.base.json
+```
+
+- `apps/demo`  
+  Next.js 데모 앱
+- `packages/react-toc`  
+  실제 React 라이브러리
+
+## 3. pnpm 설치하기
+
+다음 명령어를 입력하여 `pnpm`을 설치합니다.
+
+```bash
+# pnpm 다운로드 및 설치
+corepack enable pnpm
+
+# pnpm 버전 확인
+pnpm -v
+```
+
+## 4. 프로젝트 초기화하기
+
+```bash
+mkdir react-toc
+cd react-toc
+
+pnpm init
+```
+
+```json
+{
+  "name": "react-toc",
+  "private": true,
+  "description": "A library that automatically generates a Table of Contents (TOC) from your headings with scroll tracking.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["toc", "table-of-contents"],
+  "author": "HyunJinNo",
+  "homepage": "https://hyunjinno.github.io/react-toc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HyunJinNo/react-toc"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.32.1",
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "typescript": "^5.9.3"
+  }
+}
+```
+
+`"private": true`를 설정하여 루트 패키지의 `npm publish`를 방지합니다.
+
+## 5. pnpm workspace 설정하기
+
+```yaml
+packages:
+  - "packages/*"
+  - "apps/*"
+```
+
+## 6. tsconfig.base.json 설정하기
+
+```json
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "jsx": "react-jsx" /* Specify what JSX code is generated. */,
+
+    /* Modules */
+    "module": "esnext" /* Specify what module code is generated. */,
+    "moduleResolution": "bundler" /* Specify how TypeScript looks up a file from a given module specifier. */,
+
+    /* Emit */
+    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+
+    /* Interop Constraints */
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */,
+
+    /* Completeness */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  }
+}
+```
+
+## 7. React 라이브러리 패키지 생성하기
+
+```bash
+mkdir -p packages/react-toc/src
+cd packages/react-toc
+
+pnpm init
+```
+
+```json
+{
+  "name": "@hyunjinno/react-toc",
+  "version": "1.0.0",
+  "description": "A library that automatically generates a Table of Contents (TOC) from your headings with scroll tracking.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsdown",
+    "watch": "tsdown --watch ./src"
+  },
+  "keywords": ["toc", "table-of-contents"],
+  "author": "HyunJinNo",
+  "homepage": "https://hyunjinno.github.io/react-toc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HyunJinNo/react-toc"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@tsdown/css": "^0.21.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tsdown": "^0.21.3",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1"
+  }
+}
+```
+
+## 8. React 라이브러리 의존성 설치하기
+
+```bash
+pnpm add -Dw react react-dom @types/react @types/react-dom typescript tsdown @tsdown/css
+pnpm add -w clsx
+```
+
+## 9. tsdown 설정하기
+
+```typescript
+/* tsdown.config.ts */
+
+import { defineConfig } from "tsdown";
+
+export default defineConfig({
+  entry: ["./src/index.ts"],
+  format: ["esm", "cjs"],
+  dts: true,
+  clean: true,
+  deps: { neverBundle: ["react", "react-dom"] },
+});
+```
+
+## TODO. 참고 자료
+
+- [React+typescript 컴포넌트 라이브러리 생성하기 ③rollup 설정 — 콩부합시다](https://codgehog.tistory.com/19?category=1187053)
+- [고티켓-react 컴포넌트 라이브러리 만들기(3)-rollup — 이찬진 컴퓨터 교실](https://devnm.tistory.com/6)
+- [esbuild vs rollup vs webpack vs tsup | "웹 자바스크립트 번들러" npm 패키지 비교](https://npm-compare.com/ko-KR/esbuild,rollup,tsup,webpack)
+- [리액트 컴포넌트 라이브러리를 빌드하고 배포하는 방법 — React와 TypeScript를 좋아하는 개발자](https://xionwcfm.tistory.com/450)
+- [리액트 라이브러리 npm에 배포하기 with rollup](https://jha-memo.tistory.com/228)
+- [rolldown/tsdown: The elegant bundler for libraries powered by Rolldown](https://github.com/rolldown/tsdown)
