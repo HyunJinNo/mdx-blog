@@ -11,7 +11,7 @@ export const metadata = {
 
 > **<u>Tags</u>**
 >
-> monorepo, nextra, pnpm, React, tsdown
+> monorepo, Nextra, pnpm, React, tsdown
 
 > **<u>Environment</u>**
 >
@@ -110,8 +110,8 @@ pnpm init
 
 ```yaml
 packages:
-  - "packages/*"
   - "apps/*"
+  - "packages/*"
 ```
 
 설정 이후 `apps/`, `packages/` 디렉토리 아래의 모든 패키지가 워크스페이스로 인식됩니다.
@@ -368,16 +368,40 @@ import "@hyunjinno/react-toc/style.css";
 번들 중복 방지를 위해 peerDependencies에 React를 외부 의존성으로 지정합니다.
 이를 통해 라이브러리 사용자가 React를 설치하게 됩니다.
 
-### 7.2. React 라이브러리 의존성 설치하기
+### 7.2. tsconfig.json 설정하기
 
-TODO
+생성한 라이브러리 디렉토리에서 `tsconfig.json` 파일을 생성한 후,
+프로젝트 루트에 있는 `tsconfig.base.json`을 확장하도록 설정합니다.
+
+```json
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist"
+  },
+  "include": ["src"]
+}
+```
+
+### 7.3. React 라이브러리 의존성 설치하기
+
+프로젝트 루트에서 다음 명령어를 입력하여 React 라이브러리 및 `tsdown` 번들러 의존성을 설치합니다.
 
 ```bash
 pnpm add -Dw react react-dom @types/react @types/react-dom typescript tsdown @tsdown/css
-pnpm add -w clsx
 ```
 
-### 7.3. tsdown 설정하기
+특정 라이브러리에서만 필요한 의존성의 경우, 다음과 같이 설치할 수 있습니다.
+
+```bash
+pnpm add -D clsx
+```
+
+### 7.4. tsdown 설정하기
+
+`packages/react-toc` 디렉토리에서 `tsdown.config.ts` 파일을 생성한 후, 다음과 같이 설정합니다.
 
 ```typescript
 /* tsdown.config.ts */
@@ -393,12 +417,199 @@ export default defineConfig({
 });
 ```
 
+위의 코드를 설명하자면 다음과 같습니다.
+
+- `entry`  
+  빌드 진입점을 설정합니다.
+- `format`  
+  ESM과 CJS 모두 지원하도록 설정합니다.
+- `dts`  
+  `.d.ts` 파일을 생성하도록 설정합니다.
+- `clean`  
+  라이브러리 빌드 전, 이전에 생성된 빌드 결과물을 삭제하도록 설정합니다.
+- `deps`  
+  React 번들을 제외하도록 설정합니다.
+
+### 7.5. React 컴포넌트 생성하기
+
+![React 컴포넌트 생성하기](/images/front-end/pnpm-tsdown-react-library/pic1.png)
+
+```typescript
+import clsx from "clsx";
+
+type H2Props = Omit<
+  React.ComponentProps<"h2"> & {
+    children: string;
+  },
+  "id"
+>;
+
+export const H2 = ({ children, ...props }: H2Props) => {
+  return (
+    <h2 {...props} className={clsx("toc-heading", props.className)}>
+      {children}
+    </h2>
+  );
+};
+```
+
+### 7.6. style.css 생성하기
+
+```css
+.react-toc-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-left: 1px solid #dddddd;
+  height: fit-content;
+  padding-bottom: 1rem;
+}
+
+.react-toc-wrapper-heading {
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
+.react-toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.react-toc-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    color: #0056b2;
+  }
+}
+
+.react-toc-active {
+  border-left: 1px solid #0056b2;
+  color: #0056b2;
+  margin-left: -1px;
+}
+
+.react-toc-h2 {
+  padding-left: 1rem;
+}
+
+.react-toc-h3 {
+  padding-left: 1.75rem;
+}
+
+.react-toc-h4 {
+  padding-left: 2.5rem;
+}
+
+.react-toc-h5 {
+  padding-left: 3.25rem;
+}
+
+.react-toc-h6 {
+  padding-left: 4rem;
+}
+```
+
+### 7.7. index.ts 설정하기
+
+```typescript
+import "./style.css";
+
+export { H2 } from "./H2";
+export { H3 } from "./H3";
+export { H4 } from "./H4";
+export { H5 } from "./H5";
+export { H6 } from "./H6";
+export { Toc } from "./Toc";
+export { TocProvider } from "./TocProvider";
+```
+
+### 7.8. 라이브러리 빌드하기
+
+다음 명령어를 입력하여 라이브러리 빌드를 수행할 수 있습니다.
+
+```bash
+pnpm run build
+```
+
+![라이브러리 빌드하기](/images/front-end/pnpm-tsdown-react-library/pic2.png)
+
+또는 watch 모드로 실행하여 코스 수정 시 자동으로 재빌드할 수 있습니다.
+
+```bash
+pnpm run watch
+```
+
 ## 8. Next.js 데모 앱 생성하기
 
 ### 8.1. demo 생성하기
 
+먼저 `apps` 디렉토리를 생성합니다.
+
+```bash
+mkdir apps
+cd apps
+```
+
+이후 다음 명령어를 입력하여 생성한 React 라이브러리를 테스트할 데모 앱을 생성합니다.
+
 ```bash
 pnpm create next-app
+```
+
+![demo 생성하기](/images/front-end/pnpm-tsdown-react-library/pic3.png)
+
+`apps/demo` 디렉토리에서 불필요한 `pnpm-lock.yaml`, `pnpm-workspace.yaml`, `node_modules`를 삭제합니다.
+
+### 8.2. Nextra 설치하기
+
+#### 8.2.1. Nextra 의존성 설치하기
+
+생성한 demo 앱에서는 라이브러리 문서를 작성할 예정이므로 `Nextra`를 설치하겠습니다.
+`apps/demo` 디렉토리에서 다음 명령어를 입력하여 `Nextra`를 설치합니다.
+
+```bash
+pnpm add nextra nextra-theme-docs
+```
+
+#### 8.2.2. next.config.ts 설정하기
+
+```typescript
+import type { NextConfig } from "next";
+import nextra from "nextra";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+  output: "export",
+  basePath: "/react-toc",
+  images: {
+    unoptimized: true,
+  },
+};
+
+const withNextra = nextra({
+  // ... other Nextra config options
+});
+
+export default withNextra({
+  ...nextConfig,
+  turbopack: {
+    resolveAlias: {
+      // Path to your `mdx-components` file with extension
+      "next-mdx-import-source-file": "./src/mdx-components.tsx",
+    },
+  },
+});
+```
+
+#### 8.2.3. mdx-components.tsx 생성하기
+
+```typescript
+
 ```
 
 ## TODO. 참고 자료
@@ -409,3 +620,4 @@ pnpm create next-app
 - [리액트 컴포넌트 라이브러리를 빌드하고 배포하는 방법 — React와 TypeScript를 좋아하는 개발자](https://xionwcfm.tistory.com/450)
 - [리액트 라이브러리 npm에 배포하기 with rollup](https://jha-memo.tistory.com/228)
 - [rolldown/tsdown: The elegant bundler for libraries powered by Rolldown](https://github.com/rolldown/tsdown)
+- [Nextra – Next.js Static Site Generator](https://nextra.site/)
