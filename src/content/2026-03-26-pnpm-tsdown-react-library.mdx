@@ -4,20 +4,22 @@ export const metadata = {
     "pnpm + tsdown으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.",
   date: new Date("2026-03-26"),
   category: "Front-end",
-  tags: ["monorepo", "nextra", "pnpm", "react", "tsdown"],
+  tags: ["monorepo", "nextra", "Next.js", "pnpm", "react", "tsdown"],
   pin: false,
   imagePath: "/images/front-end/front-end.avif",
 };
 
 > **<u>Tags</u>**
 >
-> monorepo, Nextra, pnpm, React, tsdown
+> monorepo, Nextra, Next.js, pnpm, React, tsdown
 
 > **<u>Environment</u>**
 >
 > pnpm v10.32.1
 >
 > nextra v4.6.1
+>
+> Next.js v16.1.6
 >
 > tsdown v0.21.3
 >
@@ -585,7 +587,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   output: "export",
-  basePath: "/react-toc",
   images: {
     unoptimized: true,
   },
@@ -608,8 +609,224 @@ export default withNextra({
 
 #### 8.2.3. mdx-components.tsx 생성하기
 
-```typescript
+`apps/demo/src` 디렉토리에 `mdx-components.tsx`를 생성합니다.
 
+```typescript
+/* mdx-components.tsx */
+
+import { useMDXComponents as getThemeComponents } from "nextra-theme-docs"; // nextra-theme-blog or your custom theme
+import { MDXComponents } from "nextra/mdx-components";
+
+// Get the default MDX components
+const themeComponents = getThemeComponents();
+
+// Merge components
+export function useMDXComponents(components: MDXComponents) {
+  return {
+    ...themeComponents,
+    ...components,
+  };
+}
+```
+
+#### 8.2.4. 검색 기능 추가하기
+
+문서 내 검색 기능을 추가하기 위해 `pagefind` 패키지를 설치합니다.
+
+```bash
+pnpm add -D pagefind
+```
+
+이후 `apps/demo` 디렉토리 내 `package.json` 파일을 열고, 다음과 같은 postbuild 스크립트를 추가합니다.
+
+Server builds:
+
+```json
+"scripts": {
+  "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
+}
+```
+
+Static exports:
+
+```json
+"scripts": {
+  "postbuild": "pagefind --site .next/server/app --output-path out/_pagefind"
+}
+```
+
+#### 8.2.5. root layout 설정하기
+
+`apps/demo/src/app` 디렉토리에 있는 `layout.tsx` 파일을 열고 다음과 같이 작성합니다.
+
+```typescript
+/* layout.tsx */
+
+import type { Metadata } from "next";
+import { Footer, Layout, Navbar } from "nextra-theme-docs";
+import { Head } from "nextra/components";
+import { getPageMap } from "nextra/page-map";
+import "./globals.css";
+import "nextra-theme-docs/style.css";
+
+export const metadata: Metadata = {
+  title: {
+    default: "react-toc",
+    template: "%s | react-toc",
+  },
+  authors: [{ name: "HyunJinNo", url: "https://github.com/HyunJinNo" }],
+};
+
+const navbar = (
+  <Navbar
+    logo={<b>react-toc</b>}
+    projectLink="https://github.com/HyunJinNo/react-toc"
+    // ... Your additional navbar options
+  />
+);
+
+const footer = (
+  <Footer className="flex flex-row gap-1">
+    © {new Date().getFullYear()}
+    <a className="hover:underline" href="https://github.com/HyunJinNo">
+      HyunJinNo.
+    </a>
+  </Footer>
+);
+
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      // Not required, but good for SEO
+      lang="ko"
+      // Required to be set
+      dir="ltr"
+      // Suggested by `next-themes` package https://github.com/pacocoursey/next-themes#with-app
+      suppressHydrationWarning
+    >
+      <Head
+      // ... Your additional head options
+      >
+        {/* Your additional tags should be passed as `children` of `<Head>` element */}
+      </Head>
+      <body>
+        <Layout
+          navbar={navbar}
+          pageMap={await getPageMap()}
+          docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
+          footer={footer}
+          // ... Your additional layout options
+        >
+          {children}
+        </Layout>
+      </body>
+    </html>
+  );
+}
+```
+
+#### 8.2.6. MDX 파일 생성하기
+
+```mdx
+---
+title: Introduction
+---
+
+# Introduction
+
+`react-toc` is a library that automatically generates a Table of Contents (TOC) from your headings with scroll tracking.
+
+## Features
+
+- 🔍 Automatically builds a nested TOC from `H2` ~ `H6` elements.
+- 🧱 Provides ready-to-use heading components (`H2` ~ `H6`) with unique, URL-friendly `id`.
+- 🎯 Highlights the active heading as the user scrolls.
+- ⚡ Smooth scrolling to sections when a TOC link is clicked.
+- 🎨 Fully customizable with CSS classes and scroll options.
+- 🧩 Works with React / Next.js.
+- ✏️ Written in TypeScript with full type support.
+```
+
+#### 8.2.7. \_meta.global.js 설정하기
+
+```javascript
+const config = {
+  index: {
+    type: "page",
+    title: "Easy-to-Use TOC Component",
+    display: "hidden",
+    theme: {
+      copyPage: false,
+      layout: "full",
+      toc: false,
+    },
+  },
+  docs: {
+    type: "page",
+    title: "Docs",
+    items: {
+      introduction: {
+        title: "Introduction",
+      },
+      "getting-started": {
+        title: "Getting Started",
+      },
+      api: {
+        title: "API Reference",
+        items: {
+          "toc-provider": {
+            title: "<TocProvider>",
+          },
+          toc: {
+            title: "<Toc>",
+          },
+          headings: {
+            title: "<H2> ~ <H6>",
+          },
+        },
+      },
+    },
+  },
+};
+
+export default config;
+```
+
+## TODO.
+
+basePath 설정하기
+
+```typescript
+import type { NextConfig } from "next";
+import nextra from "nextra";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+  output: "export",
+  basePath: "/react-toc",
+  images: {
+    unoptimized: true,
+  },
+};
+
+const withNextra = nextra({
+  // ... other Nextra config options
+});
+
+export default withNextra({
+  ...nextConfig,
+  turbopack: {
+    resolveAlias: {
+      // Path to your `mdx-components` file with extension
+      "next-mdx-import-source-file": "./src/mdx-components.tsx",
+    },
+  },
+});
 ```
 
 ## TODO. 참고 자료
