@@ -1,0 +1,337 @@
+export const metadata = {
+  title: "pnpm + tsdown으로 React 라이브러리 만들기 ③",
+  description:
+    "pnpm + tsdown으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.",
+  date: new Date("2026-03-26"),
+  category: "Front-end",
+  tags: ["monorepo", "nextra", "Next.js", "pnpm", "react", "tsdown"],
+  pin: false,
+  imagePath: "/images/front-end/pnpm-tsdown-react-library-part-1/pic1.webp",
+};
+
+> **<u>Tags</u>**
+>
+> monorepo, Nextra, Next.js, pnpm, React, tsdown
+
+> **<u>Environment</u>**
+>
+> pnpm v10.32.1
+>
+> nextra v4.6.1
+>
+> Next.js v16.1.6
+>
+> tsdown v0.21.3
+>
+> react v19.2.3
+>
+> \@tsdown/css v0.21.4
+
+## 1. 개요
+
+`pnpm` + `tsdown`으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.
+
+총 4개의 Part로 분리하여 작성하였으며, 이 페이지에서는 **Next.js demo 생성 과정**을 다룹니다.
+
+- [1. 프로젝트 초기화하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-1)
+- [2. React 라이브러리 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-2)
+- **3. Next.js demo 생성하기**
+- [4. 라이브러리 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-4)
+
+## 2. Next.js demo 생성하기
+
+### 2.1. demo 생성하기
+
+먼저 `apps` 디렉토리를 생성합니다.
+
+```bash
+mkdir apps
+cd apps
+```
+
+이후 다음 명령어를 입력하여 생성한 React 라이브러리를 테스트할 demo 애플리케이션을 생성합니다.
+
+```bash
+pnpm create next-app
+```
+
+![demo 생성하기](/images/front-end/pnpm-tsdown-react-library-part-3/pic1.png)
+
+이후 `apps/demo` 디렉토리에서 불필요한 `pnpm-lock.yaml`, `pnpm-workspace.yaml`, `node_modules`를 삭제합니다.
+
+### 2.2. Nextra 설치하기
+
+#### 2.2.1. Nextra 의존성 설치하기
+
+생성한 demo 앱에서는 라이브러리 문서를 작성할 예정이므로 `Nextra`를 설치하겠습니다.
+`apps/demo` 디렉토리에서 다음 명령어를 입력하여 `Nextra`를 설치합니다.
+
+```bash
+pnpm add nextra nextra-theme-docs
+```
+
+#### 2.2.2. next.config.ts 설정하기
+
+```typescript
+import type { NextConfig } from "next";
+import nextra from "nextra";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
+};
+
+const withNextra = nextra({
+  // ... other Nextra config options
+});
+
+export default withNextra({
+  ...nextConfig,
+  turbopack: {
+    resolveAlias: {
+      // Path to your `mdx-components` file with extension
+      "next-mdx-import-source-file": "./src/mdx-components.tsx",
+    },
+  },
+});
+```
+
+#### 2.2.3. mdx-components.tsx 생성하기
+
+`apps/demo/src` 디렉토리에 `mdx-components.tsx`를 생성합니다.
+
+```typescript
+/* mdx-components.tsx */
+
+import { useMDXComponents as getThemeComponents } from "nextra-theme-docs"; // nextra-theme-blog or your custom theme
+import { MDXComponents } from "nextra/mdx-components";
+
+// Get the default MDX components
+const themeComponents = getThemeComponents();
+
+// Merge components
+export function useMDXComponents(components: MDXComponents) {
+  return {
+    ...themeComponents,
+    ...components,
+  };
+}
+```
+
+#### 2.2.4. 검색 기능 추가하기
+
+문서 내 검색 기능을 추가하기 위해 `pagefind` 패키지를 설치합니다.
+
+```bash
+pnpm add -D pagefind
+```
+
+이후 `apps/demo` 디렉토리 내 `package.json` 파일을 열고, 다음과 같은 postbuild 스크립트를 추가합니다.
+
+Server builds:
+
+```json
+"scripts": {
+  "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
+}
+```
+
+Static exports:
+
+```json
+"scripts": {
+  "postbuild": "pagefind --site .next/server/app --output-path out/_pagefind"
+}
+```
+
+#### 2.2.5. root layout 설정하기
+
+먼저 `apps/demo/src/app` 디렉토리에 있는 `page.tsx`, `favicon.ico` 파일을 삭제합니다.
+그리고 `globals.css` 파일을 열고 Tailwind CSS 부분만 남기고 내용을 삭제합니다.
+
+```css
+@import "tailwindcss";
+```
+
+이후 `apps/demo/src/app` 디렉토리에 있는 `layout.tsx` 파일을 열고 다음과 같이 작성합니다.
+
+```typescript
+/* layout.tsx */
+
+import type { Metadata } from "next";
+import { Footer, Layout, Navbar } from "nextra-theme-docs";
+import { Head } from "nextra/components";
+import { getPageMap } from "nextra/page-map";
+import "./globals.css";
+import "nextra-theme-docs/style.css";
+import { Logo } from "@/components/Logo";
+
+export const metadata: Metadata = {
+  title: {
+    default: "react-toc",
+    template: "%s | react-toc",
+  },
+  authors: [{ name: "HyunJinNo", url: "https://github.com/HyunJinNo" }],
+};
+
+const navbar = (
+  <Navbar
+    logo={
+      <div className="flex flex-row items-center gap-2">
+        <Logo width={40} height={40} />
+        <p className="font-bold">react-toc</p>
+      </div>
+    }
+    projectLink="https://github.com/HyunJinNo/react-toc"
+    // ... Your additional navbar options
+  />
+);
+
+const footer = (
+  <Footer className="flex flex-row gap-1">
+    © {new Date().getFullYear()}
+    <a className="hover:underline" href="https://github.com/HyunJinNo">
+      HyunJinNo.
+    </a>
+  </Footer>
+);
+
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      // Not required, but good for SEO
+      lang="ko"
+      // Required to be set
+      dir="ltr"
+      // Suggested by `next-themes` package https://github.com/pacocoursey/next-themes#with-app
+      suppressHydrationWarning
+    >
+      <Head
+      // ... Your additional head options
+      >
+        {/* Your additional tags should be passed as `children` of `<Head>` element */}
+        <link rel="icon" href="/react-toc.webp" sizes="any" />
+      </Head>
+      <body>
+        <Layout
+          navbar={navbar}
+          pageMap={await getPageMap()}
+          docsRepositoryBase="https://github.com/shuding/nextra/tree/main/docs"
+          footer={footer}
+          // ... Your additional layout options
+        >
+          {children}
+        </Layout>
+      </body>
+    </html>
+  );
+}
+
+```
+
+#### 2.2.6. MDX 파일 생성하기
+
+```mdx
+---
+title: Introduction
+---
+
+# Introduction
+
+`react-toc` is a library that automatically generates a Table of Contents (TOC) from your headings with scroll tracking.
+
+## Features
+
+- 🔍 Automatically builds a nested TOC from `H2` ~ `H6` elements.
+- 🧱 Provides ready-to-use heading components (`H2` ~ `H6`) with unique, URL-friendly `id`.
+- 🎯 Highlights the active heading as the user scrolls.
+- ⚡ Smooth scrolling to sections when a TOC link is clicked.
+- 🎨 Fully customizable with CSS classes and scroll options.
+- 🧩 Works with React / Next.js.
+- ✏️ Written in TypeScript with full type support.
+```
+
+#### 2.2.7. \_meta.global.js 설정하기
+
+```javascript
+const config = {
+  index: {
+    type: "page",
+    title: "Easy-to-Use TOC Component",
+    display: "hidden",
+    theme: {
+      copyPage: false,
+      layout: "full",
+      toc: false,
+    },
+  },
+  docs: {
+    type: "page",
+    title: "Docs",
+    items: {
+      introduction: {
+        title: "Introduction",
+      },
+      "getting-started": {
+        title: "Getting Started",
+      },
+      api: {
+        title: "API Reference",
+        items: {
+          "toc-provider": {
+            title: "<TocProvider>",
+          },
+          toc: {
+            title: "<Toc>",
+          },
+          headings: {
+            title: "<H2> ~ <H6>",
+          },
+        },
+      },
+    },
+  },
+};
+
+export default config;
+```
+
+### 2.3. React 라이브러리 설치하기
+
+`apps/demo` 디렉토리에 있는 `package.json` 파일을 열고, 다음과 같이 모노레포 내부 패키지를 지정합니다.
+
+```json
+{
+  "dependencies": {
+    "@hyunjinno/react-toc": "workspace:*"
+  }
+}
+```
+
+이후 프로젝트 루트에서 다음 명령어를 입력하여 demo에 라이브러리를 설치할 수 있습니다.
+
+```bash
+pnpm install
+```
+
+### 2.4. React 라이브러리 사용하기
+
+TODO
+
+## 3. 참고 자료
+
+- [React+typescript 컴포넌트 라이브러리 생성하기 ③rollup 설정 — 콩부합시다](https://codgehog.tistory.com/19?category=1187053)
+- [고티켓-react 컴포넌트 라이브러리 만들기(3)-rollup — 이찬진 컴퓨터 교실](https://devnm.tistory.com/6)
+- [esbuild vs rollup vs webpack vs tsup | "웹 자바스크립트 번들러" npm 패키지 비교](https://npm-compare.com/ko-KR/esbuild,rollup,tsup,webpack)
+- [리액트 컴포넌트 라이브러리를 빌드하고 배포하는 방법 — React와 TypeScript를 좋아하는 개발자](https://xionwcfm.tistory.com/450)
+- [리액트 라이브러리 npm에 배포하기 with rollup](https://jha-memo.tistory.com/228)
+- [rolldown/tsdown: The elegant bundler for libraries powered by Rolldown](https://github.com/rolldown/tsdown)
+- [Nextra – Next.js Static Site Generator](https://nextra.site/)

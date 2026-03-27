@@ -1,0 +1,178 @@
+export const metadata = {
+  title: "pnpm + tsdown으로 React 라이브러리 만들기 ①",
+  description:
+    "pnpm + tsdown으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.",
+  date: new Date("2026-03-26"),
+  category: "Front-end",
+  tags: ["monorepo", "nextra", "Next.js", "pnpm", "react", "tsdown"],
+  pin: false,
+  imagePath: "/images/front-end/pnpm-tsdown-react-library-part-1/pic1.webp",
+};
+
+> **<u>Tags</u>**
+>
+> monorepo, Nextra, Next.js, pnpm, React, tsdown
+
+> **<u>Environment</u>**
+>
+> pnpm v10.32.1
+>
+> nextra v4.6.1
+>
+> Next.js v16.1.6
+>
+> tsdown v0.21.3
+>
+> react v19.2.3
+>
+> \@tsdown/css v0.21.4
+
+## 1. 개요
+
+`pnpm` + `tsdown`으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.
+
+총 4개의 Part로 분리하여 작성하였으며, 이 페이지에서는 **프로젝트 초기화 과정**을 다룹니다.
+
+- **1. 프로젝트 초기화하기**
+- [2. React 라이브러리 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-2)
+- [3. Next.js demo 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-3)
+- [4. 라이브러리 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-4)
+
+## 2. 프로젝트 초기화하기
+
+### 2.1. 프로젝트 구조 설계하기
+
+React 라이브러리를 만들면서 **demo를 통해 배포 없이 테스트**할 수 있도록
+다음과 같이 `pnpm`을 사용한 모노레포 환경을 구성하고 프로젝트 구조를 설계합니다.
+
+```plaintext
+react-toc
+├── apps
+|   └── demo
+|       ├── src
+|       |   ├── app
+|       |   ├── components
+|       |   └── mdx-components.tsx
+|       ├── (...)
+|       ├── next.config.ts
+|       ├── package.json
+|       └── tsconfig.json
+├── packages
+|   └── react-toc
+|       ├── src
+|       |   ├── TocProvider.tsx
+|       |   ├── (...)
+|       |   └── index.ts
+|       ├── package.json
+|       ├── tsconfig.json
+|       └── tsdown.config.ts
+├── (...)
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-worksplace.yaml
+└── tsconfig.base.json
+```
+
+- `apps/demo`  
+  Next.js demo 애플리케이션으로, 개발하면서 바로 테스트할 환경입니다.
+- `packages/react-toc`  
+  `npm`에 배포할 실제 React 라이브러리입니다.
+
+### 2.2. pnpm 설치하기
+
+다음 명령어를 입력하여 `pnpm`을 설치합니다.
+
+```bash
+# pnpm 다운로드 및 설치
+corepack enable pnpm
+
+# pnpm 버전 확인
+pnpm -v
+```
+
+### 2.3. 프로젝트 루트 생성하기
+
+먼저 다음 명령어를 입력하여 프로젝트 루트를 생성합니다.
+
+```bash
+mkdir react-toc
+cd react-toc
+```
+
+이후 다음 명령어를 입력하여 프로젝트를 초기화합니다.
+
+```bash
+pnpm init
+```
+
+생성된 `package.json` 파일에서 `"private": true`를 설정하여 루트 패키지의 `npm publish`를 방지합니다.
+
+```json
+{
+  "name": "react-toc",
+  "private": true,
+  "packageManager": "pnpm@10.32.1"
+}
+```
+
+### 2.4. pnpm workspace 설정하기
+
+프로젝트 루트에서 `pnpm-workspace.yaml` 파일을 생성한 후, 다음과 같이 워크스페이스를 설정합니다.
+
+```yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+설정 이후 `apps/`, `packages/` 디렉토리 아래의 모든 패키지가 워크스페이스로 인식됩니다.
+
+### 2.5. tsconfig.base.json 설정하기
+
+각 라이브러리 패키지마다 `tsconfig.json` 설정을 하는 것은 번거로우므로,
+다음과 같이 프로젝트 루트에 `tsconfig.base.json`을 생성하여 확장할 수 있도록 합니다.
+
+먼저 프로젝트 루트에서 다음 명령어를 입력하여 TypeScript 컴파일러 설정 파일인 `tsconfig.json` 파일을 생성합니다.
+
+```bash
+tsc --init
+```
+
+이후 생성된 `tsconfig.json` 파일명을 `tsconfig.base.json`으로 변경한 후, 다음과 같이 설정합니다.
+
+```json
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "jsx": "react-jsx" /* Specify what JSX code is generated. */,
+
+    /* Modules */
+    "module": "esnext" /* Specify what module code is generated. */,
+    "moduleResolution": "bundler" /* Specify how TypeScript looks up a file from a given module specifier. */,
+
+    /* Emit */
+    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+
+    /* Interop Constraints */
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */,
+
+    /* Completeness */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  }
+}
+```
+
+## 3. 참고 자료
+
+- [React+typescript 컴포넌트 라이브러리 생성하기 ③rollup 설정 — 콩부합시다](https://codgehog.tistory.com/19?category=1187053)
+- [고티켓-react 컴포넌트 라이브러리 만들기(3)-rollup — 이찬진 컴퓨터 교실](https://devnm.tistory.com/6)
+- [esbuild vs rollup vs webpack vs tsup | "웹 자바스크립트 번들러" npm 패키지 비교](https://npm-compare.com/ko-KR/esbuild,rollup,tsup,webpack)
+- [리액트 컴포넌트 라이브러리를 빌드하고 배포하는 방법 — React와 TypeScript를 좋아하는 개발자](https://xionwcfm.tistory.com/450)
+- [리액트 라이브러리 npm에 배포하기 with rollup](https://jha-memo.tistory.com/228)
+- [rolldown/tsdown: The elegant bundler for libraries powered by Rolldown](https://github.com/rolldown/tsdown)
+- [Nextra – Next.js Static Site Generator](https://nextra.site/)

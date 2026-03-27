@@ -1,0 +1,84 @@
+export const metadata = {
+  title: "pnpm + tsdown으로 React 라이브러리 만들기 ④",
+  description:
+    "pnpm + tsdown으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.",
+  date: new Date("2026-03-26"),
+  category: "Front-end",
+  tags: ["monorepo", "nextra", "Next.js", "pnpm", "react", "tsdown"],
+  pin: false,
+  imagePath: "/images/front-end/pnpm-tsdown-react-library-part-1/pic1.webp",
+};
+
+> **<u>Tags</u>**
+>
+> monorepo, Nextra, Next.js, pnpm, React, tsdown
+
+> **<u>Environment</u>**
+>
+> pnpm v10.32.1
+>
+> nextra v4.6.1
+>
+> Next.js v16.1.6
+>
+> tsdown v0.21.3
+>
+> react v19.2.3
+>
+> \@tsdown/css v0.21.4
+
+## 1. 개요
+
+`pnpm` + `tsdown`으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.
+
+총 4개의 Part로 분리하여 작성하였으며, 이 페이지에서는 **라이브러리 배포 과정**을 다룹니다.
+
+- [1. 프로젝트 초기화하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-1)
+- [2. React 라이브러리 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-2)
+- [3. Next.js demo 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-3)
+- **4. 라이브러리 배포하기**
+
+## 2. 라이브러리 배포하기
+
+TODO
+
+basePath 설정하기
+
+```typescript
+import type { NextConfig } from "next";
+import nextra from "nextra";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+  output: "export",
+  basePath: "/react-toc",
+  images: {
+    unoptimized: true,
+  },
+};
+
+const withNextra = nextra({
+  // ... other Nextra config options
+});
+
+export default withNextra({
+  ...nextConfig,
+  turbopack: {
+    resolveAlias: {
+      // Path to your `mdx-components` file with extension
+      "next-mdx-import-source-file": "./src/mdx-components.tsx",
+    },
+  },
+});
+```
+
+## 3. 참고 자료
+
+- [React+typescript 컴포넌트 라이브러리 생성하기 ③rollup 설정 — 콩부합시다](https://codgehog.tistory.com/19?category=1187053)
+- [고티켓-react 컴포넌트 라이브러리 만들기(3)-rollup — 이찬진 컴퓨터 교실](https://devnm.tistory.com/6)
+- [esbuild vs rollup vs webpack vs tsup | "웹 자바스크립트 번들러" npm 패키지 비교](https://npm-compare.com/ko-KR/esbuild,rollup,tsup,webpack)
+- [리액트 컴포넌트 라이브러리를 빌드하고 배포하는 방법 — React와 TypeScript를 좋아하는 개발자](https://xionwcfm.tistory.com/450)
+- [리액트 라이브러리 npm에 배포하기 with rollup](https://jha-memo.tistory.com/228)
+- [rolldown/tsdown: The elegant bundler for libraries powered by Rolldown](https://github.com/rolldown/tsdown)
+- [Nextra – Next.js Static Site Generator](https://nextra.site/)
