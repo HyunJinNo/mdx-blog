@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "pnpm + tsdown으로 React 라이브러리 만들기 ③",
+  title: "pnpm + tsdown으로 React 라이브러리 만들기 ③ - Next.js demo 생성",
   description:
-    "pnpm + tsdown으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.",
+    "pnpm + tsdown으로 React 라이브러리를 만드는 과정에서 Next.js demo 생성 방법에 대해 정리한 페이지입니다.",
   date: new Date("2026-03-26"),
   category: "Front-end",
   tags: ["monorepo", "nextra", "Next.js", "pnpm", "react", "tsdown"],
@@ -63,7 +63,7 @@ pnpm create next-app
 
 #### 2.2.1. Nextra 의존성 설치하기
 
-생성한 demo 앱에서는 라이브러리 문서를 작성할 예정이므로 `Nextra`를 설치하겠습니다.
+생성한 demo 앱에서는 라이브러리 문서를 작성할 예정이므로 정적 사이트 생성 도구인 `Nextra`를 설치하겠습니다.
 `apps/demo` 디렉토리에서 다음 명령어를 입력하여 `Nextra`를 설치합니다.
 
 ```bash
@@ -71,6 +71,10 @@ pnpm add nextra nextra-theme-docs
 ```
 
 #### 2.2.2. next.config.ts 설정하기
+
+`next.config.ts` 파일에서 `nextra`를 설정하고,
+`turbopack`의 `resolveAlias` 옵션을 사용하여 `mdx-components` 파일을 alias로 등록합니다.
+또한 `output: "export"` 옵션을 사용하여 정적 사이트로 빌드할 수 있도록 설정합니다.
 
 ```typescript
 import type { NextConfig } from "next";
@@ -132,14 +136,6 @@ pnpm add -D pagefind
 
 이후 `apps/demo` 디렉토리 내 `package.json` 파일을 열고, 다음과 같은 postbuild 스크립트를 추가합니다.
 
-Server builds:
-
-```json
-"scripts": {
-  "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind"
-}
-```
-
 Static exports:
 
 ```json
@@ -148,7 +144,7 @@ Static exports:
 }
 ```
 
-#### 2.2.5. root layout 설정하기
+#### 2.2.5. 루트 layout 설정하기
 
 먼저 `apps/demo/src/app` 디렉토리에 있는 `page.tsx`, `favicon.ico` 파일을 삭제합니다.
 그리고 `globals.css` 파일을 열고 Tailwind CSS 부분만 남기고 내용을 삭제합니다.
@@ -234,10 +230,11 @@ export default async function RootLayout({
     </html>
   );
 }
-
 ```
 
 #### 2.2.6. MDX 파일 생성하기
+
+다음과 같이 MDX 파일을 생성하여 문서를 작성할 수 있습니다.
 
 ```mdx
 ---
@@ -261,7 +258,12 @@ title: Introduction
 
 #### 2.2.7. \_meta.global.js 설정하기
 
+`apps/demo/src` 디렉토리에 `_meta.global.js` 파일을 생성하고,
+모든 페이지 목록을 작성합니다.
+
 ```javascript
+/* _meta.global.js */
+
 const config = {
   index: {
     type: "page",
@@ -304,6 +306,8 @@ const config = {
 export default config;
 ```
 
+![페이지 목록](/images/front-end/pnpm-tsdown-react-library-part-3/pic2.png)
+
 ### 2.3. React 라이브러리 설치하기
 
 `apps/demo` 디렉토리에 있는 `package.json` 파일을 열고, 다음과 같이 모노레포 내부 패키지를 지정합니다.
@@ -324,9 +328,53 @@ pnpm install
 
 ### 2.4. React 라이브러리 사용하기
 
-TODO
+설치한 라이브러리를 다음과 같이 사용할 수 있습니다.
 
-## 3. 참고 자료
+```typescript
+/* layout.tsx */
+
+import "@hyunjinno/react-toc/style.css";
+```
+
+```typescript
+/* TocBasic.tsx */
+
+"use client";
+
+import { H2, H3, H4, H5, H6, Toc, TocProvider } from "@hyunjinno/react-toc";
+
+export const TocBasic = () => {
+  return (
+    <TocProvider className="mt-5 flex flex-row justify-between rounded-lg border border-gray-100 p-4 shadow">
+      <div className="flex flex-col gap-4">
+        <H2>a.1. Heading</H2>
+        <H2>a.2. Heading</H2>
+        <H3>a.2.1. Heading</H3>
+        <H3>a.2.2. Heading</H3>
+        <H3>a.2.3. Heading</H3>
+        <H4>a.2.3.1. Heading</H4>
+        <H4>a.2.3.2. Heading</H4>
+        <H4>a.2.3.3. Heading</H4>
+        <H5>a.2.3.3.1. Heading</H5>
+        <H6>a.2.3.3.1.1. Heading</H6>
+        <H3>a.2.4. Heading</H3>
+        <H2>a.3. Heading</H2>
+      </div>
+      <Toc className="w-44" />
+    </TocProvider>
+  );
+};
+```
+
+![라이브러리 사용 예시](/images/front-end/pnpm-tsdown-react-library-part-3/pic3.png)
+
+## 3. 다음 Part
+
+다음 글에서는 **React 라이브러리를 npm에 배포하는 과정**을 다룹니다.
+
+[4. 라이브러리 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-4)
+
+## 4. 참고 자료
 
 - [React+typescript 컴포넌트 라이브러리 생성하기 ③rollup 설정 — 콩부합시다](https://codgehog.tistory.com/19?category=1187053)
 - [고티켓-react 컴포넌트 라이브러리 만들기(3)-rollup — 이찬진 컴퓨터 교실](https://devnm.tistory.com/6)
