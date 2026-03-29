@@ -31,15 +31,46 @@ export const metadata = {
 
 `pnpm` + `tsdown`으로 React 라이브러리를 만드는 방법에 대해 정리한 페이지입니다.
 
-총 5개의 Part로 분리하여 작성하였으며, 이 페이지에서는 **라이브러리 배포 과정**을 다룹니다.
+총 5개의 Part로 분리하여 작성하였으며, 이 페이지에서는 **demo 배포 과정**을 다룹니다.
 
 - [1. 프로젝트 초기화하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-1)
 - [2. React 라이브러리 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-2)
 - [3. Next.js demo 생성하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-3)
-- **4. 라이브러리 배포하기**
-- [5. demo 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-5)
+- [4. 라이브러리 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-4)
+- **5. demo 배포하기**
 
-## 2. 라이브러리 배포하기
+## 2. demo 배포하기
+
+### 2.1. basePath 설정하기
+
+```typescript
+import type { NextConfig } from "next";
+import nextra from "nextra";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactCompiler: true,
+  output: "export",
+  basePath: "/react-toc",
+  images: {
+    unoptimized: true,
+  },
+};
+
+const withNextra = nextra({
+  // ... other Nextra config options
+});
+
+export default withNextra({
+  ...nextConfig,
+  turbopack: {
+    resolveAlias: {
+      // Path to your `mdx-components` file with extension
+      "next-mdx-import-source-file": "./src/mdx-components.tsx",
+    },
+  },
+});
+```
 
 ## 3. 참고 자료
 
