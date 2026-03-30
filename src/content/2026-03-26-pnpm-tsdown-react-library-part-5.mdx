@@ -1,7 +1,7 @@
 export const metadata = {
-  title: "pnpm + tsdown으로 React 라이브러리 만들기 ④ - 라이브러리 배포",
+  title: "pnpm + tsdown으로 React 라이브러리 만들기 ⑤ - demo 배포",
   description:
-    "pnpm + tsdown으로 React 라이브러리를 만드는 과정에서 라이브러리 배포 방법에 대해 정리한 페이지입니다.",
+    "pnpm + tsdown으로 React 라이브러리를 만드는 과정에서 demo 배포 방법에 대해 정리한 페이지입니다.",
   date: new Date("2026-03-26"),
   category: "Front-end",
   tags: ["monorepo", "nextra", "Next.js", "pnpm", "react", "tsdown"],
@@ -41,7 +41,19 @@ export const metadata = {
 
 ## 2. demo 배포하기
 
-### 2.1. basePath 설정하기
+**전체적인 과정은 [Next.js GitHub Pages 정적 배포하기](/posts/2026-02-26-nextjs-static-export) 페이지에서
+다루었던 내용과 유사하므로 참고하시면 좋습니다.**
+
+### 2.1. GitHub Pages 설정하기
+
+GitHub Pages로 배포하기 위해 먼저 Repository에서 `Settings > Pages`로 이동한 후
+`Build and deployment`의 `source`를 `GitHub Actions`로 지정합니다.
+
+![GitHub Pages 설정하기](/images/front-end/pnpm-tsdown-react-library-part-5/pic1.avif)
+
+### 2.2. basePath 설정하기
+
+`next.config.ts` 파일에서 `basePath` 옵션을 설정합니다.
 
 ```typescript
 import type { NextConfig } from "next";
@@ -71,6 +83,364 @@ export default withNextra({
   },
 });
 ```
+
+### 2.3. Workflow 작성하기
+
+```yml
+# workflow 이름 설정
+name: Deploy demo site to Pages
+
+# workflow를 트리거하는 이벤트 설정
+on:
+  push:
+    branches: ["main"]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# 실행할 jobs 설정
+jobs:
+  # Build job
+  build:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          # Node.js 버전 설정
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup Pages
+        id: setup_pages
+        uses: actions/configure-pages@v5
+
+      - name: Build local package
+        run: pnpm --filter ./packages/react-toc run build
+
+      - name: Build demo
+        run: pnpm --filter ./apps/demo run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/demo/out
+
+  # Deployment job
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+위의 workflow 설정에 대해 설명하자면 다음과 같습니다.
+
+#### 2.3.1. workflow 이름 설정하기
+
+```yml
+# workflow 이름 설정
+name: Deploy demo site to Pages
+```
+
+먼저 위와 같이 workflow 이름을 설정합니다.
+workflow 이름은 `name` 필드에서 설정합니다. 이 이름은 GitHub의 Actions 탭에 표시됩니다.
+
+![workflow 이름 설정하기](/images/front-end/pnpm-tsdown-react-library-part-5/pic2.avif)
+
+#### 2.3.2. 이벤트 설정하기
+
+```yml
+# workflow를 트리거하는 이벤트 설정
+on:
+  push:
+    branches: ["main"]
+```
+
+`on` 필드에서는 workflow를 트리거하는 이벤트를 정의합니다.
+가장 많이 사용하는 이벤트로는 push, pull_request 등이 있습니다.
+위의 예시는 main 브랜치에 코드 푸시가 이루어질 때 workflow를 트리거합니다.
+
+### 2.3.3. GITHUB_TOKEN 권한 설정하기
+
+```yml
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+```
+
+위와 같이 GITHUB_TOKEN 권한을 설정해야 합니다. 권한 설정을 해야 GitHub Pages에 배포할 수 있습니다.
+
+| 권한            | 이유                 |
+| --------------- | -------------------- |
+| contents: read  | repository 코드 읽기 |
+| pages: write    | Pages 배포           |
+| id-token: write | OIDC 인증용          |
+
+### 2.3.4. concurrency 설정하기
+
+```yml
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+```
+
+동시에 여러 배포가 실행되지 않도록 방지하는 부분으로, 이전 배포는 취소하지 않습니다.
+
+### 2.3.5. Job 설정하기
+
+```yml
+# 실행할 jobs 설정
+jobs:
+  # Build job
+  build:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          # Node.js 버전 설정
+          node-version: 24
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Setup Pages
+        id: setup_pages
+        uses: actions/configure-pages@v5
+
+      - name: Build local package
+        run: pnpm --filter ./packages/react-toc run build
+
+      - name: Build demo
+        run: pnpm --filter ./apps/demo run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/demo/out
+
+  # Deployment job
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+`jobs` 필드는 workflow 내에서 실행될 개별 작업을 정의합니다. 각 job은 여러 단계를 포함할 수 있으며 병렬로 실행이 가능합니다.
+
+먼저 다음과 같이 정의할 job의 이름을 설정해야 합니다. 이름은 자유롭게 지을 수 있습니다.
+저의 경우에는 빌드를 수행하는 job인 `build`와 배포를 수행하는 job인 `deploy`를 정의하였고
+`build` 이후 `deploy`를 수행하도록 설정하였습니다.
+
+```yml
+# 실행할 jobs 설정
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+
+    # ...
+
+  # Deployment job
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+> **<u>Info.</u>**
+>
+> **needs: build**는 해당 job이 수행되기 위해 먼저 완료되어야 하는 job을 지정하는 부분입니다. 즉, build가 완료된 이후에 deploy를 수행합니다.
+
+다음으로 해당 job이 실행될 환경을 지정합니다.
+GitHub에서 제공하는 기본 `runs-on`는 `ubuntu-latest`, `macos-latest`, `windows-latest` 등이 있습니다.
+
+```yml
+# Ubuntu 환경에서 실행
+runs-on: ubuntu-latest
+```
+
+`steps` 필드에는 job 내부에서 순차적으로 실행되는 개별 작업을 정의합니다.
+Shell 명령어를 실행하거나, GitHub에서 제공하는 액션(Action)을 사용하여 설정할 수 있습니다.
+
+Next.js로 만든 demo 사이트를 GitHub Pages에 배포하기 위해서는 다음과 같은 step이 필요합니다.
+
+1. GitHub Repository에 push된 코드 가져오기
+2. Node.js 설치하기
+3. pnpm 설치하기
+4. 의존성 설치하기
+5. GitHub Pages 배포 환경 초기화하기
+6. 로컬 패키지 빌드하기
+7. demo 빌드하기
+8. 정적 파일 업로드하기
+9. GitHub Pages에 정적 배포하기
+
+#### 2.3.5.1. GitHub Repository에 push된 코드 가져오기
+
+먼저 GitHub Repository에 있는 코드를 가져와야 합니다.
+GitHub에서 제공하는 액션으로 [actions/checkout](https://github.com/marketplace/actions/checkout)이 있으며,
+해당 액션을 사용해서 Repository의 코드를 가져올 수 있습니다.
+
+```yml
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v6
+```
+
+`name` 필드는 각 단계의 이름을 지정하는 부분으로, job 실행 시 로그에 표시됩니다.
+이름은 해당 단계가 하고자 하는 작업을 이해할 수 있게 작성하면 됩니다.
+`uses` 필드는 GitHub에서 제공하는 액션 또는 서드파티 액션을 사용할 때 지정합니다.
+예를 들어, [actions/checkout@v6](https://github.com/marketplace/actions/checkout)는
+Code Repository를 체크아웃(=코드 가져오기)하는 액션입니다.
+
+#### 2.3.5.2. Node.js 설치하기
+
+코드를 가져온 후에는 애플리케이션을 빌드할 수 있도록 Node.js를 설치해야 합니다.
+GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https://github.com/marketplace/actions/setup-node-js-environment)을
+제공합니다. 이 때, 특정 액션에 추가 인수를 전달할 때 사용하는 `with` 필드를 사용하여 설치하고자 하는 Node.js 버전을 지정해야 합니다.
+
+```yml
+- name: Install Node.js
+  uses: actions/setup-node@v6
+  with:
+    # Node.js 버전 설정
+    node-version: 24
+```
+
+#### 2.3.5.3. pnpm 설치하기
+
+다음과 같은 액션을 사용하여 pnpm을 설치합니다.
+
+```yml
+- name: Setup pnpm
+  uses: pnpm/action-setup@v4
+```
+
+#### 2.3.5.4. 의존성 설치하기
+
+애플리케이션을 빌드하기 위해 `pnpm install` 명령어를 실행하여 의존성을 설치합니다.
+package.json 기반으로 node_modules 설치합니다.
+여기서 사용한 `run`은 셸 명령어를 실행할 때 사용합니다. 이 명령어는 정의된 환경에서 실행됩니다.
+
+```yml
+- name: Install dependencies
+  run: pnpm install
+```
+
+#### 2.3.5.5. GitHub Pages 배포 환경 초기화하기
+
+```yml
+- name: Setup Pages
+  id: setup_pages
+  uses: actions/configure-pages@v5
+```
+
+로컬 패키지와 demo 빌드 전, GitHub Pages 배포 환경을 초기화합니다.
+
+#### 2.3.5.6. 로컬 패키지 빌드하기
+
+`--filter` 옵션을 사용하여 로컬 패키지를 빌드합니다.
+`--filter` 옵션은 monorepo에서 특정 패키지만 빌드할 때 유용합니다.
+아래의 `--filter` 옵션은 `./packages/react-toc` 패키지만 빌드하도록 지정합니다.
+
+```yml
+- name: Build local package
+  run: pnpm --filter ./packages/react-toc run build
+```
+
+#### 2.3.5.7. demo 빌드하기
+
+`--filter` 옵션을 사용하여 demo를 빌드합니다.
+
+```yml
+- name: Build demo
+  run: pnpm --filter ./apps/demo run build
+```
+
+#### 2.3.5.8. 정적 파일 업로드하기
+
+```yml
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v4
+  with:
+    path: ./out
+```
+
+`./out` 폴더를 GitHub Pages 서버로 업로드합니다.
+
+#### 2.3.5.9. GitHub Pages에 정적 배포하기
+
+```yml
+# Deployment job
+deploy:
+  needs: build
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+  runs-on: ubuntu-latest
+  steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+```
+
+마지막으로 빌드된 결과물을 GitHub Pages에 정적 배포합니다.
+여기서 `environment` 부분은 GitHub UI에 배포 URL 표시하는 부분입니다.
+
+### 2.4. demo 정적 배포 결과
+
+demo 정적 배포 결과는 다음과 같습니다.
+
+![demo 정적 배포 결과](/images/front-end/pnpm-tsdown-react-library-part-5/pic3.avif)
 
 ## 3. 참고 자료
 
