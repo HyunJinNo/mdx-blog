@@ -7,7 +7,13 @@ interface VideoProps {
 
 export const Video = ({ src, type, width, height }: VideoProps) => {
   return (
-    <video width={width} height={height} controls>
+    <video
+      width={width}
+      height={height}
+      controls
+      playsInline
+      preload="metadata"
+    >
       <source src={src} type={type} />
       Your browser does not support the video format. Please try a different
       browser.
