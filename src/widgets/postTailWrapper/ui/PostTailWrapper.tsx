@@ -29,13 +29,15 @@ export const PostTailWrapper = ({
           {categoryTitle}
         </Link>
       </div>
-      <div className="mt-4 flex flex-row items-center gap-2">
-        <FaTags />
-        {tagList.map((tag) => (
-          <SmallTag key={tag} tagName={tag} />
-        ))}
+      <div className="mt-4 flex flex-row gap-2">
+        <FaTags className="mt-1 shrink-0" />
+        <div className="flex flex-wrap items-center gap-2">
+          {tagList.map((tag) => (
+            <SmallTag key={tag} tagName={tag} />
+          ))}
+        </div>
       </div>
-      <div className="mt-12 flex flex-row items-center justify-between border-b border-b-gray-200 pb-2 text-sm">
+      <div className="tablet:flex-row tablet:items-center mt-12 flex flex-col-reverse justify-between gap-2 border-b border-b-gray-200 pb-2 text-sm">
         <div>
           This post is licensed under{" "}
           <a
