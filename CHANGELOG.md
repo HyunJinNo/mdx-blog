@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1](https://github.com/HyunJinNo/mdx-blog/compare/v1.1.0...v1.1.1) (2026-03-31)
+
+
+### Bug Fixes
+
+* PostTailWrapper UI 오류 수정 ([34c25c2](https://github.com/HyunJinNo/mdx-blog/commit/34c25c2d495f3bc32f254768e8ef345a4a32de8e))
+* PostTailWrapper UI 오류 수정 ([087adef](https://github.com/HyunJinNo/mdx-blog/commit/087adef0247dca6c97c5034f086fa0c214330aaa))
+* SmallTag의 텍스트가 두 줄로 표시되는 오류 수정 ([6ab9108](https://github.com/HyunJinNo/mdx-blog/commit/6ab9108001043a6a157c8d7f7ab8d822ded181db))
+
 ## [1.1.0](https://github.com/HyunJinNo/mdx-blog/compare/v1.0.3...v1.1.0) (2026-03-09)
 
 
