@@ -93,7 +93,7 @@ export const LoadingAttributePage = () => {
 #### 2.2.2. Intersection Observer API
 
 `Intersection Observer`는 브라우저에서 제공하는 API로,
-웹 페이지의 특정 요소를 관찰(observe)하면 페이지 스크롤 시 해당 요소가 화면에 들어왔는지 아닌지를 알려 줍니다.
+웹 페이지의 특정 요소를 관찰(observe)하며 페이지 스크롤 시 해당 요소가 화면에 들어왔는지 아닌지를 알려 줍니다.
 이 `Intersection Observer`를 활용하여 뷰포트에 들어오는 이미지만 로드하도록 구현할 수 있습니다.
 **이미지 로딩은 img 태그의 src가 할당되는 순간 일어나므로, 최초에는 img 태그의 src 속성 대신 다른 속성에다가 이미지 URL을 할당하다가,
 Intersection Observer의 콜백이 실행되는 순간 src를 할당하는 식**으로 이미지 지연 로딩을 구현할 수 있습니다.
