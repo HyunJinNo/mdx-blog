@@ -1,0 +1,106 @@
+export const metadata = {
+  title: "VSCode에서 Continue를 이용한 Ollama 설정 방법",
+  description:
+    "VSCode에서 Continue를 이용한 Ollama 설정 방법을 정리한 페이지입니다.",
+  date: new Date("2026-03-31"),
+  category: "Front-end",
+  tags: ["ai", "continue", "llm", "ollama", "vscode"],
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+};
+
+> **<u>Tags</u>**
+>
+> AI, Continue, LLM, Ollama, VSCode
+
+## 1. 개요
+
+VSCode에서 Continue를 이용한 Ollama 설정 방법을 정리한 페이지입니다.
+
+## 2. Ollama 설치하기
+
+다음 링크에 접속하여 `Ollama`를 설치합니다.
+
+[Download Ollama](https://ollama.com/download)
+
+> **<u>Info.</u>**
+>
+> `Ollama`에 대한 내용은 다음 링크에 작성하였으니 참고하시길 바랍니다.
+>
+> [Ollama 사용 방법](/posts/2025-01-30-ollama)
+
+## 3. Continue 사용하기
+
+### 3.1. Continue 설치하기
+
+다음과 같이 VSCode에서 Extensions 탭을 클릭하여 `Continue`를 검색하여 설치합니다.
+
+![Continue - open-source AI code agent](/images/front-end/vscode-continue-ollama/pic1.avif)
+
+### 3.2. LLM 다운로드하기
+
+터미널을 열고 다음 명령어를 입력하여 LLM을 다운로드합니다.
+여기서는 **Autocomplete 기능**에서 사용할`qwen2.5-coder:1.5b`와
+**Chat 기능**과 **Edit 기능**에서 사용할 `codellama:13b` 두 가지 모델을 다운로드합니다.
+
+```bash
+ollama pull qwen2.5-coder:1.5b
+ollama pull codellama:13b
+```
+
+![LLM 다운로드](/images/front-end/vscode-continue-ollama/pic2.avif)
+
+> **<u>Tips</u>**
+>
+> 기능별로 추천하는 모델은 다음 링크에서 확인하실 수 있습니다.
+>
+> [Models | Continue Docs](https://docs.continue.dev/customize/models#recommended-models)
+
+### 3.3. config.yaml 설정하기
+
+config.yaml 파일을 열고 `models` 항목에 `qwen2.5-coder:1.5b`와 `codellama:13b`를 추가합니다.
+`qwen2.5-coder:1.5b` 모델의 roles에 `autocomplete`를 지정하고,
+`codellama:13b` 모델의 roles에 `chat`와 `edit`를 지정합니다.
+
+![config.yaml 설정하기](/images/front-end/vscode-continue-ollama/pic3.avif)
+
+![config.yaml 설정하기](/images/front-end/vscode-continue-ollama/pic4.avif)
+
+```yaml
+name: Local Config
+version: 1.0.0
+schema: v1
+models:
+  - name: qwen2.5-coder:1.5b
+    provider: ollama
+    model: qwen2.5-coder:1.5b
+    roles:
+      - autocomplete
+  - name: codellama:13b
+    provider: ollama
+    model: codellama:13b
+    roles:
+      - chat
+      - edit
+```
+
+config.yaml 설정 이후 다음과 같이 표시됩니다.
+
+![config.yaml 설정 이후](/images/front-end/vscode-continue-ollama/pic5.avif)
+
+### 3.4. Autocomplete 기능 활성화하기
+
+VSCode의 우측 하단에서 `Continue` 버튼을 클릭한 후,
+`Enable autocomplete` 옵션을 선택합니다.
+
+![Autocomplete 기능 활성화하기](/images/front-end/vscode-continue-ollama/pic6.avif)
+
+![Autocomplete 기능 활성화하기](/images/front-end/vscode-continue-ollama/pic7.avif)
+
+## 4. 참고 자료
+
+- [ollama/ollama: Get up and running with Kimi-K2.5, GLM-5, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.](https://github.com/ollama/ollama)
+- [Ollama](https://ollama.com/)
+- [continuedev/continue: ⏩ Source-controlled AI checks, enforceable in CI. Powered by the open-source Continue CLI](https://github.com/continuedev/continue)
+- [Continue • Quality control for your software factory. | Continue](https://www.continue.dev/)
+- [VSCode 플러그인으로 오픈소스 LLM 기반 Code Assistant, Continue (feat. Ollama) — Memorize](http://blog.omoknooni.me/148)
