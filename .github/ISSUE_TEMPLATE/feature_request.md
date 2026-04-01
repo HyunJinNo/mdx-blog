@@ -1,9 +1,9 @@
 ---
 name: Feature Request
 about: 새로운 기능 추가 요청을 작성해 주세요.
-title: "Feat: 기능 설명"
-labels: Feat
-assignees: ""
+title: "feat: 기능 설명"
+labels: feat
+assignees: "HyunJinNo"
 ---
 
 ## ❓ 어떤 기능인가요?
