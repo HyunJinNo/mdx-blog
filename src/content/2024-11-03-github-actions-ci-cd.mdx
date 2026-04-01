@@ -103,7 +103,64 @@ yml 설정 파일은 GitHub Repository에서 직접 만들어도 되고, 아니�
 
 다음 예시는 Next.js 애플리케이션을 Raspberry Pi에 배포하고자 CI/CD를 구축한 예시입니다.
 
-![CI/CD 구축 예시](/images/raspberry-pi/github-actions-ci-cd/pic11.avif)
+```yml
+# workflow 이름 설정
+name: GitHub Actions로 CI/CD 구축 예시
+
+# workflow를 트리거하는 이벤트 설정
+on:
+  push:
+    # main 브랜치에 푸시할 때 실행
+    branches: ["main"]
+
+# 실행할 jobs 설정
+jobs:
+  # job 이름 설정
+  build-and-deploy:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Node.js 버전 설정
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js Project
+        run: npm run build
+
+      - name: Copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: "./.next"
+          target: ${{ secrets.TARGET }}
+
+      - name: Executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            whoami
+            cd
+            cd projects/github-actions-tutorial
+            npm install
+            pm2 kill
+            pm2 start --name FE npm -- run start
+```
 
 위의 workflow 설정에 대해 설명하자면 다음과 같습니다.
 
@@ -134,7 +191,55 @@ on:
 
 ### 5.3. Job 설정하기
 
-![Job 설정](/images/raspberry-pi/github-actions-ci-cd/pic12.avif)
+```yml
+# 실행할 jobs 설정
+jobs:
+  # job 이름 설정
+  build-and-deploy:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Node.js 버전 설정
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js Project
+        run: npm run build
+
+      - name: Copy file via ssh password
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: "./.next"
+          target: ${{ secrets.TARGET }}
+
+      - name: Executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.1.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            whoami
+            cd
+            cd projects/github-actions-tutorial
+            npm install
+            pm2 kill
+            pm2 start --name FE npm -- run start
+```
 
 `jobs` 필드는 workflow 내에서 실행될 개별 작업을 정의합니다. 각 job은 여러 단계를 포함할 수 있으며 병렬로 실행이 가능합니다.
 
@@ -201,12 +306,12 @@ GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https:
 
 #### 5.3.3. Next.js 애플리케이션 빌드하기
 
-다음으로 애플리케이션을 빌드하기 위해 `npm install` 명령어를 실행하여 의존성 설치를 진행한 후 애플리케이션을 빌드합니다.
+다음으로 애플리케이션을 빌드하기 위해 `npm ci` 명령어를 실행하여 의존성 설치를 진행한 후 애플리케이션을 빌드합니다.
 여기서 사용한 `run`은 셸 명령어를 실행할 때 사용합니다. 이 명령어는 정의된 환경에서 실행됩니다.
 
 ```yml
 - name: Install dependencies
-  run: npm install
+  run: npm ci
 
 - name: Build Next.js Project
   run: npm run build
@@ -217,7 +322,17 @@ GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https:
 애플리케이션을 빌드한 후에는 scp를 사용하여 빌드 파일을 Raspberry Pi로 전송해야 합니다.
 저는 [appleboy/scp-action@v0.1.7](https://github.com/appleboy/scp-action)라는 서드파티 액션을 사용하였습니다.
 
-![scp-action](/images/raspberry-pi/github-actions-ci-cd/pic13.avif)
+```yml
+- name: Copy file via ssh password
+  uses: appleboy/scp-action@v0.1.7
+  with:
+    host: ${{ secrets.HOST }}
+    username: ${{ secrets.USERNAME }}
+    password: ${{ secrets.PASSWORD }}
+    port: ${{ secrets.PORT }}
+    source: "./.next"
+    target: ${{ secrets.TARGET }}
+```
 
 Next.js에서는 빌드 시 `.next` 폴더가 생성되므로 해당 폴더를 source로 지정하면 됩니다.
 또한 위에서 Raspberry Pi의 IP 주소나 비밀번호, 포트 번호 등은 중요한 정보이므로 yml 파일에 직접 작성하지 않습니다.
@@ -238,7 +353,22 @@ GitHub Secrets를 사용하려면 먼저 다음과 같이 GitHub Repository 내�
 `pm2`를 사용해 새롭게 백그라운드로 실행할 수 있도록 합니다.
 저는 [appleboy/ssh-action@v1.1.0](https://github.com/appleboy/ssh-action)라는 서드파티 액션을 사용하였습니다.
 
-![ssh-action](/images/raspberry-pi/github-actions-ci-cd/pic14.avif)
+```yml
+- name: Executing remote ssh commands using password
+  uses: appleboy/ssh-action@v1.1.0
+  with:
+    host: ${{ secrets.HOST }}
+    username: ${{ secrets.USERNAME }}
+    password: ${{ secrets.PASSWORD }}
+    port: ${{ secrets.PORT }}
+    script: |
+      whoami
+      cd
+      cd projects/github-actions-tutorial
+      npm install
+      pm2 kill
+      pm2 start --name FE npm -- run start
+```
 
 위에 스크립트를 설명하자면 먼저 빌드 파일이 있는 폴더로 이동한 후 의존성 업데이트를 진행합니다. 이후 이전에 실행되고 있던 프로덕션 서버를 종료한 후 새로운 프로덕션 서버를 백그라운드로 실행합니다.
 
