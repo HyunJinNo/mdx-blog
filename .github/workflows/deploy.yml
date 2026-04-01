@@ -4,7 +4,7 @@ name: Deploy Next.js site to Pages
 # workflow를 트리거하는 이벤트 설정
 on:
   push:
-    branches: ["dev/#52"]
+    branches: ["main"]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
