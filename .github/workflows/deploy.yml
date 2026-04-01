@@ -4,7 +4,7 @@ name: Deploy Next.js site to Pages
 # workflow를 트리거하는 이벤트 설정
 on:
   push:
-    branches: ["dev/%52"]
+    branches: ["dev/#52"]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -29,6 +29,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v5
         with:
@@ -36,11 +39,8 @@ jobs:
           node-version: 24
           cache: "pnpm"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Setup Pages
         id: setup_pages
