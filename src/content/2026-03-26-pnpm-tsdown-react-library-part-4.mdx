@@ -90,7 +90,7 @@ npm에 라이브러리를 자동 배포하기 위해선 `Granular Access Token` 
 
 ![Trusted Publisher](/images/front-end/pnpm-tsdown-react-library-part-4/pic6.avif)
 
-마지막으로 Publishing access 항목에서 **Require two-factor authentication and disallow tokens (recommended)**을 선택하고
+마지막으로 Publishing access 항목에서 **Require two-factor authentication and disallow tokens (recommended)** 을 선택하고
 패키지 설정을 업데이트합니다.
 
 ![Publishing access](/images/front-end/pnpm-tsdown-react-library-part-4/pic7.avif)
@@ -217,6 +217,38 @@ jobs:
       - name: Publish to npm
         run: pnpm --filter ./packages/react-toc publish --access public --no-git-checks --provenance
 ```
+
+위의 workflow 설정 중 중요한 부분에 대해 설명하자면 다음과 같습니다.
+
+#### 3.5.1. permissions
+
+```yml
+permissions:
+  id-token: write # Required for OIDC
+  contents: write
+```
+
+`OIDC` 방식을 사용하기 위해 **id-token: write** permission이 반드시 필요합니다.
+
+#### 3.5.2. --provenance
+
+```yml
+- name: Publish to npm
+  run: pnpm --filter ./packages/react-toc publish --access public --no-git-checks --provenance
+```
+
+라이브러리를 npm에 배포하는 부분입니다.
+`--provenance` 옵션을 사용하면 npm에 "이 패키지가 GitHub Actions에서 만들어졌다"는 보안 서명을 추가할 수 있습니다.
+
+### 3.6. 라이브러리 자동 배포 결과
+
+라이브러리를 자동 배포한 결과는 다음과 같습니다.
+
+![npm에 자동 배포한 결과](/images/front-end/pnpm-tsdown-react-library-part-4/pic15.avif)
+
+![npm에 자동 배포한 결과](/images/front-end/pnpm-tsdown-react-library-part-4/pic16.avif)
+
+![npm에 자동 배포한 결과](/images/front-end/pnpm-tsdown-react-library-part-4/pic17.avif)
 
 ## 4. 다음 Part
 
