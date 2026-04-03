@@ -4,14 +4,14 @@ export const metadata = {
     "pnpm + tsdown으로 React 라이브러리를 만드는 과정에서 라이브러리 배포 방법에 대해 정리한 페이지입니다.",
   date: new Date("2026-03-26"),
   category: "Front-end",
-  tags: ["monorepo", "pnpm", "react", "tsdown"],
+  tags: ["monorepo", "oidc", "pnpm", "react", "release-please", "tsdown"],
   pin: false,
   imagePath: "/images/front-end/pnpm-tsdown-react-library-part-1/pic1.webp",
 };
 
 > **<u>Tags</u>**
 >
-> monorepo, Nextra, Next.js, pnpm, React, tsdown
+> monorepo, OIDC, pnpm, React, Release Please, tsdown
 
 > **<u>Environment</u>**
 >
@@ -35,7 +35,7 @@ export const metadata = {
 - **4. 라이브러리 배포하기**
 - [5. demo 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-5)
 
-## 2. 라이브러리 배포하기
+## 2. 라이브러리 수동 배포하기
 
 ### 2.1. npm 회원가입하기
 
@@ -53,7 +53,7 @@ export const metadata = {
 npm login
 ```
 
-### 2.3. npm에 배포하기
+### 2.3. npm에 수동 배포하기
 
 배포하려는 라이브러리 패키지에서 다음 명령어를 입력하여 npm에 라이브러리를 배포합니다.
 
@@ -63,13 +63,168 @@ npm publish --access public
 
 `--access public` 옵션은 공개 패키지를 배포할 때 사용합니다. 이 옵션을 생략하면 기본적으로 개인 패키지로 배포됩니다.
 
-## 3. 다음 Part
+![npm에 수동 배포한 결과](/images/front-end/pnpm-tsdown-react-library-part-4/pic3.avif)
+
+## 3. 라이브러리 자동 배포하기
+
+이 문단에서는 `GitHub Actions`로 라이브러리를 자동 배포하는 과정을 설명합니다.
+이 문단에서 다루는 라이브러리 자동 배포 과정은 다음과 같습니다.
+
+1. GitHub Repository에 라이브러리 코드를 push
+2. Release Please를 통해 Release PR 생성
+3. PR merge 이후 Tag 생성 및 라이브러리를 자동 배포
+
+npm에 라이브러리를 자동 배포하기 위해선 `Granular Access Token` 또는 `OIDC` 방식을 사용할 수 있습니다.
+`Granular Access Token`의 경우 만료 기간이 지나면 다시 생성해야 하므로,
+이 문단에서는 `OIDC` 방식을 사용할 예정이며, 이를 위해 먼저 npm에 라이브러리가 배포되어 있는 상태여야 합니다.
+
+### 3.1. OIDC (OpenID Connect) 설정하기
+
+먼저 다음과 같이 배포된 라이브러리 페이지에 접속하여 `Settings` 탭을 클릭합니다.
+
+![Settings 탭](/images/front-end/pnpm-tsdown-react-library-part-4/pic4.avif)
+
+이후 다음과 같이 Trusted Publisher를 등록합니다.
+
+![Trusted Publisher](/images/front-end/pnpm-tsdown-react-library-part-4/pic5.avif)
+
+![Trusted Publisher](/images/front-end/pnpm-tsdown-react-library-part-4/pic6.avif)
+
+마지막으로 Publishing access 항목에서 **Require two-factor authentication and disallow tokens (recommended)**을 선택하고
+패키지 설정을 업데이트합니다.
+
+![Publishing access](/images/front-end/pnpm-tsdown-react-library-part-4/pic7.avif)
+
+### 3.2. release-please.yml 생성하기
+
+`.github/workflows` 디렉토리에 `release-please.yml` 파일을 생성한 후 다음과 같이 작성합니다.
+
+```yml
+# workflow 이름 설정
+name: Release Please
+
+# workflow를 트리거하는 이벤트 설정
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+# 실행할 jobs 설정
+jobs:
+  release-please:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Release Please
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: node
+          path: packages/react-toc
+          token: ${{ secrets.PAT }}
+```
+
+위의 workflow에서 중요한 부분은 바로 token 설정 부분입니다.
+`Release Please`는 기본적으로 `GITHUB_TOKEN`을 사용하지만,
+`GITHUB_TOKEN`으로 발생한 이벤트는 다른 workflow를 트리거하지 않습니다.
+따라서 `PAT`이라는 Personal Access Token을 사용해야 합니다.
+
+### 3.3. Personal Access Token 생성하기
+
+`PAT`을 사용하려면 GitHub에서 Personal Access Token을 생성해야 합니다.
+먼저 GitHub에서 로그인 한 후, 본인의 프로필을 클릭해 `Settings > Developer settings` 로 이동합니다.
+
+![Settings](/images/front-end/pnpm-tsdown-react-library-part-4/pic8.avif)
+
+![Developer settings](/images/front-end/pnpm-tsdown-react-library-part-4/pic9.avif)
+
+다음으로 `Personal access tokens > Fine-grained tokens > Generator new token` 을 순서대로 클릭합니다.
+
+![Fine-grained tokens](/images/front-end/pnpm-tsdown-react-library-part-4/pic10.avif)
+
+아래와 같은 페이지에서 `Personal Access Token`을 생성할 수 있습니다.
+Permissions 항목에서 Actions, Contents, Pull requests를 선택하고 `Access:Read and Write`를 선택합니다.
+Metadata는 Actions 선택 시 자동으로 추가됩니다.
+
+![Personal Access Token 생성](/images/front-end/pnpm-tsdown-react-library-part-4/pic11.avif)
+
+![Personal Access Token 생성](/images/front-end/pnpm-tsdown-react-library-part-4/pic12.avif)
+
+Generate token 버튼을 클릭하면 Personal Access Token이 생성됩니다.
+**주의할 점은 해당 페이지에서 보이는 토큰은 다시 볼 수 없으므로 토큰을 복사하여 보관해야 합니다.**
+
+### 3.4. GitHub Secrets 설정하기
+
+생성한 Personal Access Token을 GitHub Actions에서 사용하려면 GitHub Secrets에 추가해야 합니다.
+다음과 같이 GitHub Repository 내에서 `Settings > Secrets and variable > Actions`로 이동합니다.
+
+![Settings > Secrets and variable > Actions](/images/front-end/pnpm-tsdown-react-library-part-4/pic13.avif)
+
+이후 `New repository secret` 버튼을 클릭하여 새로운 `secret`을 생성합니다.
+`Name`을 `PAT`으로, 내용에는 복사한 Personal Access Token을 붙여넣으면 됩니다.
+
+![secret 생성](/images/front-end/pnpm-tsdown-react-library-part-4/pic14.avif)
+
+### 3.5. publish.yml 생성하기
+
+`.github/workflows` 디렉토리에 `publish.yml` 파일을 생성한 후 다음과 같이 작성합니다.
+
+```yml
+# workflow 이름 설정
+name: Publish to npm
+
+# workflow를 트리거하는 이벤트 설정
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: write
+
+# 실행할 jobs 설정
+jobs:
+  publish:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          # Node.js 버전 설정
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build local package
+        run: pnpm --filter ./packages/react-toc run build
+
+      - name: Publish to npm
+        run: pnpm --filter ./packages/react-toc publish --access public --no-git-checks --provenance
+```
+
+## 4. 다음 Part
 
 다음 글에서는 **GitHub Pages에 demo를 정적 배포하는 과정**을 다룹니다.
 
 [5. demo 배포하기](/posts/2026-03-26-pnpm-tsdown-react-library-part-5)
 
-## 4. 참고 자료
+## 5. 참고 자료
 
 - [React+typescript 컴포넌트 라이브러리 생성하기 ③rollup 설정 — 콩부합시다](https://codgehog.tistory.com/19?category=1187053)
 - [고티켓-react 컴포넌트 라이브러리 만들기(3)-rollup — 이찬진 컴퓨터 교실](https://devnm.tistory.com/6)
@@ -79,3 +234,6 @@ npm publish --access public
 - [rolldown/tsdown: The elegant bundler for libraries powered by Rolldown](https://github.com/rolldown/tsdown)
 - [Nextra - Next.js Static Site Generator](https://nextra.site/)
 - [HyunJinNo/react-toc: A library that automatically generates a Table of Contents (TOC) from your headings with scroll tracking.](https://github.com/HyunJinNo/react-toc)
+- [Trusted publishing for npm packages | npm Docs](https://docs.npmjs.com/trusted-publishers)
+- [npm의 보안 업데이트 이후 자동배포하기](https://velog.io/@minsungje/npm%EC%9D%98-%EB%B3%B4%EC%95%88-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EC%9D%B4%ED%9B%84-%EC%9E%90%EB%8F%99%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0)
+- [googleapis/release-please-action: automated releases based on conventional commits](https://github.com/googleapis/release-please-action)
