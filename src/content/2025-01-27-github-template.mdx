@@ -19,27 +19,25 @@ export const metadata = {
 
 ## 2. GitHub Label 설정하기
 
-Template을 생성하기 전에 먼저 다음과 같이 GitHub Repository에서 Label을 설정하기를 권장합니다. Label은 PR과 Issue에서 카테고리를 분류하기 위해 사용합니다.
+Template을 생성하기 전에 먼저 다음과 같이 GitHub Repository에서 Label을 설정하기를 권장합니다.
+Label은 PR과 Issue에서 카테고리를 분류하기 위해 사용합니다.
+다음과 같이 **Conventional Commits** 규칙에서 사용하는 git type을 작성합니다.
 
-![GitHub Label](/images/etc/github-template/pic2.avif)
+![GitHub Label](/images/etc/github-template/pic20.avif)
 
-제가 주로 사용하는 Label 종류에 대한 설명은 다음과 같습니다.
-참고로 저는 커밋 메세지에서는 첫 글자를 소문자로, PR이나 Issue 작성 시에는 첫 글자를 대문자로 작성하는 것을 선호합니다.
-
-| Label name | Description                                                       | Color   |
-| ---------- | ----------------------------------------------------------------- | ------- |
-| bug        | 버그가 발생한 경우                                                | #D73A4A |
-| chore      | 빌드 설정, 의존성 업데이트 등의 사소한 작업을 수행한 경우         | #79FA9D |
-| comment    | 주석을 작성하거나 변경한 경우                                     | #0E8A16 |
-| design     | UI 관련 작업을 수행한 경우                                        | #5319E7 |
-| docs       | 문서를 추가하거나, 삭제, 또는 변경한 경우                         | #0052CC |
-| feat       | 새로운 기능을 추가한 경우                                         | #1D76DB |
-| fix        | 버그를 고친 경우                                                  | #D93F0B |
-| refactor   | 기능 변경 없이 코드 리팩토링을 수행한 경우                        | #07F680 |
-| release    | 배포를 수행한 경우                                                | #0585B7 |
-| remove     | 파일 또는 폴더를 삭제한 경우                                      | #3F0517 |
-| rename     | 파일 또는 폴더 명을 수정하거나 파일을 옮기는 작업만을 수행한 경우 | #940658 |
-| test       | 테스트를 추가하거나 테스트 리팩토링을 수행한 경우                 | #FBCA04 |
+| Label name | Description                                                                                        | Commit Message Example                        | Color                                     |
+| ---------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------------------------------------- |
+| build      | 빌드 시스템이나 외부 종속성 관련 파일 수정 (Changes to build system or dependencies)               | build: configure webpack settings             | <p className='text-[#8A2BE2]'>#8A2BE2</p> |
+| chore      | 빌드 작업, 패키지 매니저 설정 등 기타 수정 (Other maintenance tasks)                               | chore: update dependencies                    | <p className='text-[#79FA9D]'>#79FA9D</p> |
+| ci         | CI/CD 설정 변경 (Changes to CI/CD configuration)                                                   | ci: add GitHub Actions workflow               | <p className='text-[#5319E7]'>#5319E7</p> |
+| docs       | 문서 추가 및 수정 (Documentation changes)                                                          | docs: update README installation guide        | <p className='text-[#0052CC]'>#0052CC</p> |
+| feat       | 새로운 기능 추가 (New feature)                                                                     | feat: add user login feature                  | <p className='text-[#1D76DB]'>#1D76DB</p> |
+| fix        | 버그 수정 (Bug fix)                                                                                | fix: resolve login API error                  | <p className='text-[#D93F0B]'>#D93F0B</p> |
+| perf       | 성능 향상을 위한 코드 변경 (Performance improvements)                                              | perf: optimize image loading                  | <p className='text-[#C2E0C6]'>#C2E0C6</p> |
+| refactor   | 버그 수정이나 기능 추가 없는 코드 리팩토링 (Code refactoring without feature changes or bug fixes) | refactor: simplify auto logic                 | <p className='text-[#07F680]'>#07F680</p> |
+| revert     | 이전 commit 되돌리기 (Revert previous commit)                                                      | revert: revert "feat: add user login feature" | <p className='text-[#B60205]'>#B60205</p> |
+| style      | 코드 포맷팅, 세미콜론 누락 등 코드 스타일 변경 (Code style changes, formatting only)               | style: format code with prettier              | <p className='text-[#F7C6C7]'>#F7C6C7</p> |
+| test       | 테스트 코드 추가 및 수정 (Adding or updating tests)                                                | test: add unit tests for login service        | <p className='text-[#FBCA04]'>#FBCA04</p> |
 
 ## 3. PR Template 생성하기
 
@@ -64,17 +62,17 @@ Template을 생성하기 전에 먼저 다음과 같이 GitHub Repository에서 
 
 ## ✔️ PR 유형
 
-- [ ] Chore: 빌드 설정, 의존성 업데이트 등의 사소한 작업을 수행한 경우
-- [ ] Comment: 주석을 작성하거나 변경한 경우
-- [ ] Design: UI 관련 작업을 수행한 경우
-- [ ] Docs: 문서를 추가하거나, 삭제, 또는 변경한 경우
-- [ ] Feat: 새로운 기능을 추가한 경우
-- [ ] Fix: 버그를 고친 경우
-- [ ] Refactor: 기능 변경 없이 코드 리팩토링을 수행한 경우
-- [ ] Release: 배포를 수행한 경우
-- [ ] Remove: 파일 또는 폴더를 삭제한 경우
-- [ ] Rename: 파일 또는 폴더 명을 수정하거나 파일을 옮기는 작업을 수행한 경우
-- [ ] Test: 테스트를 추가하거나 테스트 리팩토링을 수행한 경우
+- [ ] chore: 빌드 설정, 의존성 업데이트 등의 사소한 작업을 수행한 경우
+- [ ] comment: 주석을 작성하거나 변경한 경우
+- [ ] design: UI 관련 작업을 수행한 경우
+- [ ] docs: 문서를 추가하거나, 삭제, 또는 변경한 경우
+- [ ] feat: 새로운 기능을 추가한 경우
+- [ ] fix: 버그를 고친 경우
+- [ ] refactor: 기능 변경 없이 코드 리팩토링을 수행한 경우
+- [ ] release: 배포를 수행한 경우
+- [ ] remove: 파일 또는 폴더를 삭제한 경우
+- [ ] rename: 파일 또는 폴더 명을 수정하거나 파일을 옮기는 작업을 수행한 경우
+- [ ] test: 테스트를 추가하거나 테스트 리팩토링을 수행한 경우
 
 ## 📝 작업 내용
 
@@ -233,3 +231,7 @@ assignees: ""
 Issue Template을 생성한 후 GitHub Repository의 `Issues` 탭을 클릭한 후 `New issue` 버튼을 클릭하면 다음과 같이 Template이 표시됩니다.
 
 ![Issue Template 생성 결과](/images/etc/github-template/pic12.avif)
+
+## 5. 참고 자료
+
+- [Conventional Commits](https://www.conventionalcommits.org/ko/v1.0.0/)
