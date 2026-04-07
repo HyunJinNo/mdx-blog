@@ -1,7 +1,7 @@
 export const metadata = {
   title: "GitHub PR & Issue Template 생성 방법",
   description:
-    "GitHub에서 PR & Issue Template 생성 방법에 대해 설명하는 페이지입니다.",
+    "GitHub에서 PR & Issue Template 생성 방법에 대해 정리한 페이지입니다.",
   date: new Date("2025-01-27"),
   category: "기타",
   tags: ["git", "github"],
@@ -15,15 +15,15 @@ export const metadata = {
 
 ## 1. 개요
 
-이번 글에서는 GitHub에서 PR & Issue Template을 생성하는 방법에 대해 설명하겠습니다.
+GitHub에서 PR & Issue Template 생성 방법에 대해 정리한 페이지입니다.
 
-## 2. GitHub Label 설정하기
+## 2. GitHub Labels 설정하기
 
 Template을 생성하기 전에 먼저 다음과 같이 GitHub Repository에서 Label을 설정하기를 권장합니다.
 Label은 PR과 Issue에서 카테고리를 분류하기 위해 사용합니다.
-다음과 같이 **Conventional Commits** 규칙에서 사용하는 git type을 작성합니다.
+다음과 같이 [Conventional Commits](https://www.conventionalcommits.org/ko/v1.0.0/) 규칙에서 사용하는 git type을 작성합니다.
 
-![GitHub Label](/images/etc/github-template/pic20.avif)
+![GitHub Labels](/images/etc/github-template/pic1.avif)
 
 | Label name | Description                                                                                        | Commit Message Example                        | Color                                     |
 | ---------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------- | ----------------------------------------- |
@@ -43,17 +43,17 @@ Label은 PR과 Issue에서 카테고리를 분류하기 위해 사용합니다.
 
 먼저 다음과 같이 프로젝트 최상위 폴더에서 `.github` 폴더를 생성한 후 해당 폴더에서 `pull_request_template.md` 파일을 생성합니다.
 
-![pull_request_template.md](/images/etc/github-template/pic1.avif)
+![pull_request_template.md](/images/etc/github-template/pic2.avif)
 
-`pull_request_template.md` 파일을 생성한 후 PR Template을 작성하면 됩니다. 다음은 제가 사용한 PR Template 예시입니다.
+`pull_request_template.md` 파일을 생성한 후 PR Template을 작성하면 됩니다. 다음은 PR Template 예시입니다.
 
 ```markdown
-- 제목: Feat: 기능명
-  Ex. Feat: pull request template 작성
+- 제목: feat: 기능명
+  Ex. feat: add user login feature
 
 -- 절취선 위 부분의 내용은 모두 삭제하고 PR을 작성해 주세요. --
 
----- 절취선 ----
+----- 절취선 -----
 
 ## ☑️ 개발 유형
 
@@ -62,98 +62,99 @@ Label은 PR과 Issue에서 카테고리를 분류하기 위해 사용합니다.
 
 ## ✔️ PR 유형
 
-- [ ] chore: 빌드 설정, 의존성 업데이트 등의 사소한 작업을 수행한 경우
-- [ ] comment: 주석을 작성하거나 변경한 경우
-- [ ] design: UI 관련 작업을 수행한 경우
-- [ ] docs: 문서를 추가하거나, 삭제, 또는 변경한 경우
-- [ ] feat: 새로운 기능을 추가한 경우
-- [ ] fix: 버그를 고친 경우
-- [ ] refactor: 기능 변경 없이 코드 리팩토링을 수행한 경우
-- [ ] release: 배포를 수행한 경우
-- [ ] remove: 파일 또는 폴더를 삭제한 경우
-- [ ] rename: 파일 또는 폴더 명을 수정하거나 파일을 옮기는 작업을 수행한 경우
-- [ ] test: 테스트를 추가하거나 테스트 리팩토링을 수행한 경우
+- [ ] build: 빌드 시스템이나 외부 종속성 관련 파일 수정 (Changes to build system or dependencies)
+- [ ] chore: 빌드 작업, 패키지 매니저 설정 등 기타 수정 (Other maintenance tasks)
+- [ ] ci: CI/CD 설정 변경 (Changes to CI/CD configuration)
+- [ ] docs: 문서 추가 및 수정 (Documentation changes)
+- [ ] feat: 새로운 기능 추가 (New feature)
+- [ ] fix: 버그 수정 (Bug fix)
+- [ ] perf: 성능 향상을 위한 코드 변경 (Performance improvements)
+- [ ] refactor: 버그 수정이나 기능 추가 없는 코드 리팩토링 (Code refactoring without feature changes or bug fixes)
+- [ ] revert: 이전 commit 되돌리기 (Revert previous commit)
+- [ ] style: 코드 포맷팅, 세미콜론 누락 등 코드 스타일 변경 (Code style changes, formatting only)
+- [ ] test: 테스트 코드 추가 및 수정 (Adding or updating tests)
 
 ## 📝 작업 내용
 
-이번 PR에서 작업한 내용을 간략히 설명해 주세요.
+> 이번 PR에서 작업한 내용을 간략히 설명해 주세요.
 
 - [x] 구현한 기능 1
 - [x] 구현한 기능 2
 
+## 📸 스크린샷 (선택)
+
+> 작업한 내용에 대한 스크린샷이 있다면 여기에 첨부해 주세요.
+
 ## #️⃣ Related Issue
 
-해당 Pull Request과 관련된 Issue Link를 작성해 주세요.
+> 해당 Pull Request과 관련된 Issue Link를 작성해 주세요.
 
 Ex. close #123
 ```
 
 해당 Template 구조에 대해 설명하자면 다음과 같습니다.
 
-- ☑️ 개발 유형
-
+- `☑️ 개발 유형`  
   개발 유형이 `Front-end`인지, 아니면 `Back-end`인지를 명시하는 부분입니다.
-
-- ✔️ PR 유형
-
+- `✔️ PR 유형`  
   해당 PR이 어떤 작업 유형인지를 명시하는 부분입니다. 미리 정해둔 Label 목록 중에서 선택하면 됩니다.
-
-- 📝 작업 내용
-
+- `📝 작업 내용`  
   해당 PR에서 작업한 내용을 간단하게 작성하는 부분입니다.
-
-- #️⃣ Related Issue
-
+- `📸 스크린샷 (선택)`  
+  해당 PR에서 작업한 내용에 대한 스크린샷을 첨부하는 부분입니다.
+- `#️⃣ Related Issue`  
   해당 PR과 관련된 Issue Link를 작성하는 부분입니다. 해당 PR이 default branch에 merge될 때 자동으로 닫을 Issue 목록을 작성하면 됩니다.
+
+<br />
 
 PR Template을 사용하여 생성한 PR 예시는 다음과 같습니다.
 
 ![PR 예시 1](/images/etc/github-template/pic3.avif)
 
-![PR 예시 2](/images/etc/github-template/pic13.avif)
+![PR 예시 2](/images/etc/github-template/pic4.avif)
 
-![PR 예시 3](/images/etc/github-template/pic14.avif)
+![PR 예시 3](/images/etc/github-template/pic5.avif)
 
 ## 4. Issue Template 생성하기
 
-Issue Template은 GitHub Repository에서 직접 만들어도 되고, 아니면 VSCode에서 만들 수 있습니다.
+Issue Template은 GitHub Repository에서 직접 생성하거나, 아니면 VSCode에서 만들 수 있습니다.
 
 ### 4.1. GitHub Repository에서 생성하기
 
 먼저 GitHub Repository에서 `Setting` 탭을 클릭합니다.
 
-![Setting](/images/etc/github-template/pic4.avif)
+![Setting](/images/etc/github-template/pic6.avif)
 
 이후 `Features` 항목에서 `Issues` 부분의 `Set up templates` 버튼을 클릭합니다.
 
-![Set up templates](/images/etc/github-template/pic5.avif)
+![Set up templates](/images/etc/github-template/pic7.avif)
 
 `Add template: select` 버튼을 클릭하여 생성하고자 하는 Issue Template을 선택하면 됩니다.
 
-![Issue Template](/images/etc/github-template/pic6.avif)
+![Issue Template](/images/etc/github-template/pic8.avif)
 
 #### 4.1.1. Bug Report 생성하기
 
 다음은 `Bug Report`를 생성한 예시입니다. 코드는 [아래](#421-bug-report-생성하기)에서 확인하실 수 있습니다.
 
-![Bug Report 예시 1](/images/etc/github-template/pic8.avif)
+![Bug Report 예시 1](/images/etc/github-template/pic9.avif)
 
-![Bug Report 예시 2](/images/etc/github-template/pic7.avif)
+![Bug Report 예시 2](/images/etc/github-template/pic10.avif)
 
 #### 4.1.2. Feature Request 생성하기
 
 다음은 `Feature Request`를 생성한 예시입니다. 코드는 [아래](#422-feature-request-생성하기)에서 확인하실 수 있습니다.
 
-![Feature Request 예시 1](/images/etc/github-template/pic9.avif)
+![Feature Request 예시 1](/images/etc/github-template/pic11.avif)
 
-![Feature Request 예시 2](/images/etc/github-template/pic10.avif)
+![Feature Request 예시 2](/images/etc/github-template/pic12.avif)
 
 ### 4.2. VSCode에서 생성하기
 
 먼저 다음과 같이 프로젝트 최상위 폴더에서 `.github` 폴더를 생성한 후
 해당 폴더 내에 `ISSUE_TEMPLATE` 폴더를 생성한 후 `bug_report.md`, `feature_request.md` 파일을 생성합니다.
 
-![VSCode에서 생성하기](/images/etc/github-template/pic11.avif)
+![VSCode에서 생성하기](/images/etc/github-template/pic13.avif)
 
 #### 4.2.1. Bug Report 생성하기
 
@@ -230,8 +231,11 @@ assignees: ""
 
 Issue Template을 생성한 후 GitHub Repository의 `Issues` 탭을 클릭한 후 `New issue` 버튼을 클릭하면 다음과 같이 Template이 표시됩니다.
 
-![Issue Template 생성 결과](/images/etc/github-template/pic12.avif)
+![Issue Template 생성 결과](/images/etc/github-template/pic14.avif)
 
 ## 5. 참고 자료
 
 - [Conventional Commits](https://www.conventionalcommits.org/ko/v1.0.0/)
+- [리포지토리에 대한 끌어오기 요청 템플릿 만들기 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository)
+- [리포지토리에 대한 문제 템플릿 구성 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
+- [이슈 양식 구문 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)
