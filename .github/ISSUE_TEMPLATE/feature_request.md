@@ -1,6 +1,6 @@
 ---
 name: ✨ Feature Request
-description: Suggest an idea for this project
+about: Suggest an idea for this project
 title: "feat: 기능 설명"
 labels: feat
 assignees: ""

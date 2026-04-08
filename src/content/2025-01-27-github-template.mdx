@@ -39,7 +39,7 @@ Label은 PR과 Issue에서 카테고리를 분류하기 위해 사용합니다.
 | style      | 코드 포맷팅, 세미콜론 누락 등 코드 스타일 변경 (Code style changes, formatting only)               | style: format code with prettier              | <p className='text-[#F7C6C7]'>#F7C6C7</p> |
 | test       | 테스트 코드 추가 및 수정 (Adding or updating tests)                                                | test: add unit tests for login service        | <p className='text-[#FBCA04]'>#FBCA04</p> |
 
-## 3. PR Template 생성하기
+## 3. PR Template 생성하기 (Markdown)
 
 먼저 다음과 같이 프로젝트 최상위 폴더에서 `.github` 폴더를 생성한 후 해당 폴더에서 `pull_request_template.md` 파일을 생성합니다.
 
@@ -213,9 +213,34 @@ assignees: ""
 > 없는 경우 해당 단락을 삭제해 주세요.
 ```
 
-## 5. 참고 자료
+## 5. Issue Form 생성하기 (YAML)
+
+Issue Form은 텍스트 입력, 드롭다운, 확인란 및 파일 업로드를 비롯한 여러 필드 형식을 지원하며,
+폼 UI로 입력을 강제할 수 있어 협업 품질을 크게 향상시킬 수 있습니다.
+
+먼저 다음과 같이 프로젝트 최상위 폴더에서 `.github` 폴더를 생성한 후
+해당 폴더 내에 `ISSUE_TEMPLATE` 폴더를 생성한 후 `bug_report.yml`, `feature_request.yml` 파일을 생성합니다.
+
+### 5.1. bug_report.yml 생성하기
+
+TODO
+
+```yml
+
+```
+
+### 5.2. feature_request.yml 생성하기
+
+TODO
+
+```yml
+
+```
+
+## 6. 참고 자료
 
 - [Conventional Commits](https://www.conventionalcommits.org/ko/v1.0.0/)
 - [리포지토리에 대한 끌어오기 요청 템플릿 만들기 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository)
 - [리포지토리에 대한 문제 템플릿 구성 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)
 - [이슈 양식 구문 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms)
+- [GitHub 형식 스키마 구문 - GitHub 문서](https://docs.github.com/ko/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema)
