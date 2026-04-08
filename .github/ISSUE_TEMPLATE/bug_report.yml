@@ -12,6 +12,17 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 심각도
+      description: 버그의 심각도를 선택해 주세요.
+      options:
+        - critical (서비스 불가)
+        - major (핵심 기능 오류)
+        - minor (경미한 문제)
+    validations:
+      required: true
+  - type: dropdown
     id: os
     attributes:
       label: 🌏 OS
