@@ -1,6 +1,6 @@
 ---
 name: 🐞 Bug Report
-about: Create a report to help us improve this project
+description: Create a report to help us improve this project
 title: "fix: 버그 설명"
 labels: fix
 assignees: ""
