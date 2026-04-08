@@ -39,11 +39,10 @@ body:
       description: 버그를 확인한 브라우저를 선택해 주세요.
       multiple: true
       options:
-        - Firefox
         - Chrome
-        - Safari
+        - Firefox
         - Microsoft Edge
-      default: 0
+        - Safari
     validations:
       required: true
   - type: input
