@@ -34,8 +34,6 @@ const Configuration: UserConfig = {
     "type-max-length": [2, "always", Infinity],
     "type-min-length": [2, "always", 0],
   },
-
-  // ...
 };
 
 export default Configuration;
