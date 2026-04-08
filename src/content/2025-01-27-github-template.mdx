@@ -133,28 +133,12 @@ Issue Template은 GitHub Repository에서 직접 생성하거나, 아니면 VSCo
 
 ![Issue Template](/images/etc/github-template/pic8.avif)
 
-#### 4.1.1. Bug Report 생성하기
-
-다음은 `Bug Report`를 생성한 예시입니다. 코드는 [아래](#421-bug-report-생성하기)에서 확인하실 수 있습니다.
-
-![Bug Report 예시 1](/images/etc/github-template/pic9.avif)
-
-![Bug Report 예시 2](/images/etc/github-template/pic10.avif)
-
-#### 4.1.2. Feature Request 생성하기
-
-다음은 `Feature Request`를 생성한 예시입니다. 코드는 [아래](#422-feature-request-생성하기)에서 확인하실 수 있습니다.
-
-![Feature Request 예시 1](/images/etc/github-template/pic11.avif)
-
-![Feature Request 예시 2](/images/etc/github-template/pic12.avif)
-
 ### 4.2. VSCode에서 생성하기
 
 먼저 다음과 같이 프로젝트 최상위 폴더에서 `.github` 폴더를 생성한 후
 해당 폴더 내에 `ISSUE_TEMPLATE` 폴더를 생성한 후 `bug_report.md`, `feature_request.md` 파일을 생성합니다.
 
-![VSCode에서 생성하기](/images/etc/github-template/pic13.avif)
+![VSCode에서 생성하기](/images/etc/github-template/pic9.avif)
 
 #### 4.2.1. Bug Report 생성하기
 
@@ -162,35 +146,37 @@ Issue Template은 GitHub Repository에서 직접 생성하거나, 아니면 VSCo
 
 ```markdown
 ---
-name: Bug Report
-about: 어떤 버그인지 설명해 주세요.
-title: "Bug: 버그 설명"
-labels: Bug
+name: 🐞 Bug Report
+about: Create a report to help us improve this project
+title: "fix: 버그 설명"
+labels: fix
 assignees: ""
 ---
 
 ## ❓ 어떤 버그인가요?
 
-- 어떤 버그인지 설명해 주세요.
+> 어떤 버그인지 설명해 주세요.
 
 ## 🖥️ 발생 환경
 
+> 버그가 발생한 환경을 작성해 주세요.
+
 - OS: (Ex. Windows, macOS, Ubuntu)
-- 브라우저: (Ex. Chrome, Firefox)
-- 버전: (Ex. v1.0.3)
+- Browser: (Ex. Chrome, Firefox)
+- Version: (Ex. v1.0.3)
 
 ## 🕘 발생 일시
 
-- 버그가 발생한 날짜와 시간을 입력해 주세요. (Ex. 2024년 10월 1일, 오후 3시 30분)
+> 버그가 발생한 날짜와 시간을 입력해 주세요. (Ex. 2024년 10월 1일, 오후 3시 30분)
 
 ## 📝 예상 결과
 
-- 예상했던 정상적인 결과가 어떤 것이었는지 설명해 주세요.
+> 예상했던 정상적인 결과가 어떤 것이었는지 설명해 주세요.
 
-## 📚 참고할만한 자료(선택)
+## 📚 참고할 만한 자료 (선택)
 
-- 추가적으로 참고할 만한 사항이 있으면 적어 주세요.
-- 없는 경우 해당 단락을 삭제해 주세요.
+> 추가적으로 참고할 만한 사항이 있으면 적어 주세요.
+> 없는 경우 해당 단락을 삭제해 주세요.
 ```
 
 #### 4.2.2. Feature Request 생성하기
@@ -199,39 +185,33 @@ assignees: ""
 
 ```markdown
 ---
-name: Feature Request
-about: 새로운 기능 추가 요청을 작성해 주세요.
-title: "Feat: 기능 설명"
-labels: Feat
+name: ✨ Feature Request
+about: Suggest an idea for this project
+title: "feat: 기능 설명"
+labels: feat
 assignees: ""
 ---
 
 ## ❓ 어떤 기능인가요?
 
-- 추가 요청하려는 기능에 대해 설명해 주세요.
+> 추가 요청하려는 기능에 대해 설명해 주세요.
 
-## 📝 기능 설명
+## 🎯 목적
 
-- 추가하려는 기능의 세부 설명 및 목적을 작성해 주세요.
+> 추가하려는 기능의 목적을 작성해 주세요.
 
 ## ✅ TODO
 
-구현해야 하는 기능에 대해 체크리스트를 작성해 주세요.
+> 구현해야 하는 기능에 대해 체크리스트를 작성해 주세요.
 
 - [ ] TODO 1
 - [ ] TODO 2
 
-## 📚 참고할만한 자료(선택)
+## 📚 참고할 만한 자료 (선택)
 
-- 추가적으로 참고할 만한 사항이 있으면 적어 주세요.
-- 없는 경우 해당 단락을 삭제해 주세요.
+> 추가적으로 참고할 만한 사항이 있으면 적어 주세요.
+> 없는 경우 해당 단락을 삭제해 주세요.
 ```
-
-### 4.3. 생성 결과
-
-Issue Template을 생성한 후 GitHub Repository의 `Issues` 탭을 클릭한 후 `New issue` 버튼을 클릭하면 다음과 같이 Template이 표시됩니다.
-
-![Issue Template 생성 결과](/images/etc/github-template/pic14.avif)
 
 ## 5. 참고 자료
 
