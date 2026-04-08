@@ -1,0 +1,60 @@
+name: 🐞 Bug Report
+description: Create a report to help us improve this project
+title: "fix: 버그 설명"
+labels: fix
+assignees: ""
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: ❓ 어떤 버그인가요?
+      description: 어떤 버그인지 설명해 주세요.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: 🌏 OS
+      description: 버그를 확인한 운영체제를 선택해 주세요.
+      options:
+        - Windows
+        - macOS
+        - Ubuntu
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: 🖥️ Browsers
+      description: 버그를 확인한 브라우저를 선택해 주세요.
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 🆔 Version
+      description: 버그를 확인한 버전을 입력해 주세요.
+      placeholder: Ex. v1.0.3
+    validations:
+      required: true
+  - type: textarea
+    id: expected-result
+    attributes:
+      label: 📝 예상 결과
+      description: 예상했던 정상적인 결과가 어떤 것이었는지 설명해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 📚 참고할 만한 자료 (선택)
+      description: 추가적으로 참고할 만한 사항이 있으면 적어 주세요.
+    validations:
+      required: false
