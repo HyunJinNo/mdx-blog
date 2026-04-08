@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/HyunJinNo/mdx-blog/compare/v1.1.1...v1.1.2) (2026-04-08)
+
+
+### Bug Fixes
+
+* Issue Form 오류 수정 ([fd294b2](https://github.com/HyunJinNo/mdx-blog/commit/fd294b2c425e85801260b29f21d3e97f853bbb0f))
+
 ## [1.1.1](https://github.com/HyunJinNo/mdx-blog/compare/v1.1.0...v1.1.1) (2026-03-31)
 
 
