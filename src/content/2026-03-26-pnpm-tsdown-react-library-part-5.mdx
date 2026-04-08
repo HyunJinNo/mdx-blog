@@ -132,17 +132,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v6
         with:
           # Node.js 버전 설정
           node-version: 24
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Setup Pages
         id: setup_pages
@@ -243,17 +244,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v6
         with:
           # Node.js 버전 설정
           node-version: 24
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Setup Pages
         id: setup_pages
@@ -329,8 +331,8 @@ Shell 명령어를 실행하거나, GitHub에서 제공하는 액션(Action)을 
 Next.js로 만든 demo 사이트를 GitHub Pages에 배포하기 위해서는 다음과 같은 step이 필요합니다.
 
 1. GitHub Repository에 push된 코드 가져오기
-2. Node.js 설치하기
-3. pnpm 설치하기
+2. pnpm 설치하기
+3. Node.js 설치하기
 4. 의존성 설치하기
 5. GitHub Pages 배포 환경 초기화하기
 6. 로컬 패키지 빌드하기
@@ -356,21 +358,7 @@ steps:
 예를 들어, [actions/checkout@v6](https://github.com/marketplace/actions/checkout)는
 Code Repository를 체크아웃(=코드 가져오기)하는 액션입니다.
 
-#### 2.3.5.2. Node.js 설치하기
-
-코드를 가져온 후에는 애플리케이션을 빌드할 수 있도록 Node.js를 설치해야 합니다.
-GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https://github.com/marketplace/actions/setup-node-js-environment)을
-제공합니다. 이 때, 특정 액션에 추가 인수를 전달할 때 사용하는 `with` 필드를 사용하여 설치하고자 하는 Node.js 버전을 지정해야 합니다.
-
-```yml
-- name: Install Node.js
-  uses: actions/setup-node@v6
-  with:
-    # Node.js 버전 설정
-    node-version: 24
-```
-
-#### 2.3.5.3. pnpm 설치하기
+#### 2.3.5.2. pnpm 설치하기
 
 다음과 같은 액션을 사용하여 pnpm을 설치합니다.
 
@@ -379,15 +367,30 @@ GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https:
   uses: pnpm/action-setup@v4
 ```
 
+#### 2.3.5.3. Node.js 설치하기
+
+코드를 가져온 후에는 애플리케이션을 빌드할 수 있도록 Node.js를 설치해야 합니다.
+GitHub에서는 다음과 같이 [Node.js를 설치할 수 있는 액션](https://github.com/marketplace/actions/setup-node-js-environment)을
+제공합니다. 이 때, 특정 액션에 추가 인수를 전달할 때 사용하는 `with` 필드를 사용하여 설치하고자 하는 Node.js 버전을 지정해야 합니다.
+
+```yml
+ - name: Install Node.js
+  uses: actions/setup-node@v6
+  with:
+    # Node.js 버전 설정
+    node-version: 24
+    cache: "pnpm"
+```
+
 #### 2.3.5.4. 의존성 설치하기
 
-애플리케이션을 빌드하기 위해 `pnpm install` 명령어를 실행하여 의존성을 설치합니다.
+애플리케이션을 빌드하기 위해 `pnpm install --frozen-lockfile` 명령어를 실행하여 의존성을 설치합니다.
 package.json 기반으로 node_modules 설치합니다.
 여기서 사용한 `run`은 셸 명령어를 실행할 때 사용합니다. 이 명령어는 정의된 환경에서 실행됩니다.
 
 ```yml
 - name: Install dependencies
-  run: pnpm install
+  run: pnpm install --frozen-lockfile
 ```
 
 #### 2.3.5.5. GitHub Pages 배포 환경 초기화하기

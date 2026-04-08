@@ -1,0 +1,37 @@
+name: ✨ Feature Request
+description: Suggest an idea for this project
+title: "feat: 기능 설명"
+labels: feat
+assignees: ""
+body:
+  - type: textarea
+    id: feature
+    attributes:
+      label: ❓ 어떤 기능인가요?
+      description: 추가 요청하려는 기능에 대해 설명해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 🎯 목적
+      description: 추가하려는 기능의 목적을 작성해 주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: todo
+    attributes:
+      label: ✅ TODO
+      description: 구현해야 하는 기능에 대해 체크리스트를 작성해 주세요.
+      value: |
+        - [ ] TODO 1
+        - [ ] TODO 2
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 📚 참고할 만한 자료 (선택)
+      description: 추가적으로 참고할 만한 사항이 있으면 적어 주세요.
+    validations:
+      required: false
