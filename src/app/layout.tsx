@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "react-photo-view/dist/react-photo-view.css";
+import "@hyunjinno/react-toc/style.css";
 import { Sidebar } from "@/widgets/sidebar";
 import localFont from "next/font/local";
 import { Header } from "@/widgets/header";
@@ -10,8 +11,8 @@ import { ScrollToTopButton } from "@/features/scrollToTop";
 import { Footer } from "@/widgets/footer";
 import { SearchResultViewer } from "@/widgets/searchResultViewer";
 import { getAllPostList } from "@/entities/post";
-import { TableOfContents } from "@/entities/toc";
 import { BottomNavigation } from "@/widgets/bottomNavigation";
+import { Toc, TocProvider } from "@/entities/toc";
 
 const pretendardFont = localFont({
   src: [
@@ -103,28 +104,29 @@ export default async function RootLayout({
         />
       </head>
       <body className="flex flex-row">
-        <Sidebar />
-        <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-300 dark:bg-black">
-          <Header />
-          <SearchResultViewer postList={postList}>
-            <div className="mt-12 flex w-full flex-row justify-between gap-8">
-              <div className="flex w-full min-w-0 flex-col gap-12">
-                {children}
-                <Footer />
+        <TocProvider>
+          <Sidebar />
+          <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-300 dark:bg-black">
+            <Header />
+            <SearchResultViewer postList={postList}>
+              <div className="mt-12 flex w-full flex-row justify-between gap-8">
+                <div className="flex w-full min-w-0 flex-col gap-12">
+                  {children}
+                  <Footer />
+                </div>
+                <div className="desktop:flex hidden w-70 flex-col gap-16">
+                  <RecentlyUpdatedPostList />
+                  <TrendingTagList />
+                  <Toc />
+                </div>
               </div>
-              <div className="desktop:flex hidden w-70 flex-col gap-16">
-                <RecentlyUpdatedPostList />
-                <TrendingTagList />
-                <TableOfContents />
-              </div>
-            </div>
-          </SearchResultViewer>
-          <aside className="desktop:right-20 tablet:right-9 fixed right-3 bottom-15">
-            <ScrollToTopButton />
-          </aside>
-          <BottomNavigation />
-        </div>
-        <div id="modal-root" />
+            </SearchResultViewer>
+            <aside className="desktop:right-20 tablet:right-9 fixed right-3 bottom-15">
+              <ScrollToTopButton />
+            </aside>
+            <BottomNavigation />
+          </div>
+        </TocProvider>
       </body>
     </html>
   );

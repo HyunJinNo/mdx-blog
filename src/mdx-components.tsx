@@ -10,6 +10,7 @@ import { MdError } from "@react-icons/all-files/md/MdError";
 import { IoIosWarning } from "@react-icons/all-files/io/IoIosWarning";
 import { PhotoView } from "./shared/ui/photo";
 import { CopyButton } from "./shared/ui/button";
+import { H2, H3, H4, H5 } from "@hyunjinno/react-toc/heading";
 
 const components = {
   a: ({ children, href, ...props }) => {
@@ -95,48 +96,24 @@ const components = {
     </code>
   ),
   h2: ({ children }) => (
-    <h2
-      className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-bold text-black dark:text-white"
-      id={children
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\-가-힣]/g, "")}
-    >
+    <H2 className="mt-20 mb-5 border-b border-gray-200 pb-5 text-2xl font-bold text-black dark:text-white">
       {children}
-    </h2>
+    </H2>
   ),
   h3: ({ children }) => (
-    <h3
-      className="mt-10 mb-4 text-xl font-bold text-black dark:text-white"
-      id={children
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\-가-힣]/g, "")}
-    >
+    <H3 className="mt-10 mb-4 text-xl font-bold text-black dark:text-white">
       {children}
-    </h3>
+    </H3>
   ),
   h4: ({ children }) => (
-    <h4
-      className="mt-8 mb-4 text-lg font-bold text-black dark:text-white"
-      id={children
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\-가-힣]/g, "")}
-    >
+    <H4 className="mt-8 mb-4 text-lg font-bold text-black dark:text-white">
       {children}
-    </h4>
+    </H4>
   ),
   h5: ({ children }) => (
-    <h5
-      className="mt-6 mb-2 font-bold text-black dark:text-white"
-      id={children
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w\-가-힣]/g, "")}
-    >
+    <H5 className="mt-6 mb-2 font-bold text-black dark:text-white">
       {children}
-    </h5>
+    </H5>
   ),
   img: (props) => (
     <span className="my-2 flex items-center justify-center">
