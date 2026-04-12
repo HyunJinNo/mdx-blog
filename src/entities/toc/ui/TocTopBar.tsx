@@ -40,8 +40,10 @@ export const TocTopBar = ({ postTitle }: TocTopBarProps) => {
     >
       <BaseTocTopBar
         title={postTitle}
+        topBarClassName="dark:bg-black!"
         topBarTitleClassName="font-medium"
         listIconClassName="fill-custom-gray scale-125"
+        modalClassName="dark:bg-black! dark:border"
         closeIconClassName="fill-custom-gray"
         linkClassName="text-sm text-custom-gray"
         expandAll={true}

@@ -127,6 +127,7 @@ export default async function RootLayout({
           </aside>
           <BottomNavigation />
         </div>
+        <div id="modal-root" />
       </body>
     </html>
   );
