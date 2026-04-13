@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col gap-8 dark:bg-black">
-      <h1 className="text-[2rem] font-bold">Archives</h1>
+      <h1 className="text-3xl font-bold">Archives</h1>
       <div className="flex flex-col gap-6">
         {[...postMap.keys()].map((year) => (
           <div key={year} className="flex flex-col gap-6">

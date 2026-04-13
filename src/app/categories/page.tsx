@@ -11,7 +11,7 @@ export default async function Page() {
 
   return (
     <main className="flex w-full flex-col gap-8 dark:bg-black">
-      <h1 className="text-[2rem] font-bold">Categories</h1>
+      <h1 className="text-3xl font-bold">Categories</h1>
       {categoryList.map((category) => (
         <CategoryCard
           key={category.categoryPath}

@@ -28,7 +28,7 @@ export default async function Page({
 
   return (
     <main className="flex w-full flex-col gap-8 dark:bg-black">
-      <h1 className="flex flex-row items-baseline gap-2 text-[2rem] font-bold">
+      <h1 className="flex flex-row items-baseline gap-2 text-3xl font-bold">
         <FaFolderOpen className="text-custom-gray text-2xl" />
         {decodedCategory}
         <span className="text-custom-gray pl-2 text-xl font-light">

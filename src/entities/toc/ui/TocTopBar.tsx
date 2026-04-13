@@ -45,7 +45,8 @@ export const TocTopBar = ({ postTitle }: TocTopBarProps) => {
         listIconClassName="fill-custom-gray scale-125"
         modalClassName="dark:bg-black! dark:border"
         closeIconClassName="fill-custom-gray"
-        linkClassName="text-sm text-custom-gray"
+        linkClassName="text-sm text-custom-gray dark:hover:text-blue-300!"
+        activeClassName="dark:text-blue-300!"
         expandAll={true}
       />
     </div>

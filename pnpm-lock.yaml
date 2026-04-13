@@ -12,8 +12,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@hyunjinno/react-toc':
-        specifier: ^2.0.0
-        version: 2.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        specifier: ^2.0.1
+        version: 2.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mdx-js/loader':
         specifier: ^3.1.1
         version: 3.1.1
@@ -324,8 +324,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@hyunjinno/react-toc@2.0.0':
-    resolution: {integrity: sha512-LkPd+xhlYyDBYufmq6ZWSrDmkRSIdyIBnKdBLSxR1K5D8ci8n8HWi9kIjkbUmZVeobJbzBRf4PcB/BqR1hhrYg==}
+  '@hyunjinno/react-toc@2.0.1':
+    resolution: {integrity: sha512-0w8zFBXSxYyRO/jTfgJFDt2c9QZtnG5dR/th8daIHCtsbEV4HRGMlkQlLcU56jXSLhjuoScRGJNNbinr/hJwaA==}
     peerDependencies:
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -3150,7 +3150,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@hyunjinno/react-toc@2.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
+  '@hyunjinno/react-toc@2.0.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)

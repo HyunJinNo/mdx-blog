@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col gap-8 dark:bg-black">
-      <h1 className="text-[2rem] font-bold">Tags</h1>
+      <h1 className="text-3xl font-bold">Tags</h1>
       <div className="flex flex-wrap gap-3">
         {tagList.map((tag) => (
           <Tag key={tag.tagName} tagName={tag.tagName} count={tag.count} />
