@@ -56,6 +56,8 @@ export default async function MdxLayout({
                   alt="Preview Image"
                   fill={true}
                   sizes="(max-width: 850px): 100vw, 80vw"
+                  fetchPriority="high"
+                  loading="eager"
                 />
               </PhotoView>
             </div>
