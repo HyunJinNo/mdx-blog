@@ -9,7 +9,7 @@ interface PaginationProps {
 
 export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
   return (
-    <nav className="flex h-7 items-center justify-center text-[#555555]">
+    <nav className="text-custom-gray flex h-7 items-center justify-center">
       <ul className="flex flex-row items-center gap-4">
         {/* 이전 페이지 */}
         <li>
@@ -19,7 +19,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </div>
           ) : (
             <Link
-              className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+              className="custom-page-link"
               aria-label="이전 페이지"
               href={currentPage === 2 ? "/" : `/page${currentPage - 1}`}
             >
@@ -34,7 +34,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             (page) => (
               <li key={page}>
                 <Link
-                  className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+                  className="custom-page-link"
                   href={page === 1 ? "/" : `/page${page}`}
                 >
                   {page}
@@ -45,10 +45,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
         ) : (
           <>
             <li>
-              <Link
-                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
-                href="/"
-              >
+              <Link className="custom-page-link" href="/">
                 1
               </Link>
             </li>
@@ -59,7 +56,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </li>
             <li>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+                className="custom-page-link"
                 href={`/page${currentPage - 1}`}
               >
                 {currentPage - 1}
@@ -85,10 +82,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             (_, index) => index + currentPage + 1,
           ).map((page) => (
             <li key={page}>
-              <Link
-                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
-                href={`/page${page}`}
-              >
+              <Link className="custom-page-link" href={`/page${page}`}>
                 {page}
               </Link>
             </li>
@@ -97,7 +91,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
           <>
             <li>
               <Link
-                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+                className="custom-page-link"
                 href={`/page${currentPage + 1}`}
               >
                 {currentPage + 1}
@@ -109,10 +103,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
               </span>
             </li>
             <li>
-              <Link
-                className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
-                href={`/page${totalPages}`}
-              >
+              <Link className="custom-page-link" href={`/page${totalPages}`}>
                 {totalPages}
               </Link>
             </li>
@@ -127,7 +118,7 @@ export const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
             </div>
           ) : (
             <Link
-              className="flex h-7 items-center justify-center rounded-lg px-2 outline-gray-200 duration-150 hover:outline"
+              className="custom-page-link"
               aria-label="다음 페이지"
               href={`/page${currentPage + 1}`}
             >

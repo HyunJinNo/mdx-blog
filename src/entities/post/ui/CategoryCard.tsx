@@ -17,10 +17,7 @@ export const CategoryCard = ({
     <div className="dark:border-custom-gray flex h-13 w-full flex-row items-center justify-between rounded-lg border border-gray-200 bg-[#21252908] pr-3 pl-5">
       <div className="flex flex-row items-center gap-3">
         <FaRegFolder className="text-gray-400" />
-        <Link
-          className="text-custom-blue underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
-          href={`/categories/${categoryPath}`}
-        >
+        <Link className="custom-link" href={`/categories/${categoryPath}`}>
           {title}
         </Link>
         <span className="text-custom-gray text-sm">{`${count} posts`}</span>

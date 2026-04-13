@@ -23,7 +23,7 @@ export const PostTailWrapper = ({
       <div className="flex flex-row items-center gap-2">
         <FaFolderOpen />
         <Link
-          className="text-custom-blue border-b border-b-gray-200 text-sm underline-offset-5 hover:text-teal-500 hover:underline dark:text-blue-300"
+          className="custom-link border-b border-b-gray-200 text-sm underline-offset-5"
           href={`/categories/${categoryTitle}`}
         >
           {categoryTitle}

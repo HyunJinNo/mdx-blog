@@ -17,7 +17,7 @@ export const ToggleThemeButton = () => {
 
   return (
     <button
-      className="flex h-7 w-7 items-center justify-center rounded-full border border-white bg-white text-black/50 duration-300 hover:bg-white/50 hover:text-white"
+      className="custom-button-link"
       aria-label="테마 전환"
       onClick={toggleTheme}
     >

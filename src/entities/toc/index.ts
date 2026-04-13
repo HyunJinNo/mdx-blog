@@ -1,3 +1,3 @@
-export { TableOfContents } from "./ui/TableOfContents";
-export { TocButton } from "./ui/TocButton";
+export { Toc } from "./ui/Toc";
+export { TocProvider } from "./ui/TocProvider";
 export { TocTopBar } from "./ui/TocTopBar";

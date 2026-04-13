@@ -9,7 +9,7 @@ export const EmailLink = () => {
 
   return (
     <a
-      className="flex h-7 w-7 items-center justify-center rounded-full border border-white bg-white text-black/50 duration-300 hover:bg-white/50 hover:text-white"
+      className="custom-button-link"
       href="#"
       onClick={handleClick}
       aria-label="email"

@@ -1,9 +1,6 @@
 "use client";
 
-import { useModal } from "@/shared/lib/hooks";
-import { Modal } from "@/shared/ui/modal";
-import { FaList } from "@react-icons/all-files/fa/FaList";
-import { TocModal } from "./TocModal";
+import { TocTopBar as BaseTocTopBar } from "@hyunjinno/react-toc";
 import { useEffect, useRef } from "react";
 
 interface TocTopBarProps {
@@ -12,7 +9,6 @@ interface TocTopBarProps {
 
 export const TocTopBar = ({ postTitle }: TocTopBarProps) => {
   const topBarRef = useRef<HTMLDivElement>(null);
-  const { isOpen, openModal, closeModal } = useModal();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,20 +34,21 @@ export const TocTopBar = ({ postTitle }: TocTopBarProps) => {
   }, []);
 
   return (
-    <>
-      <div
-        className="laptop:invisible invisible sticky top-0 z-50 flex h-12 flex-row items-center justify-between gap-1 border-b border-gray-200 bg-white px-4 dark:bg-black"
-        ref={topBarRef}
-      >
-        <div className="truncate font-medium">{postTitle}</div>
-        <FaList
-          className="text-custom-gray hover:text-custom-blue cursor-pointer"
-          onClick={openModal}
-        />
-      </div>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
-        <TocModal postTitle={postTitle} closeModal={closeModal} />
-      </Modal>
-    </>
+    <div
+      className="laptop:invisible invisible sticky top-0 z-50"
+      ref={topBarRef}
+    >
+      <BaseTocTopBar
+        title={postTitle}
+        topBarClassName="dark:bg-black!"
+        topBarTitleClassName="font-medium"
+        listIconClassName="fill-custom-gray scale-125"
+        modalClassName="dark:bg-black! dark:border"
+        closeIconClassName="fill-custom-gray"
+        linkClassName="text-sm text-custom-gray dark:hover:text-blue-300!"
+        activeClassName="dark:text-blue-300!"
+        expandAll={true}
+      />
+    </div>
   );
 };

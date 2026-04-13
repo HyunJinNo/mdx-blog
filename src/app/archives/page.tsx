@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col gap-8 dark:bg-black">
-      <h1 className="text-[2rem] font-bold">Archives</h1>
+      <h1 className="text-3xl font-bold">Archives</h1>
       <div className="flex flex-col gap-6">
         {[...postMap.keys()].map((year) => (
           <div key={year} className="flex flex-col gap-6">
@@ -33,7 +33,7 @@ export default async function Page() {
                   </span>
                   <Link
                     key={post.postPath}
-                    className="text-custom-blue truncate text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+                    className="custom-link truncate text-lg"
                     href={`/posts/${post.postPath}`}
                   >
                     {post.title}

@@ -19,10 +19,7 @@ export const Breadcrumb = () => {
           {segments.length === 0 ? (
             <span className="text-custom-gray">Home</span>
           ) : (
-            <Link
-              className="text-custom-blue underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
-              href="/"
-            >
+            <Link className="custom-link" href="/">
               Home
             </Link>
           )}
@@ -40,10 +37,7 @@ export const Breadcrumb = () => {
                   {segment.charAt(0).toUpperCase() + segment.slice(1)}
                 </span>
               ) : (
-                <Link
-                  className="text-custom-blue underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
-                  href={href}
-                >
+                <Link className="custom-link" href={href}>
                   {segment.charAt(0).toUpperCase() + segment.slice(1)}
                 </Link>
               )}

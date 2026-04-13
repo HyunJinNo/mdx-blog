@@ -24,7 +24,7 @@ export const PostCard = ({
   return (
     <article>
       <Link
-        className="group dark:border-custom-gray tablet:flex tablet:flex-row relative flex flex-col-reverse justify-between rounded-md border border-gray-50 shadow-sm"
+        className="dark:border-custom-gray tablet:flex tablet:flex-row relative flex flex-col-reverse justify-between rounded-md border border-gray-50 shadow-sm"
         href={`/posts/${postPath}`}
       >
         <div className="absolute top-0 right-0 bottom-0 left-0 z-10 rounded-md duration-300 hover:bg-gray-200/30" />

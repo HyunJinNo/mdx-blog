@@ -1,5 +1,5 @@
 import { PostMetadata } from "@/entities/post";
-import { TocButton, TocTopBar } from "@/entities/toc";
+import { TocTopBar } from "@/entities/toc";
 import { Comment } from "@/features/comment";
 import { convertDateFormat } from "@/shared/lib/utils";
 import { PhotoProvider, PhotoView } from "@/shared/ui/photo";
@@ -56,6 +56,9 @@ export default async function MdxLayout({
                   alt="Preview Image"
                   fill={true}
                   sizes="(max-width: 850px): 100vw, 80vw"
+                  preload={true}
+                  fetchPriority="high"
+                  loading="eager"
                 />
               </PhotoView>
             </div>
@@ -70,7 +73,6 @@ export default async function MdxLayout({
             </span>
           </div>
         </header>
-        <TocButton postTitle={metadata.title} />
         <TocTopBar postTitle={metadata.title} />
         {children}
         <PostTailWrapper

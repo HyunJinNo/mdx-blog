@@ -44,6 +44,70 @@
   }
 }
 
+/* Custom CSS 설정 */
+@layer components {
+  .custom-button-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid white;
+    border-radius: 9999px;
+    background-color: white;
+    color: rgba(0, 0, 0, 0.5);
+    transition-duration: 300;
+
+    &:hover {
+      @media (hover: hover) {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: white;
+      }
+    }
+  }
+
+  .custom-label {
+    color: #585858;
+    font-weight: 500;
+
+    @variant dark {
+      color: #a7a7a7;
+    }
+  }
+
+  .custom-link {
+    color: var(--color-custom-blue);
+
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-teal-500);
+        text-decoration-line: underline;
+        text-underline-offset: 4px;
+      }
+    }
+
+    @variant dark {
+      color: var(--color-blue-300);
+    }
+  }
+
+  .custom-page-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.75rem;
+    border-radius: 0.5rem;
+    transition-duration: 150;
+    padding-inline: 0.5rem;
+
+    &:hover {
+      @media (hover: hover) {
+        outline: 1px solid var(--color-gray-200);
+      }
+    }
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

@@ -28,7 +28,7 @@ export default async function Page({
 
   return (
     <main className="flex w-full flex-col gap-8 dark:bg-black">
-      <h1 className="flex flex-row items-baseline gap-2 text-[2rem]">
+      <h1 className="flex flex-row items-baseline gap-2 text-3xl">
         <FaTag className="text-custom-gray text-base" />
         <span className="font-bold">{decodedTag}</span>
         <span className="text-custom-gray pl-2 text-xl">{postList.length}</span>
@@ -38,7 +38,7 @@ export default async function Page({
           <li key={post.postPath}>
             <div className="flex flex-row items-center gap-2 py-2 pr-4">
               <Link
-                className="text-custom-blue truncate text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+                className="custom-link truncate text-lg"
                 href={`/posts/${post.postPath}`}
               >
                 {post.title}

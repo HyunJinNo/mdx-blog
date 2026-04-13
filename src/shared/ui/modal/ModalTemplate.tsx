@@ -19,7 +19,7 @@ export const ModalTemplate = ({
   return (
     <section
       className={[
-        "relative flex max-h-[calc(100vh-1rem)] w-96 max-w-[calc(100vw-1rem)] flex-col rounded-xl bg-white dark:border dark:border-white dark:bg-black",
+        "flex max-h-[calc(100vh-1rem)] w-96 max-w-[calc(100vw-1rem)] flex-col rounded-xl bg-white dark:border dark:border-white dark:bg-black",
         className,
       ].join(" ")}
     >
