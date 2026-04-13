@@ -13,7 +13,7 @@ export const Toc = () => {
   return (
     <BaseToc
       className="animate-fade-up sticky top-12"
-      headingClassName="text-[#585858]"
+      headingClassName="custom-label"
       linkClassName="text-sm text-custom-gray"
       expandDepth={2}
     />

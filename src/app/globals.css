@@ -45,6 +45,15 @@
 }
 
 @layer components {
+  .custom-label {
+    color: #585858;
+    font-weight: 500;
+
+    @variant dark {
+      color: #a7a7a7;
+    }
+  }
+
   .custom-link {
     color: var(--color-custom-blue);
 
