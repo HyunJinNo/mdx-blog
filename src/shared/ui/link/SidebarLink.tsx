@@ -12,11 +12,7 @@ export const SidebarLink = ({
   children,
 }: SidebarLinkProps) => {
   return (
-    <Link
-      className="flex h-7 w-7 items-center justify-center rounded-full border border-white bg-white text-black/50 duration-300 hover:bg-white/50 hover:text-white"
-      href={href}
-      aria-label={ariaLabel}
-    >
+    <Link className="custom-button-link" href={href} aria-label={ariaLabel}>
       {children}
     </Link>
   );
