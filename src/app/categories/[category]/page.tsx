@@ -40,7 +40,7 @@ export default async function Page({
           <li key={post.postPath}>
             <div className="flex flex-row items-center gap-2 py-2 pr-4">
               <Link
-                className="text-custom-blue truncate text-lg underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+                className="custom-link truncate text-lg"
                 href={`/posts/${post.postPath}`}
               >
                 {post.title}

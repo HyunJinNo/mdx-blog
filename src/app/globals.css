@@ -44,6 +44,24 @@
   }
 }
 
+@layer components {
+  .custom-link {
+    color: var(--color-custom-blue);
+
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-teal-500);
+        text-decoration-line: underline;
+        text-underline-offset: 4px;
+      }
+    }
+
+    @variant dark {
+      color: var(--color-blue-300);
+    }
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

@@ -24,7 +24,7 @@ const components = {
       return (
         <a
           {...props}
-          className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
+          className="custom-link border-b border-b-gray-200"
           target="_blank"
           rel="noopener noreferrer"
           href={href}
@@ -35,10 +35,7 @@ const components = {
     }
 
     return (
-      <Link
-        className="text-custom-blue border-b border-b-gray-200 underline-offset-4 hover:text-teal-500 hover:underline dark:text-blue-300"
-        href={href}
-      >
+      <Link className="custom-link border-b border-b-gray-200" href={href}>
         {children}
       </Link>
     );
