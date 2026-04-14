@@ -1,0 +1,134 @@
+export const metadata = {
+  title: "commitlint + Husky 사용법",
+  description: "commitlint + Husky 사용법을 정리한 페이지입니다.",
+  date: new Date("2026-04-13"),
+  category: "기타",
+  tags: ["commitlint", "husky", "vscode"],
+  pin: false,
+  imagePath: "/images/etc/github-template/github-log.avif",
+};
+
+> **<u>Tags</u>**
+>
+> commitlint, Husky, VSCode
+
+## 1. 개요
+
+commitlint + Husky 사용법에 대해 정리한 페이지입니다.
+
+## 2. commitlint 사용하기
+
+### 2.1. commitlint 설치하기
+
+먼저 다음 명령어를 입력하여 `commitlint`를 설치합니다.
+
+```bash
+pnpm add -D @commitlint/cli @commitlint/config-conventional @commitlint/types
+```
+
+> **<u>Info.</u>**
+>
+> **@commitlint/types**는 TypeScript로 설정 파일을 만들 때 필요한 패키지입니다.
+> 만약 json, js, yml 등 다른 포맷을 사용하는 경우 필요하지 않습니다.
+
+### 2.2. commitlint 설정하기
+
+프로젝트 루트에 `commitlint.config.ts` 파일을 생성하고 다음과 같이 작성합니다.
+
+```typescript
+import type { UserConfig } from "@commitlint/types";
+
+const Configuration: UserConfig = {
+  extends: ["@commitlint/config-conventional"],
+};
+```
+
+설정 이후 Conventional Commits 규칙을 바로 사용할 수 있습니다.
+
+### 2.3. Rules 설정하기
+
+다음과 같이 Commit 규칙 커스텀이 가능합니다.
+
+```typescript
+import type { UserConfig } from "@commitlint/types";
+
+const Configuration: UserConfig = {
+  extends: ["@commitlint/config-conventional"],
+  rules: {
+    "subject-case": [
+      2,
+      "never",
+      ["sentence-case", "start-case", "pascal-case", "upper-case"],
+    ],
+    "subject-empty": [2, "never"],
+    "subject-full-stop": [2, "never", "."],
+    "subject-max-length": [2, "always", Infinity],
+    "subject-min-length": [2, "always", 0],
+    "type-case": [2, "always", "lower-case"],
+    "type-empty": [2, "never"],
+    "type-enum": [
+      2,
+      "always",
+      [
+        "build",
+        "chore",
+        "ci",
+        "docs",
+        "feat",
+        "fix",
+        "perf",
+        "refactor",
+        "revert",
+        "style",
+        "test",
+      ],
+    ],
+    "type-max-length": [2, "always", Infinity],
+    "type-min-length": [2, "always", 0],
+  },
+};
+
+export default Configuration;
+```
+
+규칙 설정 방법과 지원하는 규칙은 다음 링크를 참고하시길 바랍니다.
+
+- [Rules configuration | commitlint](https://commitlint.js.org/reference/rules-configuration.html)
+- [Rules | commitlint](https://commitlint.js.org/reference/rules.html)
+
+### 2.3. Husky 설치하기
+
+`Husky`를 사용하여 Commit할 때 자동으로 Commit message를 검사할 수 있습니다.
+다음 명령어를 입력하여 `Husky`를 설치합니다.
+
+```bash
+pnpm add -D husky
+pnpm husky init
+```
+
+이후 `.husky` 디렉토리에서 pre-commit 파일을 삭제합니다.
+
+### 2.4. commit-msg hook 추가하기
+
+다음 명령어를 입력하여 commit-msg hook을 추가합니다.
+
+macOS:
+
+```bash
+echo "pnpm dlx commitlint --edit \$1" > .husky/commit-msg
+```
+
+Windows:
+
+```bash
+echo "pnpm dlx commitlint --edit `$1`" > .husky/commit-msg
+```
+
+commit-msg hook 추가 이후 commit 시 `commitlint` 가 실행되어 commit message를 자동으로 검증합니다.
+유효한 commit message가 작성되면 커밋을 진행하고, 유효하지 않은 commit message가 작성되면 commit을 취소하게 됩니다.
+
+## 3. 참고 자료
+
+- [COYO-LOG:D | commitlint로 commit-message 관리하기](https://coyo-hm.github.io/post/husky-commlint)
+- [commitlint](https://commitlint.js.org/)
+- [Husky](https://typicode.github.io/husky/)
