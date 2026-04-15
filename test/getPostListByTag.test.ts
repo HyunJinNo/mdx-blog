@@ -25,7 +25,7 @@ describe("getPostListByTag", () => {
         date: new Date("2024-01-02"),
         category: "Front-end",
         imagePath: "/images/pic2.avif",
-        tagList: ["react", "next.js"],
+        tagList: ["react", "nextjs"],
         postPath: "post2",
       },
       {
@@ -68,7 +68,7 @@ describe("getPostListByTag", () => {
       date: new Date("2024-01-02"),
       category: "Front-end",
       imagePath: "/images/pic2.avif",
-      tagList: ["react", "next.js"],
+      tagList: ["react", "nextjs"],
       postPath: "post2",
     });
     expect(result[2]).toEqual({

@@ -29,7 +29,7 @@ vi.mock("@/content/post2.mdx", () => ({
     description: "Description 2",
     date: new Date("2024-01-02"),
     category: "Front-end",
-    tags: ["next.js"],
+    tags: ["nextjs"],
     pin: false,
     imagePath: "/images/pic2.avif",
   },
@@ -56,7 +56,7 @@ describe("getAllPostList", () => {
       date: new Date("2024-01-02"),
       category: "Front-end",
       imagePath: "/images/pic2.avif",
-      tagList: ["next.js"],
+      tagList: ["nextjs"],
       postPath: "post2",
     });
   });

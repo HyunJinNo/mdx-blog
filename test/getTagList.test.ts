@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { getAllPostList, getCategoryList } from "@/entities/post";
+import { getAllPostList, getTagList } from "@/entities/post";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
 vi.mock("@/entities/post/model/getAllPostList", () => ({
   getAllPostList: vi.fn(),
 }));
 
-describe("getCategoryList", () => {
+describe("getTagList", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
 
-  test("should return category list with correct data", async () => {
+  test("should return tag list with correct data", async () => {
     (getAllPostList as any).mockResolvedValue([
       {
         title: "Post 1",
@@ -29,7 +29,7 @@ describe("getCategoryList", () => {
         date: new Date("2024-01-02"),
         category: "Front-end",
         imagePath: "/images/pic2.avif",
-        tagList: ["nextjs"],
+        tagList: ["react", "nextjs"],
         postPath: "post2",
       },
       {
@@ -42,26 +42,19 @@ describe("getCategoryList", () => {
         postPath: "post3",
       },
     ]);
+    const result = await getTagList();
+    expect(result).toHaveLength(3);
 
-    const result = await getCategoryList();
-
-    expect(result).toHaveLength(2);
-
-    expect(result[0]).toEqual({
-      title: "Back-end",
-      count: 1,
-      categoryPath: "Back-end",
-    });
-    expect(result[1]).toEqual({
-      title: "Front-end",
-      count: 2,
-      categoryPath: "Front-end",
-    });
+    expect(result).toEqual([
+      { tagName: "nestjs", count: 1 },
+      { tagName: "nextjs", count: 1 },
+      { tagName: "react", count: 2 },
+    ]);
   });
 
   test("should return an empty array when no posts", async () => {
-    (getAllPostList as any).mockResolvedValue([]);
-    const result = await getCategoryList();
+    (getAllPostList as any).mockReturnValue([]);
+    const result = await getTagList();
     expect(result).toEqual([]);
   });
 });

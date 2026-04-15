@@ -25,7 +25,7 @@ describe("getPostListByCategory", () => {
         date: new Date("2024-01-02"),
         category: "Front-end",
         imagePath: "/images/pic2.avif",
-        tagList: ["next.js"],
+        tagList: ["nextjs"],
         postPath: "post2",
       },
       {
@@ -59,7 +59,7 @@ describe("getPostListByCategory", () => {
       date: new Date("2024-01-02"),
       category: "Front-end",
       imagePath: "/images/pic2.avif",
-      tagList: ["next.js"],
+      tagList: ["nextjs"],
       postPath: "post2",
     });
   });
