@@ -15,7 +15,7 @@ vi.mock("@/content/post1.mdx", () => ({
   metadata: {
     title: "Post 1",
     description: "Description 1",
-    date: "2024-01-01",
+    date: new Date("2024-01-01"),
     category: "Front-end",
     tags: ["react"],
     pin: false,
@@ -27,8 +27,8 @@ vi.mock("@/content/post2.mdx", () => ({
   metadata: {
     title: "Post 2",
     description: "Description 2",
-    date: "2024-01-02",
-    category: "Back-end",
+    date: new Date("2024-01-02"),
+    category: "Front-end",
     tags: ["next.js"],
     pin: false,
     imagePath: "/images/pic2.avif",
@@ -53,8 +53,8 @@ describe("getAllPostList", () => {
     expect(result[0]).toEqual({
       title: "Post 2",
       description: "Description 2",
-      date: "2024-01-02",
-      category: "Back-end",
+      date: new Date("2024-01-02"),
+      category: "Front-end",
       imagePath: "/images/pic2.avif",
       tagList: ["next.js"],
       postPath: "post2",
