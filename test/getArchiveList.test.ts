@@ -57,7 +57,7 @@ describe("getArchiveList", () => {
     expect(result.get(2025)?.[0].title).toBe("Post 3");
   });
 
-  test("should return empty map when no posts", async () => {
+  test("should return an empty map when no posts", async () => {
     (getAllPostList as any).mockResolvedValue([]);
     const result = await getArchiveList();
     expect(result.size).toBe(0);

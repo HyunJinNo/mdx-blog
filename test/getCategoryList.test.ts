@@ -59,7 +59,7 @@ describe("getCategoryList", () => {
     });
   });
 
-  test("should return empty array when no posts", async () => {
+  test("should return an empty array when no posts", async () => {
     (getAllPostList as any).mockResolvedValue([]);
     const result = await getCategoryList();
     expect(result).toEqual([]);
