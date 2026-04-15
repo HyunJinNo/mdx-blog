@@ -64,7 +64,6 @@ describe("getAllPostList", () => {
   test("should handle empty directory", async () => {
     (fs.readdirSync as any).mockReturnValue([]);
     const result = await getAllPostList();
-
     expect(result).toEqual([]);
   });
 });
