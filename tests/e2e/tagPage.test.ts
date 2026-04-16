@@ -7,7 +7,7 @@ test.describe("Tag 페이지 테스트", () => {
 
   test("navigate to tag list page", async ({ page }) => {
     await page.getByRole("link", { name: "TAGS" }).click();
-    await expect(page.locator("h1")).toContainText("Tags");
+    await expect(page.getByRole("heading", { name: "Tags" })).toBeVisible();
   });
 
   test("navigate to tag page", async ({ page }) => {
@@ -15,6 +15,8 @@ test.describe("Tag 페이지 테스트", () => {
       page.getByRole("heading", { name: "Trending Tags" }),
     ).toBeVisible();
     await page.getByRole("link", { name: "typescript" }).click();
-    await expect(page.locator("h1")).toContainText("typescript");
+    await expect(
+      page.getByRole("heading", { name: "typescript" }),
+    ).toBeVisible();
   });
 });
