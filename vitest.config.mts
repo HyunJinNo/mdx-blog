@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
-    dir: "./test",
+    dir: "./tests/unit",
   },
   resolve: {
     tsconfigPaths: true,

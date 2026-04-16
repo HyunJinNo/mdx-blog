@@ -1,0 +1,15 @@
+import { test, expect } from "@playwright/test";
+
+test("Category 페이지 테스트", async ({ page }) => {
+  await page.goto("http://localhost:3000");
+  await page.getByRole("link", { name: "CATEGORIES", exact: true }).click();
+  await page.getByRole("link", { name: "Algorithms", exact: true }).click();
+  await page
+    .getByRole("link", { name: "중간에서 만나기 (Meet in the Middle" })
+    .click();
+  await expect(
+    page.getByText(
+      "중간에서 만나기 (Meet in the Middle) 알고리즘에 대해 정리한 페이지입니다",
+    ),
+  ).toBeVisible();
+});
