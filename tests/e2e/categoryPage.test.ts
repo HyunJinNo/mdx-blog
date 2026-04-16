@@ -1,11 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Category 페이지 테스트", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("http://localhost:3000");
-  });
-
   test("navigate to category list page and check content", async ({ page }) => {
+    await page.goto("http://localhost:3000");
     await page.getByRole("link", { name: "CATEGORIES" }).click();
     await page.getByRole("link", { name: "Algorithms" }).click();
     await page
