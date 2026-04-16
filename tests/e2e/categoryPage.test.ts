@@ -3,8 +3,8 @@ import { test, expect } from "@playwright/test";
 test.describe("Category 페이지 테스트", () => {
   test("navigate to category list page and check content", async ({ page }) => {
     await page.goto("http://localhost:3000");
-    await page.getByRole("link", { name: "CATEGORIES" }).click();
-    await page.getByRole("link", { name: "Algorithms" }).click();
+    await page.getByRole("link", { name: "CATEGORIES", exact: true }).click();
+    await page.getByRole("link", { name: "Algorithms", exact: true }).click();
     await page
       .getByRole("link", { name: "중간에서 만나기 (Meet in the Middle" })
       .click();

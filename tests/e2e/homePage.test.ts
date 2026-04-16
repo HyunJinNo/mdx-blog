@@ -7,7 +7,7 @@ test.describe("home 페이지 테스트", () => {
 
   test("check title", async ({ page }) => {
     await expect(
-      page.getByRole("link", { name: "노현진's Blog" }),
+      page.getByRole("link", { name: "노현진's Blog", exact: true }),
     ).toBeVisible();
     await expect(page.getByText("A Passionate Developer")).toBeVisible();
   });

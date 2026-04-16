@@ -7,7 +7,9 @@ test.describe("Tag 페이지 테스트", () => {
 
   test("navigate to tag list page", async ({ page }) => {
     await page.getByRole("link", { name: "TAGS" }).click();
-    await expect(page.getByRole("heading", { name: "Tags" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Tags", exact: true }),
+    ).toBeVisible();
   });
 
   test("navigate to tag page", async ({ page }) => {
