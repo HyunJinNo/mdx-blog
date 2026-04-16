@@ -5,7 +5,7 @@ test.describe("Category 페이지 테스트", () => {
     await page.goto("http://localhost:3000");
   });
 
-  test("navigate to category page and check content", async ({ page }) => {
+  test("navigate to category list page and check content", async ({ page }) => {
     await page.getByRole("link", { name: "CATEGORIES" }).click();
     await page.getByRole("link", { name: "Algorithms" }).click();
     await page
