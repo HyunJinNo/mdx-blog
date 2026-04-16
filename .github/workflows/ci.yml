@@ -1,0 +1,58 @@
+# workflow 이름 설정
+name: CI
+
+# workflow를 트리거하는 이벤트 설정
+on:
+  pull_request:
+    branches: ["main"]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# 실행할 jobs 설정
+jobs:
+  ci:
+    # Ubuntu 환경에서 실행
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          # Node.js 버전 설정
+          node-version: 24
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Prettier check
+        run: pnpm prettier ./src --check
+
+      - name: Type check
+        run: pnpm tsc --noEmit
+
+      - name: Unit Test
+        run: pnpm run test:unit
+
+      - name: Build with Next.js
+        run: pnpm run build
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Serve the application
+        run: pnpm dlx serve@latest out
+
+      - name: E2E test
+        run: pnpm run test:e2e
