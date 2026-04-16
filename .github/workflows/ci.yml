@@ -4,7 +4,7 @@ name: CI
 # workflow를 트리거하는 이벤트 설정
 on:
   pull_request:
-    branches: ["dev/#68"]
+    branches: ["main"]
 
 concurrency:
   group: ci-${{ github.ref }}
