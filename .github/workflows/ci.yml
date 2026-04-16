@@ -51,8 +51,5 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Serve the application
-        run: pnpm dlx serve@latest out
-
       - name: E2E test
         run: pnpm run test:e2e
