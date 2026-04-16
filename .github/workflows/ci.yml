@@ -98,7 +98,6 @@ jobs:
         run: pnpm run test:unit
 
   e2e-test:
-    needs: [lint, prettier, typecheck, unit-test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
