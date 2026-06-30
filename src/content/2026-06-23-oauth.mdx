@@ -1,0 +1,87 @@
+export const metadata = {
+  title: "OAuth",
+  description: "OAuth에 대해 정리한 페이지입니다.",
+  date: new Date("2026-06-23"),
+  category: "Computer Science",
+  tags: ["oauth"],
+  pin: false,
+  imagePath: "/images/front-end/front-end.avif",
+};
+
+> **<u>Tags</u>**
+>
+> OAuth
+
+## 1. 개요
+
+`OAuth`에 대해 정리한 페이지입니다.
+
+## 2. OAuth (Open Authorization)
+
+### 2.1. 개념
+
+`OAuth`는 **Open Authorization**의 약자로, 사용자가 자신의 비밀번호를 제공하지 않고로,
+한 웹사이트나 애플리케이션이 다른 서비스에 저장된 자신의 데이터(자원)에 접근할 수 있도록
+권한을 부여하는 **개방형 표준 프로토콜**입니다.
+
+### 2.2. OAuth 구성 요소
+
+![OAuth 구성 요소](/images/cs/oauth/pic1.png)
+
+#### 2.2.1. Resource Owner (자원 소유자)
+
+`Resource Owner`는 웹 서비스나 앱을 이용하려는 실제 사용자입니다.
+즉, 자원(개인정보)에 대한 접근 권한을 가진 사용자입니다.
+
+#### 2.2.2. Client (클라이언트)
+
+- 사용자의 데이터에 접근하고자 하는 제3자 애플리케이션
+- 웹 서비스, 모바일 앱
+
+#### 2.2.3. Authorization Server (인가 서버)
+
+- 사용자의 신원을 확인하고 클라이언트가 자원에 접근할 수 있는 권한을 부여하는 서버
+- `Access Token`을 제공하는 곳으로 생각할 수 있습니다.
+- 보통 자원을 제공하는 서비스 제공자가 직접 운영합니다.
+
+> **<u>Info.</u>**
+>
+> Access Token이란 클라이언트가 자원 서버에 접근할 수 있도록 권한을 부여 받으면 최종적으로 Authorization Server가 발급해주는 토큰입니다.
+> 해당 토큰을 통해 클라이언트는 제한적으로 자원에 접근할 수 있습니다.
+
+예
+
+- Google OAuth 서버
+- GitHub OAuth 서버
+
+#### 2.2.4. Resource Server
+
+- 실제 데이터를 보유한 서버
+- 우리가 제어하고자 하는 실제 자원, 데터를 가지고 제공하는 서버
+
+예
+
+- Google Drive API
+- GitHub API
+
+### 2.3. OAuth 동작 과정 (OAuth의 절차)
+
+#### 2.3.1. Step 1 - 등록
+
+#### 2.3.2. Step 2 - Resource Owner의 승인
+
+#### 2.3.3. Step 3 - Resource Server의 승인
+
+### 2.4. Authorization Code Flow
+
+1. 사용자를 로그인 페이지로 리다이렉트
+2. 사용자 로그인
+3. Authorization Code 발급
+4. 서버가 Code를 사용해 Token 요청
+5. Access Token 획득
+
+## 3. NestJS에서 Kakao OAuth 구현하기
+
+## 4. 참고 자료
+
+- [🌐 OAuth 2.0 개념 - 그림으로 이해하기 쉽게 설명](https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-OAuth-20-%EA%B0%9C%EB%85%90-%F0%9F%92%AF-%EC%A0%95%EB%A6%AC)
