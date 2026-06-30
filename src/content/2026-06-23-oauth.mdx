@@ -20,7 +20,7 @@ export const metadata = {
 
 ### 2.1. 개념
 
-`OAuth`는 **Open Authorization**의 약자로, 사용자가 자신의 비밀번호를 제공하지 않고로,
+`OAuth`는 **Open Authorization**의 약자로, 사용자가 자신의 비밀번호를 제공하지 않고도,
 한 웹사이트나 애플리케이션이 다른 서비스에 저장된 자신의 데이터(자원)에 접근할 수 있도록
 권한을 부여하는 **개방형 표준 프로토콜**입니다.
 
@@ -35,34 +35,27 @@ export const metadata = {
 
 #### 2.2.2. Client (클라이언트)
 
-- 사용자의 데이터에 접근하고자 하는 제3자 애플리케이션
-- 웹 서비스, 모바일 앱
+`Client`는 사용자의 데이터에 접근하고자 하는 제3자 애플리케이션입니다.
+온라인 쇼핑몰, 배달 앱 등 웹 서비스와 모바일 앱이 `Client`에 해당합니다.
 
-#### 2.2.3. Authorization Server (인가 서버)
+#### 2.2.3. Authorization Server
 
-- 사용자의 신원을 확인하고 클라이언트가 자원에 접근할 수 있는 권한을 부여하는 서버
-- `Access Token`을 제공하는 곳으로 생각할 수 있습니다.
-- 보통 자원을 제공하는 서비스 제공자가 직접 운영합니다.
+`Authorization Server`는 사용자의 신원을 확인하고 `Client`가 자원에 접근할 수 있는 권한을 부여하는 서버입니다.
+사용자의 동의를 받고 `Access Token`을 발급하는 서버로,
+Google OAuth 서버, GitHub OAuth 서버 등이 있습니다.
+사용자가 로그인에 성공하면 `Authorization Code`를 발급하고,
+사용자는 `Authorization Code`를 `Client`에게 전송하고, `Client`는 그 코드를 `Authorization Server`로 보내 `Access Token`을 발급받습니다.
+이후 `Client`는 `Access Token`을 사용하면 자원 서버에 접근할 수 있습니다.
 
 > **<u>Info.</u>**
 >
 > Access Token이란 클라이언트가 자원 서버에 접근할 수 있도록 권한을 부여 받으면 최종적으로 Authorization Server가 발급해주는 토큰입니다.
 > 해당 토큰을 통해 클라이언트는 제한적으로 자원에 접근할 수 있습니다.
 
-예
-
-- Google OAuth 서버
-- GitHub OAuth 서버
-
 #### 2.2.4. Resource Server
 
-- 실제 데이터를 보유한 서버
-- 우리가 제어하고자 하는 실제 자원, 데터를 가지고 제공하는 서버
-
-예
-
-- Google Drive API
-- GitHub API
+`Resource Server`는 사용자의 개인정보를 가진 서버입니다.
+`Client`는 이 서버로 `Authorization Code`를 넘겨 Token을 발급받을 수 있습니다.
 
 ### 2.3. OAuth 동작 과정 (OAuth의 절차)
 
