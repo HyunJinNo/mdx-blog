@@ -2,7 +2,7 @@
 
 import { FaSearch } from "@react-icons/all-files/fa/FaSearch";
 import { SearchInput } from "@/features/searchPostListByTitle";
-import { Breadcrumb } from "@/shared/ui/breadcrumb";
+import { AppBreadcrumb } from "@/shared/ui/breadcrumb";
 import { useHeaderTitle } from "../model/useHeaderTitle";
 import { HeaderMenuButton } from "./HeaderMenuButton";
 import { useState } from "react";
@@ -28,7 +28,7 @@ export const Header = () => {
 
   return (
     <header className="desktop:pr-20 flex h-12 w-full flex-row items-center justify-between">
-      <Breadcrumb />
+      <AppBreadcrumb />
       <HeaderMenuButton />
       <div className="laptop:hidden text-custom-gray text-lg font-medium">
         {headerTitle}

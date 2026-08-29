@@ -77,7 +77,7 @@ function PaginationPrevious({
 }) {
   if (disabled) {
     return (
-      <div className="h-8 w-8.5 border border-transparent pr-2.5 pl-1.5">
+      <div className="h-8 w-8.5 cursor-not-allowed border border-transparent pr-2.5 pl-1.5">
         <ChevronLeftIcon
           className={cn(
             "h-7.5 w-4 text-gray-200 dark:text-gray-700",
@@ -111,7 +111,7 @@ function PaginationNext({
 }) {
   if (disabled) {
     return (
-      <div className="h-8 w-8.5 border border-transparent pr-1.5 pl-2.5">
+      <div className="h-8 w-8.5 cursor-not-allowed border border-transparent pr-1.5 pl-2.5">
         <ChevronRightIcon
           className={cn(
             "h-7.5 w-4 text-gray-200 dark:text-gray-700",
