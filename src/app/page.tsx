@@ -1,5 +1,5 @@
 import { getAllPostList, PostCard } from "@/entities/post";
-import { Pagination } from "@/shared/ui/pagination";
+import { AppPagination } from "@/shared/ui/pagination";
 
 export default async function Home() {
   const postList = await getAllPostList();
@@ -17,9 +17,11 @@ export default async function Home() {
           postPath={post.postPath}
         />
       ))}
-      <Pagination
-        totalPages={Math.ceil(postList.length / 10)}
+      <AppPagination
         currentPage={1}
+        totalPages={Math.ceil(postList.length / 10)}
+        first={true}
+        last={Math.ceil(postList.length / 10) === 1}
       />
     </main>
   );
