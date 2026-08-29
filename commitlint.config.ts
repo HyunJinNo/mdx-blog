@@ -3,6 +3,11 @@ import type { UserConfig } from "@commitlint/types";
 const Configuration: UserConfig = {
   extends: ["@commitlint/config-conventional"],
   rules: {
+    "scope-case": [2, "always", "lower-case"],
+    "scope-empty": [2, "never"],
+    "scope-enum": [2, "always", ["main"]],
+    "scope-max-length": [2, "always", Infinity],
+    "scope-min-length": [2, "always", 0],
     "subject-case": [
       2,
       "never",
