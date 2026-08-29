@@ -13,6 +13,10 @@ import { SearchResultViewer } from "@/widgets/searchResultViewer";
 import { getAllPostList } from "@/entities/post";
 import { BottomNavigation } from "@/widgets/bottomNavigation";
 import { Toc, TocProvider } from "@/entities/toc";
+import { Geist } from "next/font/google";
+import { cn } from "@/shared/lib/utils";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const pretendardFont = localFont({
   src: [
@@ -76,7 +80,7 @@ export default async function RootLayout({
   return (
     <html
       lang="ko"
-      className={pretendardFont.className}
+      className={cn(pretendardFont.className, "font-sans", geist.variable)}
       suppressHydrationWarning
     >
       <head>
