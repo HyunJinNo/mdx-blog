@@ -109,7 +109,7 @@ export default async function RootLayout({
       </head>
       <body className="flex flex-row">
         <Sidebar />
-        <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-300 dark:bg-black">
+        <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-100 dark:bg-black">
           <Header />
           <SearchResultViewer postList={postList}>
             <TocProvider>
