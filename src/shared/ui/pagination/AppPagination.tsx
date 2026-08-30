@@ -37,7 +37,7 @@ export const AppPagination = ({
   last,
 }: AppPaginationProps) => {
   return (
-    <Pagination className="py-12">
+    <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

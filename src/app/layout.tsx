@@ -15,6 +15,7 @@ import { BottomNavigation } from "@/widgets/bottomNavigation";
 import { Toc, TocProvider } from "@/entities/toc";
 import { Geist } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
+import { TooltipProvider } from "@/shared/ui/tooltip";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -108,30 +109,31 @@ export default async function RootLayout({
         />
       </head>
       <body className="flex flex-row">
-        <Sidebar />
-        <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-100 dark:bg-black">
-          <Header />
-          <SearchResultViewer postList={postList}>
-            <TocProvider>
-              <div className="mt-12 flex w-full flex-row justify-between gap-8">
-                <div className="flex w-full min-w-0 flex-col gap-12">
-                  {children}
-                  <Footer />
+        <TooltipProvider>
+          <Sidebar />
+          <div className="desktop:pl-81 laptop:pl-74 desktop:pr-16 tablet:px-9 flex w-full flex-col bg-white px-3 transition-colors duration-100 dark:bg-black">
+            <Header />
+            <SearchResultViewer postList={postList}>
+              <TocProvider>
+                <div className="mt-12 flex w-full flex-row justify-between gap-8">
+                  <div className="flex w-full min-w-0 flex-col gap-12">
+                    {children}
+                    <Footer />
+                  </div>
+                  <div className="desktop:flex hidden w-70 flex-col gap-16">
+                    <RecentlyUpdatedPostList />
+                    <TrendingTagList />
+                    <Toc />
+                  </div>
                 </div>
-                <div className="desktop:flex hidden w-70 flex-col gap-16">
-                  <RecentlyUpdatedPostList />
-                  <TrendingTagList />
-                  <Toc />
-                </div>
-              </div>
-            </TocProvider>
-          </SearchResultViewer>
-          <aside className="desktop:right-20 tablet:right-9 fixed right-3 bottom-15">
-            <ScrollToTopButton />
-          </aside>
-          <BottomNavigation />
-        </div>
-        <div id="modal-root" />
+              </TocProvider>
+            </SearchResultViewer>
+            <aside className="desktop:right-20 tablet:right-9 fixed right-3 bottom-15">
+              <ScrollToTopButton />
+            </aside>
+            <BottomNavigation />
+          </div>
+        </TooltipProvider>
       </body>
     </html>
   );

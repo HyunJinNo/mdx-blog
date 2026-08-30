@@ -27,9 +27,8 @@ export const AppBreadcrumb = () => {
             <BreadcrumbPage className="text-custom-gray">Home</BreadcrumbPage>
           ) : (
             <BreadcrumbLink
-              className="custom-link"
               render={
-                <Link className="" href="/">
+                <Link className="custom-link" href="/">
                   Home
                 </Link>
               }
