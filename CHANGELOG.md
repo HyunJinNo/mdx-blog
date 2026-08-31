@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/HyunJinNo/mdx-blog/compare/v1.1.1...v1.2.0) (2026-08-31)
+
+
+### Features
+
+* **main:** shadcn/ui 사용 ([5e64256](https://github.com/HyunJinNo/mdx-blog/commit/5e642567f6cd2a5f5b59bd030819bd0c1ccc1d1c))
+
+
+### Bug Fixes
+
+* Issue Form 오류 수정 ([fd294b2](https://github.com/HyunJinNo/mdx-blog/commit/fd294b2c425e85801260b29f21d3e97f853bbb0f))
+
 ## [1.1.1](https://github.com/HyunJinNo/mdx-blog/compare/v1.1.0...v1.1.1) (2026-03-31)
 
 
