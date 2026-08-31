@@ -1,50 +1,121 @@
-"use client";
+import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
+import { cn } from "@/shared/lib/utils";
+import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaChevronRight } from "@react-icons/all-files/fa/FaChevronRight";
-
-export const Breadcrumb = () => {
-  const pathname = usePathname();
-  const segments = pathname
-    .split("/")
-    .filter(Boolean)
-    .filter((value) => value !== "posts")
-    .map(decodeURIComponent);
-
+function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
   return (
-    <nav className="laptop:block hidden min-w-0">
-      <ol className="flex flex-row items-center gap-2">
-        <li>
-          {segments.length === 0 ? (
-            <span className="text-custom-gray">Home</span>
-          ) : (
-            <Link className="custom-link" href="/">
-              Home
-            </Link>
-          )}
-        </li>
-
-        {segments.map((segment, index) => {
-          const href = "/" + segments.slice(0, index + 1).join("/");
-          const isLast = index === segments.length - 1;
-
-          return (
-            <li key={href} className="flex min-w-0 flex-row items-center gap-2">
-              <FaChevronRight className="text-custom-gray text-[0.5rem]" />
-              {isLast ? (
-                <span className="text-custom-gray truncate">
-                  {segment.charAt(0).toUpperCase() + segment.slice(1)}
-                </span>
-              ) : (
-                <Link className="custom-link" href={href}>
-                  {segment.charAt(0).toUpperCase() + segment.slice(1)}
-                </Link>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
+    <nav
+      aria-label="breadcrumb"
+      data-slot="breadcrumb"
+      className={cn(className)}
+      {...props}
+    />
   );
+}
+
+function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
+  return (
+    <ol
+      data-slot="breadcrumb-list"
+      className={cn(
+        "text-muted-foreground flex flex-wrap items-center gap-1.5 wrap-break-word",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
+  return (
+    <li
+      data-slot="breadcrumb-item"
+      className={cn("inline-flex items-center gap-1", className)}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbLink({
+  className,
+  render,
+  ...props
+}: useRender.ComponentProps<"a">) {
+  return useRender({
+    defaultTagName: "a",
+    props: mergeProps<"a">(
+      {
+        className: cn("transition-colors", className),
+      },
+      props,
+    ),
+    render,
+    state: {
+      slot: "breadcrumb-link",
+    },
+  });
+}
+
+function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="breadcrumb-page"
+      role="link"
+      aria-disabled="true"
+      aria-current="page"
+      className={cn("text-foreground", className)}
+      {...props}
+    />
+  );
+}
+
+function BreadcrumbSeparator({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"li">) {
+  return (
+    <li
+      data-slot="breadcrumb-separator"
+      role="presentation"
+      aria-hidden="true"
+      className={cn("[&>svg]:size-3.5", className)}
+      {...props}
+    >
+      {children ?? <ChevronRightIcon />}
+    </li>
+  );
+}
+
+function BreadcrumbEllipsis({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="breadcrumb-ellipsis"
+      role="presentation"
+      aria-hidden="true"
+      className={cn(
+        "flex size-5 items-center justify-center [&>svg]:size-4",
+        className,
+      )}
+      {...props}
+    >
+      <MoreHorizontalIcon />
+      <span className="sr-only">More</span>
+    </span>
+  );
+}
+
+export {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis,
 };

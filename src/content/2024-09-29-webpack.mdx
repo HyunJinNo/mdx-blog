@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Webpack의 개념 및 사용 방법",
-  description: "Webpack의 개념 및 사용 방법에 대해 설명하는 페이지입니다.",
+  description: "Webpack의 개념 및 사용 방법에 대해 정리한 페이지입니다.",
   date: new Date("2024-09-29"),
   category: "Front-end",
   tags: ["javascript", "typescript", "jsx", "webpack", "babel"],
@@ -14,8 +14,8 @@ export const metadata = {
 
 ## 1. 개요
 
-이번 글에서는 Webpack의 개념 및 사용 방법에 대해 설명하겠습니다.
-또한 Webpack과 babel-loader를 사용하여 TSX 파일을 트랜스파일링하는 방법도 설명하겠습니다.
+Webpack의 개념 및 사용 방법에 대해 정리한 페이지입니다.
+이 글에서는 Webpack과 babel-loader를 사용하여 TSX 파일을 트랜스파일링하는 방법을 포함합니다.
 
 ## 2. Webpack이란?
 
@@ -27,7 +27,7 @@ Webpack을 사용하면 여러 파일을 하나의 파일로 번들링해주므�
 
 ## 3. Webpack의 주요 개념
 
-Webpack을 사용하기 위해서, 먼저 다음과 같은 Webpack의 주요 개념들에 대해 알아야 합니다.
+Webpack의 주요 개념은 다음과 같습니다.
 
 ### 3.1. Entry (진입점)
 
@@ -178,7 +178,7 @@ npm install --save-dev webpack webpack-cli style-loader css-loader babel-loader 
   Babel을 사용하여 자바스크립트 코드 변환 작업을 처리하는 핵심 패키지입니다.
   Babel이 자바스크립트 코드를 분석하고, AST(Abstract Syntax Tree)로 변환한 후 이를 변환하는 과정의 중심적인 역할을 합니다.
 - `@babel/preset-typescript`  
-  Babel이 타입스크립트 코드를 자바스크립트 코드로 변활할 수 있도록 해주는 Babel 프리셋입니다.
+  Babel이 타입스크립트 코드를 자바스크립트 코드로 변환할 수 있도록 해주는 Babel 프리셋입니다.
 - `html-webpack-plugin`  
   `html-webpack-plugin`은 Webpack 빌드 시점에 HTML 파일을 자동으로 생성하여,
   생성된 HTML 파일에 번들링된 자바스크립트 파일과 CSS 파일을 자동으로 추가해주는 플러그인입니다.

@@ -3,9 +3,10 @@
 import { SmallTag } from "@/shared/ui/tag";
 import { FaFolderOpen } from "@react-icons/all-files/fa/FaFolderOpen";
 import { FaTags } from "@react-icons/all-files/fa/FaTags";
-import { FaLink } from "@react-icons/all-files/fa/FaLink";
 import Link from "next/link";
 import { useClipboard } from "@/shared/lib/hooks";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { Check, Link as LinkIcon } from "lucide-react";
 
 interface PostTailWrapperProps {
   categoryTitle: string;
@@ -50,21 +51,29 @@ export const PostTailWrapper = ({
         </div>
         <div className="flex flex-row items-center gap-2">
           공유하기:
-          <button
-            className="hover:text-custom-blue group relative"
-            aria-label="클립보드에 복사"
-            onClick={() => copy(window.location.href)}
-          >
-            <FaLink className="text-base" />
-            <span
-              className={[
-                copied ? "w-40" : "w-20",
-                "after:content-[' '] invisible absolute bottom-7 left-1/2 -translate-x-1/2 rounded-md bg-black p-2 text-xs text-white group-hover:visible after:absolute after:top-full after:left-1/2 after:-ml-1.25 after:border-[0.3125rem] after:border-transparent after:border-t-black",
-              ].join(" ")}
-            >
-              {copied ? "Link copied successfully!" : "Copy Link"}
-            </span>
-          </button>
+          <Tooltip>
+            {copied ? (
+              <Check className="h-4 w-4 text-teal-500" />
+            ) : (
+              <TooltipTrigger
+                render={
+                  <button
+                    className="hover:text-custom-blue"
+                    aria-label="클립보드에 복사"
+                  >
+                    <LinkIcon
+                      className="h-4 w-4"
+                      onClick={() => copy(window.location.href)}
+                    />
+                  </button>
+                }
+              />
+            )}
+
+            <TooltipContent>
+              <p>Copy Link</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </div>

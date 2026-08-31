@@ -1,5 +1,5 @@
 import { getAllPostList, PostCard } from "@/entities/post";
-import { Pagination } from "@/shared/ui/pagination";
+import { AppPagination } from "@/shared/ui/pagination";
 import { notFound } from "next/navigation";
 
 export default async function Page({
@@ -15,6 +15,7 @@ export default async function Page({
   }
 
   const postList = await getAllPostList();
+  const totalPages = Math.ceil(postList.length / 10);
 
   return (
     <main className="flex flex-col gap-8 dark:bg-black">
@@ -29,9 +30,11 @@ export default async function Page({
           postPath={post.postPath}
         />
       ))}
-      <Pagination
-        totalPages={Math.ceil(postList.length / 10)}
-        currentPage={Number(page.slice(4))}
+      <AppPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        first={currentPage === 1}
+        last={currentPage === totalPages}
       />
     </main>
   );
