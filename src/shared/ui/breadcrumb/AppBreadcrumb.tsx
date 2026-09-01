@@ -9,7 +9,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "./Breadcrumb";
+} from "./breadcrumb";
 
 export const AppBreadcrumb = () => {
   const pathname = usePathname();

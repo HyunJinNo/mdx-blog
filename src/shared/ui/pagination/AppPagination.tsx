@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "./Pagination";
+} from "./pagination";
 
 interface AppPaginationProps {
   /**
