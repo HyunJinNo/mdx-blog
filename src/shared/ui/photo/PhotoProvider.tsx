@@ -1,5 +1,6 @@
 "use client";
 
+import "react-photo-view/dist/react-photo-view.css";
 import { PhotoProvider as BasePhotoProvider } from "react-photo-view";
 import { AiOutlinePlusCircle } from "@react-icons/all-files/ai/AiOutlinePlusCircle";
 import { AiOutlineMinusCircle } from "@react-icons/all-files/ai/AiOutlineMinusCircle";
