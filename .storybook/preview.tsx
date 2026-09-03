@@ -1,6 +1,9 @@
 import "@/app/globals.css";
 import type { Preview } from "@storybook/nextjs-vite";
 import localFont from "next/font/local";
+import { sb } from "storybook/test";
+
+sb.mock(import("../src/features/scrollToTop/model/useScrollToTop.ts"));
 
 const pretendardFont = localFont({
   src: [
