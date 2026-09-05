@@ -1,3 +1,5 @@
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+
 export const Footer = () => {
   const year = new Date().getFullYear();
 
@@ -11,14 +13,16 @@ export const Footer = () => {
         >
           {" HyunJinNo. "}
         </a>
-        <span className="group relative">
-          Some rights reserved.
-          <span className="after:content-[' '] invisible absolute bottom-5 left-1/2 w-50 -translate-x-1/2 rounded-xl bg-black p-2 text-white group-hover:visible after:absolute after:top-full after:left-1/2 after:-ml-1.25 after:border-[0.3125rem] after:border-transparent after:border-t-black">
-            Except where otherwise noted, the blog posts on this site are
-            licensed under the Creative Commons Attribution 4.0 International
-            (CC BY 4.0) License by the author.
-          </span>
-        </span>
+        <Tooltip>
+          <TooltipTrigger render={<span>Some rights reserved.</span>} />
+          <TooltipContent className="w-50">
+            <p>
+              Except where otherwise noted, the blog posts on this site are
+              licensed under the Creative Commons Attribution 4.0 International
+              (CC BY 4.0) License by the author.
+            </p>
+          </TooltipContent>
+        </Tooltip>
       </p>
     </footer>
   );

@@ -9,7 +9,7 @@ interface NavItemProps {
   children?: React.ReactNode;
 }
 
-export const NavItem = ({ title, href, children }: NavItemProps) => {
+export const BottomNavItem = ({ title, href, children }: NavItemProps) => {
   const pathname = usePathname();
 
   return (

@@ -13,7 +13,7 @@ export const NavItem = ({ title, href, children }: NavItemProps) => {
   const pathname = usePathname();
 
   return (
-    <li>
+    <li className="list-none">
       <Link
         className={[
           pathname === href && "bg-white/50",

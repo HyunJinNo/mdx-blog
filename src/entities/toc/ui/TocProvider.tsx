@@ -1,5 +1,6 @@
 "use client";
 
+import "@hyunjinno/react-toc/style.css";
 import { TocProvider as BaseTocProvider } from "@hyunjinno/react-toc";
 import { usePathname } from "next/navigation";
 
