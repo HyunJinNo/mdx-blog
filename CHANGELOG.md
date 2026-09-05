@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/HyunJinNo/mdx-blog/compare/v1.2.0...v1.2.1) (2026-09-05)
+
+
+### Bug Fixes
+
+* **main:** correct casing in import paths for Breadcrumb and Pagination components ([ebeee26](https://github.com/HyunJinNo/mdx-blog/commit/ebeee262b476c6fce5243f7a88eb08d350a236d8))
+* **main:** specify project for unit and storybook tests in configuration ([c1f3b30](https://github.com/HyunJinNo/mdx-blog/commit/c1f3b30e42f61eda311d5c6e0a839219d1f9e3a0))
+
 ## [1.2.0](https://github.com/HyunJinNo/mdx-blog/compare/v1.1.1...v1.2.0) (2026-08-31)
 
 
