@@ -2,7 +2,11 @@ name: CI
 
 on:
   pull_request:
-    branches: ["main"]
+    branches:
+      - "main"
+    paths-ignore:
+      - "CHANGELOG.md"
+      - "package.json"
 
 concurrency:
   group: ci-${{ github.ref }}

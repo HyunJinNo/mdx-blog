@@ -4,7 +4,11 @@ name: Release Please
 # workflow를 트리거하는 이벤트 설정
 on:
   push:
-    branches: ["main"]
+    branches:
+      - "main"
+    paths-ignore:
+      - "CHANGELOG.md"
+      - "package.json"
 
 permissions:
   contents: write
