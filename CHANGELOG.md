@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/HyunJinNo/mdx-blog/compare/v1.2.1...v1.3.0) (2026-09-08)
+
+
+### Features
+
+* **main:** add Storybook link to sidebar navigation ([4f97bc8](https://github.com/HyunJinNo/mdx-blog/commit/4f97bc8324a27723b94ce216cb18748f17129cab))
+* **main:** GitHub Pages에 Storybook 배포 ([c6ce58b](https://github.com/HyunJinNo/mdx-blog/commit/c6ce58b837a929cc5b415cddb49c633e80024804))
+
 ## [1.2.1](https://github.com/HyunJinNo/mdx-blog/compare/v1.2.0...v1.2.1) (2026-09-05)
 
 
