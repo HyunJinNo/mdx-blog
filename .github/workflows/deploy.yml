@@ -53,6 +53,13 @@ jobs:
       - name: Build with Next.js
         run: pnpm run build
 
+      - name: Build Storybook
+        run: pnpm run build-storybook
+
+      # storybook을 Next.js output 내부에 배치
+      - name: Copy Storybook to Next.js output
+        run: cp -r storybook-static ./out/storybook
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

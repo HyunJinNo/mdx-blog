@@ -9,6 +9,7 @@ import { EmailLink, SidebarLink } from "@/shared/ui/link";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
 import { FaUser } from "@react-icons/all-files/fa/FaUser";
 import { FiFigma } from "@react-icons/all-files/fi/FiFigma";
+import { SiStorybook } from "@react-icons/all-files/si/SiStorybook";
 import { ToggleThemeButton } from "@/features/toggleTheme";
 
 export const Sidebar = () => {
@@ -59,6 +60,9 @@ export const Sidebar = () => {
               </NavItem>
               <NavItem title="ARCHIVES" href="/archives">
                 <FaArchive />
+              </NavItem>
+              <NavItem title="STORYBOOK" href="/storybook">
+                <SiStorybook />
               </NavItem>
             </ul>
           </nav>
