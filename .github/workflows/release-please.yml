@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - "main"
-    paths-ignore:
-      - "CHANGELOG.md"
-      - "package.json"
 
 permissions:
   contents: write
