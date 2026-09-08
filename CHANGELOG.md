@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/HyunJinNo/mdx-blog/compare/v1.3.0...v1.3.1) (2026-09-08)
+
+
+### Bug Fixes
+
+* **main:** 깃허브 저장소 Release 버전 자동 업데이트 오류 수정 ([f8b5f98](https://github.com/HyunJinNo/mdx-blog/commit/f8b5f989247760c77b4dd39b15ca84e7f6d46b69))
+* **main:** 깃허브 저장소 Release 버전 자동 업데이트 오류 수정 ([43c7f17](https://github.com/HyunJinNo/mdx-blog/commit/43c7f17163768c6cfcb50c271c5523c7135d31a8))
+
 ## [1.3.0](https://github.com/HyunJinNo/mdx-blog/compare/v1.2.1...v1.3.0) (2026-09-08)
 
 
