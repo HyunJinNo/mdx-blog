@@ -3,19 +3,14 @@ name: Deploy Next.js site to Pages
 
 # workflow를 트리거하는 이벤트 설정
 on:
-  pull_request:
+  # TODO: 테스트 목적
+  push:
     branches:
       - "main"
+      - "dev/#77"
     paths-ignore:
       - "CHANGELOG.md"
       - "package.json"
-  # TODO: 테스트 목적
-  # push:
-  #   branches:
-  #     - "main"
-  #   paths-ignore:
-  #     - "CHANGELOG.md"
-  #     - "package.json"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
